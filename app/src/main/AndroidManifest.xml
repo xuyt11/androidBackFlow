@@ -19,32 +19,32 @@
         <activity android:name=".sample.ContainerActivity" />
 
         <!-- letter -->
-        <activity android:name=".letter.LetterAActivity" />
-        <activity android:name=".letter.LetterBActivity" />
-        <activity android:name=".letter.LetterCActivity" />
-        <activity android:name=".letter.LetterDActivity" />
-        <activity android:name=".letter.LetterEActivity" />
-        <activity android:name=".letter.LetterFActivity" />
-        <activity android:name=".letter.LetterGActivity" />
-        <activity android:name=".letter.LetterHActivity" />
-        <activity android:name=".letter.LetterIActivity" />
-        <activity android:name=".letter.LetterJActivity" />
-        <activity android:name=".letter.LetterKActivity" />
-        <activity android:name=".letter.LetterLActivity" />
-        <activity android:name=".letter.LetterMActivity" />
-        <activity android:name=".letter.LetterNActivity" />
-        <activity android:name=".letter.LetterOActivity" />
-        <activity android:name=".letter.LetterPActivity" />
-        <activity android:name=".letter.LetterQActivity" />
-        <activity android:name=".letter.LetterRActivity" />
-        <activity android:name=".letter.LetterSActivity" />
-        <activity android:name=".letter.LetterTActivity" />
-        <activity android:name=".letter.LetterUActivity" />
-        <activity android:name=".letter.LetterVActivity" />
-        <activity android:name=".letter.LetterWActivity" />
-        <activity android:name=".letter.LetterXActivity" />
-        <activity android:name=".letter.LetterYActivity" />
-        <activity android:name=".letter.LetterZActivity" />
+        <activity android:name=".sample.letter.LetterAActivity" />
+        <activity android:name=".sample.letter.LetterBActivity" />
+        <activity android:name=".sample.letter.LetterCActivity" />
+        <activity android:name=".sample.letter.LetterDActivity" />
+        <activity android:name=".sample.letter.LetterEActivity" />
+        <activity android:name=".sample.letter.LetterFActivity" />
+        <activity android:name=".sample.letter.LetterGActivity" />
+        <activity android:name=".sample.letter.LetterHActivity" />
+        <activity android:name=".sample.letter.LetterIActivity" />
+        <activity android:name=".sample.letter.LetterJActivity" />
+        <activity android:name=".sample.letter.LetterKActivity" />
+        <activity android:name=".sample.letter.LetterLActivity" />
+        <activity android:name=".sample.letter.LetterMActivity" />
+        <activity android:name=".sample.letter.LetterNActivity" />
+        <activity android:name=".sample.letter.LetterOActivity" />
+        <activity android:name=".sample.letter.LetterPActivity" />
+        <activity android:name=".sample.letter.LetterQActivity" />
+        <activity android:name=".sample.letter.LetterRActivity" />
+        <activity android:name=".sample.letter.LetterSActivity" />
+        <activity android:name=".sample.letter.LetterTActivity" />
+        <activity android:name=".sample.letter.LetterUActivity" />
+        <activity android:name=".sample.letter.LetterVActivity" />
+        <activity android:name=".sample.letter.LetterWActivity" />
+        <activity android:name=".sample.letter.LetterXActivity" />
+        <activity android:name=".sample.letter.LetterYActivity" />
+        <activity android:name=".sample.letter.LetterZActivity" />
     </application>
 
 </manifest>

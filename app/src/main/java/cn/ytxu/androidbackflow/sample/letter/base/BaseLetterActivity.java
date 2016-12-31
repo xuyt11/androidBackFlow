@@ -1,4 +1,4 @@
-package cn.ytxu.androidbackflow.letter.base;
+package cn.ytxu.androidbackflow.sample.letter.base;
 
 import android.app.Activity;
 import android.content.Intent;

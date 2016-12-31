@@ -6,7 +6,7 @@ import android.view.View;
 
 import cn.ytxu.androidbackflow.BaseActivity;
 import cn.ytxu.androidbackflow.R;
-import cn.ytxu.androidbackflow.letter.LetterAActivity;
+import cn.ytxu.androidbackflow.sample.letter.LetterAActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 

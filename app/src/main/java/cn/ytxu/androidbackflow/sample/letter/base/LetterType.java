@@ -1,4 +1,4 @@
-package cn.ytxu.androidbackflow.letter.base;
+package cn.ytxu.androidbackflow.sample.letter.base;
 
 import android.app.Activity;
 
@@ -11,7 +11,7 @@ public enum LetterType {
     private final String atyName;
 
     LetterType() {
-        this.atyName = String.format("cn.ytxu.androidbackflow.letter.Letter%sActivity", name().toUpperCase());
+        this.atyName = String.format("cn.ytxu.androidbackflow.sample.letter.Letter%sActivity", name().toUpperCase());
     }
 
     public static Class getNextActivity(Activity context) throws ClassNotFoundException {
