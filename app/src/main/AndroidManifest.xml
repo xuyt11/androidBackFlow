@@ -17,6 +17,34 @@
         </activity>
 
         <activity android:name=".sample.ContainerActivity" />
+
+        <!-- letter -->
+        <activity android:name=".letter.LetterAActivity" />
+        <activity android:name=".letter.LetterBActivity" />
+        <activity android:name=".letter.LetterCActivity" />
+        <activity android:name=".letter.LetterDActivity" />
+        <activity android:name=".letter.LetterEActivity" />
+        <activity android:name=".letter.LetterFActivity" />
+        <activity android:name=".letter.LetterGActivity" />
+        <activity android:name=".letter.LetterHActivity" />
+        <activity android:name=".letter.LetterIActivity" />
+        <activity android:name=".letter.LetterJActivity" />
+        <activity android:name=".letter.LetterKActivity" />
+        <activity android:name=".letter.LetterLActivity" />
+        <activity android:name=".letter.LetterMActivity" />
+        <activity android:name=".letter.LetterNActivity" />
+        <activity android:name=".letter.LetterOActivity" />
+        <activity android:name=".letter.LetterPActivity" />
+        <activity android:name=".letter.LetterQActivity" />
+        <activity android:name=".letter.LetterRActivity" />
+        <activity android:name=".letter.LetterSActivity" />
+        <activity android:name=".letter.LetterTActivity" />
+        <activity android:name=".letter.LetterUActivity" />
+        <activity android:name=".letter.LetterVActivity" />
+        <activity android:name=".letter.LetterWActivity" />
+        <activity android:name=".letter.LetterXActivity" />
+        <activity android:name=".letter.LetterYActivity" />
+        <activity android:name=".letter.LetterZActivity" />
     </application>
 
 </manifest>

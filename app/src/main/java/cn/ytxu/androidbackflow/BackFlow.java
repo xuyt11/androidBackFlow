@@ -1,10 +1,15 @@
 package cn.ytxu.androidbackflow;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+
+import java.util.Objects;
 
 /**
  * Created by ytxu on 16/12/30.
@@ -66,7 +71,7 @@ public class BackFlow {
      * false：不能处理，需要继续分发；
      */
     public static boolean handle(Activity activity, int resultCode, Intent data) {
-        Log.i(TAG, "ytxu handle activity(" + activity.getClass().getName() + ")");
+        Log.e(TAG, "ytxu handle activity(" + activity.getClass().getName() + ")");
         if (!canHandle(resultCode, data)) {
             return false;
         }
@@ -87,7 +92,7 @@ public class BackFlow {
      * false：不能处理，需要继续分发；
      */
     public static boolean handle(Fragment fragment, int resultCode, Intent data) {
-        Log.i(TAG, "ytxu handle fragment(" + fragment.getClass().getName() + ")");
+        Log.e(TAG, "ytxu handle fragment(" + fragment.getClass().getName() + ")");
         if (!canHandle(resultCode, data)) {
             return false;
         }

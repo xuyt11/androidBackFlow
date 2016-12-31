@@ -8,14 +8,24 @@
     tools:context="cn.ytxu.androidbackflow.sample.MainActivity">
 
     <TextView
+        android:id="@+id/letter_tip_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hello World!" />
 
     <Button
-        android:id="@+id/main_jump_to_letter_btn"
+        android:id="@+id/letter_jump_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:text="jump to letter activity" />
+        android:layout_marginTop="100dp"
+        android:text="jump to next activity" />
+
+    <Button
+        android:id="@+id/letter_back_flow_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="rollback flow activity" />
 </LinearLayout>

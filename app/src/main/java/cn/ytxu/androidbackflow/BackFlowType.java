@@ -45,6 +45,7 @@ enum BackFlowType {
             data.putExtra(BACK_TO_ACTIVITY, activityClassName);
             activity.setResult(BackFlow.RESULT_CODE, data);
             activity.finish();
+            Log.e("xuyt", "ytxu handle activity(" + activity.getClass().getName() + ") activityClassName:" + activityClassName);
         }
 
         @Override
