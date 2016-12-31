@@ -9,7 +9,6 @@ import android.widget.Button;
 import cn.ytxu.androidbackflow.BackFlow;
 import cn.ytxu.androidbackflow.BaseActivity;
 import cn.ytxu.androidbackflow.R;
-import cn.ytxu.androidbackflow.letter.LetterAActivity;
 
 public class BaseLetterActivity extends BaseActivity {
 
@@ -36,6 +35,8 @@ public class BaseLetterActivity extends BaseActivity {
                 }
             }
         });
+
+        finishApp();
     }
 
     protected void setRollbackFlow(final Class<? extends Activity> atyClass) {
@@ -44,6 +45,15 @@ public class BaseLetterActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 BackFlow.request(BaseLetterActivity.this, atyClass);
+            }
+        });
+    }
+
+    private void finishApp() {
+        $(R.id.letter_finish_app_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BackFlow.finishApp(BaseLetterActivity.this);
             }
         });
     }
