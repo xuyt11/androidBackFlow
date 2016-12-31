@@ -13,7 +13,7 @@ import android.util.Log;
  * tip: 需要有BaseActivity与BaseFragment两个基础类，用于处理
  */
 public class BackFlow {
-    public static final String TAG = BackFlow.class.getName();
+    public static final String TAG = BackFlow.class.getSimpleName();
     /**
      * 这是回退功能的核心结构，其他的操作的resultCode不能与其一样，否则会有错误
      */

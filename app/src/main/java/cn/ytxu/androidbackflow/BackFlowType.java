@@ -7,9 +7,9 @@ import android.util.Log;
 
 enum BackFlowType {
     /**
-     * 所有错误的type，都将返回该类型，且所有这些都不会处理
+     * 所有错误的type，都将返回该类型，且都不会处理
      */
-    error(0){
+    error(0) {
         @Override
         public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
             throw new IllegalArgumentException("error back flow type");
@@ -17,13 +17,13 @@ enum BackFlowType {
 
         @Override
         public boolean handleBackFlow(Activity activity, int resultCode, Intent data) {
-            Log.w(BackFlowType.class.getSimpleName(), new Throwable("error back flow type"));
+            Log.w(TAG, new Throwable("error back flow type"));
             return false;
         }
 
         @Override
         public boolean handleBackFlow(Fragment fragment, int resultCode, Intent data) {
-            Log.w(BackFlowType.class.getSimpleName(), new Throwable("error back flow type"));
+            Log.w(TAG, new Throwable("error back flow type"));
             return false;
         }
     },
@@ -133,6 +133,7 @@ enum BackFlowType {
         }
     };
 
+    public static final String TAG = BackFlowType.class.getSimpleName();
     public static final String BACK_FLOW_TYPE = "back_flow_type";
     public static final int ERROR_BACK_FLOW_TYPE = -1;
     /**
