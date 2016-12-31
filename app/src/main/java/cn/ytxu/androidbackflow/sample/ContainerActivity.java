@@ -22,7 +22,7 @@ public class ContainerActivity extends BaseActivity {
 
         BaseFragment fragment = getFragment();
         if (fragment == null) {
-            finish();
+//            finish();
             return;
         }
 

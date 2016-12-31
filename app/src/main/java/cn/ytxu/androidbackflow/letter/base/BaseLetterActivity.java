@@ -40,7 +40,11 @@ public class BaseLetterActivity extends BaseActivity {
     }
 
     protected void setRollbackFlow(final Class<? extends Activity> atyClass) {
-        rollbackFlowBtn.setText("rollback :" + atyClass.getSimpleName());
+        setRollbackFlow(atyClass, "rollback :" + atyClass.getSimpleName());
+    }
+
+    protected void setRollbackFlow(final Class<? extends Activity> atyClass, String text) {
+        rollbackFlowBtn.setText(text);
         rollbackFlowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
