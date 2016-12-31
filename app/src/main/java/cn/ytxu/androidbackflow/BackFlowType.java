@@ -7,25 +7,39 @@ import android.util.Log;
 
 enum BackFlowType {
     /**
-     * 结束整个App的所有的activity
+     * 所有错误的type，都将返回该类型，且所有这些都不会处理
      */
-    finish_app(0) {
+    error(0){
         @Override
         public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
-            Intent data = new Intent();
-            data.putExtra(BACK_FLOW_TYPE, type);
-            activity.setResult(BackFlow.RESULT_CODE, data);
-            activity.finish();
-            Log.e(BackFlow.TAG, "ytxu finish:" + activity.getClass().getName());
+            throw new IllegalArgumentException("error back flow type");
         }
 
         @Override
         public boolean handleBackFlow(Activity activity, int resultCode, Intent data) {
-            return finishApp(activity);
+            Log.w(BackFlowType.class.getSimpleName(), new Throwable("error back flow type"));
+            return false;
         }
 
-        private boolean finishApp(Activity activity) {
-            requestBackFlow(activity, null, null);
+        @Override
+        public boolean handleBackFlow(Fragment fragment, int resultCode, Intent data) {
+            Log.w(BackFlowType.class.getSimpleName(), new Throwable("error back flow type"));
+            return false;
+        }
+    },
+    /**
+     * 结束整个App的所有的activity
+     */
+    finish_app(1) {
+        @Override
+        public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
+            Intent data = initData();
+            requestBackFlowInner(activity, data);
+        }
+
+        @Override
+        public boolean handleBackFlow(Activity activity, int resultCode, Intent data) {
+            requestBackFlowInner(activity, data);// request again
             return true;
         }
 
@@ -37,15 +51,11 @@ enum BackFlowType {
     /**
      * 返回到指定的activity
      */
-    back_to_activity(1) {
+    back_to_activity(2) {
         @Override
         public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
-            Intent data = new Intent();
-            data.putExtra(BACK_FLOW_TYPE, type);
-            data.putExtra(BACK_TO_ACTIVITY, activityClassName);
-            activity.setResult(BackFlow.RESULT_CODE, data);
-            activity.finish();
-            Log.e("xuyt", "ytxu handle activity(" + activity.getClass().getName() + ") activityClassName:" + activityClassName);
+            Intent data = initData().putExtra(BACK_TO_ACTIVITY, activityClassName);
+            requestBackFlowInner(activity, data);
         }
 
         @Override
@@ -54,7 +64,7 @@ enum BackFlowType {
             String targetActivityClassName = data.getStringExtra(BACK_TO_ACTIVITY);
 
             if (!isMatch(currActivityClassName, targetActivityClassName)) {// not arrived target activity
-                requestBackFlow(activity, targetActivityClassName, null);
+                requestBackFlowInner(activity, data);// request again
             }
             return true;
         }
@@ -67,14 +77,11 @@ enum BackFlowType {
     /**
      * 返回到指定的fragment
      */
-    back_to_fragment(2) {
+    back_to_fragment(3) {
         @Override
         public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
-            Intent data = new Intent();
-            data.putExtra(BACK_FLOW_TYPE, type);
-            data.putExtra(BACK_TO_FRAGMENT, fragmentClassName);
-            activity.setResult(BackFlow.RESULT_CODE, data);
-            activity.finish();
+            Intent data = initData().putExtra(BACK_TO_FRAGMENT, fragmentClassName);
+            requestBackFlowInner(activity, data);
         }
 
         @Override
@@ -88,7 +95,7 @@ enum BackFlowType {
             String targetFragmentClassName = data.getStringExtra(BACK_TO_FRAGMENT);
 
             if (!isMatch(currFragmentClassName, targetFragmentClassName)) {// not arrived target fragment
-                requestBackFlow(fragment.getActivity(), targetFragmentClassName, null);
+                requestBackFlowInner(fragment.getActivity(), data);// request again
             }
             return true;
         }
@@ -96,15 +103,12 @@ enum BackFlowType {
     /**
      * 返回到activity和fragment都相同的位置
      */
-    back_to_activity_fragment(3) {
+    back_to_activity_fragment(4) {
         @Override
         public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
-            Intent data = new Intent();
-            data.putExtra(BACK_FLOW_TYPE, type);
-            data.putExtra(BACK_TO_ACTIVITY, activityClassName);
-            data.putExtra(BACK_TO_FRAGMENT, fragmentClassName);
-            activity.setResult(BackFlow.RESULT_CODE, data);
-            activity.finish();
+            Intent data = initData().putExtra(BACK_TO_ACTIVITY, activityClassName)
+                    .putExtra(BACK_TO_FRAGMENT, fragmentClassName);
+            requestBackFlowInner(activity, data);
         }
 
         @Override
@@ -121,8 +125,9 @@ enum BackFlowType {
             String targetFragmentClassName = data.getStringExtra(BACK_TO_FRAGMENT);
 
             // must arrived target activity and fragment at the same time
-            if (!isMatch(currFragmentClassName, targetFragmentClassName) || !isMatch(currActivityClassName, targetActivityClassName)) {
-                requestBackFlow(fragment.getActivity(), targetFragmentClassName, targetActivityClassName);
+            if (!isMatch(currFragmentClassName, targetFragmentClassName)
+                    || !isMatch(currActivityClassName, targetActivityClassName)) {
+                requestBackFlowInner(fragment.getActivity(), data);// request again
             }
             return true;
         }
@@ -162,6 +167,15 @@ enum BackFlowType {
      */
     public abstract void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName);
 
+    protected Intent initData() {
+        return new Intent().putExtra(BACK_FLOW_TYPE, type);
+    }
+
+    protected void requestBackFlowInner(Activity activity, Intent data) {
+        activity.setResult(BackFlow.RESULT_CODE, data);
+        activity.finish();
+    }
+
     /**
      * @return handled 是否处理了；
      * true:不需要再次分发给BaseActivity去处理，否则继续分发给BaseActivity，
@@ -179,20 +193,17 @@ enum BackFlowType {
         return currClassName.equals(targetClassName);
     }
 
-    public static BackFlowType get(Intent data) throws ErrorBackFlowTypeException {
+    public static BackFlowType get(Intent data) {
         return BackFlowType.get(data.getIntExtra(BACK_FLOW_TYPE, ERROR_BACK_FLOW_TYPE));
     }
 
-    public static BackFlowType get(int type) throws ErrorBackFlowTypeException {
+    public static BackFlowType get(int type) {
         for (BackFlowType backFlowType : BackFlowType.values()) {
             if (backFlowType.type == type) {
                 return backFlowType;
             }
         }
-        throw new ErrorBackFlowTypeException();
-    }
-
-    public static final class ErrorBackFlowTypeException extends RuntimeException {
+        return error;
     }
 
 }

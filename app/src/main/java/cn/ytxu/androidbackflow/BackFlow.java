@@ -1,15 +1,11 @@
 package cn.ytxu.androidbackflow;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-
-import java.util.Objects;
 
 /**
  * Created by ytxu on 16/12/30.
@@ -71,17 +67,13 @@ public class BackFlow {
      * false：不能处理，需要继续分发；
      */
     public static boolean handle(Activity activity, int resultCode, Intent data) {
-        Log.e(TAG, "ytxu handle activity(" + activity.getClass().getName() + ")");
+        Log.e(TAG, "ytxu-->handle activity(" + activity.getClass().getName() + ")");
         if (!canHandle(resultCode, data)) {
             return false;
         }
 
-        try {
-            return BackFlowType.get(data).handleBackFlow(activity, resultCode, data);
-        } catch (BackFlowType.ErrorBackFlowTypeException e) {
-            Log.w(TAG, new Throwable("error back flow type, and the data is " + data.getExtras().toString()));
-            return false;
-        }
+        logData(data);
+        return BackFlowType.get(data).handleBackFlow(activity, resultCode, data);
     }
 
     /**
@@ -92,17 +84,13 @@ public class BackFlow {
      * false：不能处理，需要继续分发；
      */
     public static boolean handle(Fragment fragment, int resultCode, Intent data) {
-        Log.e(TAG, "ytxu handle fragment(" + fragment.getClass().getName() + ")");
+        Log.e(TAG, "ytxu-->handle fragment(" + fragment.getClass().getName() + ")");
         if (!canHandle(resultCode, data)) {
             return false;
         }
 
-        try {
-            return BackFlowType.get(data).handleBackFlow(fragment, resultCode, data);
-        } catch (BackFlowType.ErrorBackFlowTypeException e) {
-            Log.w(TAG, new Throwable("error back flow type, and the data is " + data.getExtras().toString()));
-            return false;
-        }
+        logData(data);
+        return BackFlowType.get(data).handleBackFlow(fragment, resultCode, data);
     }
 
     private static boolean canHandle(int resultCode, Intent data) {
@@ -111,6 +99,16 @@ public class BackFlow {
         }
 
         return data.hasExtra(BackFlowType.BACK_FLOW_TYPE);
+    }
+
+    private static void logData(Intent data) {
+        Bundle bundle = data.getExtras();
+        StringBuilder builder = new StringBuilder();
+        for (String key : bundle.keySet()) {
+            String value = String.valueOf(bundle.get(key));
+            builder.append("{key:").append(key).append(", value:").append(value).append("}\n");
+        }
+        Log.e(TAG, "ytxu-->data:" + builder.toString());
     }
 
 }
