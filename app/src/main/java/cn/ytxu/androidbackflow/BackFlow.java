@@ -62,44 +62,42 @@ public class BackFlow {
     //********************* handle back *********************
 
     /**
-     * @return 不需要再次分发给BaseActivity去处理，否则继续分发给BaseActivity，
+     * @return true：已经处理了，不需要再次分发给该activity去处理；
+     * false：不能处理，需要继续分发；
      */
     public static boolean handle(Activity activity, int resultCode, Intent data) {
-        Log.e(TAG, "ytxu handle:" + activity.getClass().getName());
-        printlog(resultCode, data);
+        Log.i(TAG, "ytxu handle activity(" + activity.getClass().getName() + ")");
         if (!canHandle(resultCode, data)) {
             return false;
         }
 
-        BackFlowType backFlowType = BackFlowType.get(data.getIntExtra(BackFlowType.BACK_FLOW_TYPE, 0));
-        return backFlowType.handleBackFlow(activity, resultCode, data);
+        try {
+            return BackFlowType.get(data).handleBackFlow(activity, resultCode, data);
+        } catch (BackFlowType.ErrorBackFlowTypeException e) {
+            Log.w(TAG, new Throwable("error back flow type, and the data is " + data.getExtras().toString()));
+            return false;
+        }
     }
 
     /**
-     * activity 已经处理了finishApp，到了这就证明，不是finishApp，所以不需要处理finishApp
+     * tip: 在activity已经处理了finishApp与back_to_activity两个分类，
+     * 不需要处理finishApp与back_to_activity两个分类
+     *
+     * @return true：已经处理了，不需要再次分发给该fragment去处理；
+     * false：不能处理，需要继续分发；
      */
     public static boolean handle(Fragment fragment, int resultCode, Intent data) {
-        Log.e(TAG, "ytxu handle:" + fragment.getClass().getName());
-
-        printlog(resultCode, data);
+        Log.i(TAG, "ytxu handle fragment(" + fragment.getClass().getName() + ")");
         if (!canHandle(resultCode, data)) {
             return false;
         }
 
-        BackFlowType backFlowType = BackFlowType.get(data.getIntExtra(BackFlowType.BACK_FLOW_TYPE, 0));
-        return backFlowType.handleBackFlow(fragment, resultCode, data);
-    }
-
-    private static void printlog(int resultCode, Intent data) {
-        String tip;
-        if (data == null) {
-            tip = "data is null...";
-        } else if (data.getExtras() == null) {
-            tip = "extras is null....";
-        } else {
-            tip = data.getExtras().toString();
+        try {
+            return BackFlowType.get(data).handleBackFlow(fragment, resultCode, data);
+        } catch (BackFlowType.ErrorBackFlowTypeException e) {
+            Log.w(TAG, new Throwable("error back flow type, and the data is " + data.getExtras().toString()));
+            return false;
         }
-        Log.e(TAG, "result code:" + resultCode + ", data:" + tip);
     }
 
     private static boolean canHandle(int resultCode, Intent data) {
@@ -112,176 +110,3 @@ public class BackFlow {
 
 }
 
-
-enum BackFlowType {
-    /**
-     * 结束整个App的所有的activity
-     */
-    finish_app(0) {
-        @Override
-        public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
-            Intent data = new Intent();
-            data.putExtra(BACK_FLOW_TYPE, type);
-            activity.setResult(BackFlow.RESULT_CODE, data);
-            activity.finish();
-            Log.e(BackFlow.TAG, "ytxu finish:" + activity.getClass().getName());
-        }
-
-        @Override
-        public boolean handleBackFlow(Activity activity, int resultCode, Intent data) {
-            return finishApp(activity);
-        }
-
-        private boolean finishApp(Activity activity) {
-            requestBackFlow(activity, null, null);
-            return true;
-        }
-
-        @Override
-        public boolean handleBackFlow(Fragment fragment, int resultCode, Intent data) {// 多余的，在activity中就会调用finishApp，不会传递到fragment
-            throw new RuntimeException("在activity中就会处理finishApp，不会传递到fragment");
-        }
-    },
-    /**
-     * 返回到指定的activity
-     */
-    back_to_activity(1) {
-        @Override
-        public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
-            Intent data = new Intent();
-            data.putExtra(BACK_FLOW_TYPE, type);
-            data.putExtra(BACK_TO_ACTIVITY, activityClassName);
-            activity.setResult(BackFlow.RESULT_CODE, data);
-            activity.finish();
-        }
-
-        @Override
-        public boolean handleBackFlow(Activity activity, int resultCode, Intent data) {
-            String currActivityClassName = activity.getClass().getName();
-            String targetActivityClassName = data.getStringExtra(BACK_TO_ACTIVITY);
-
-            if (!currActivityClassName.equals(targetActivityClassName)) {// not arrived target activity
-                requestBackFlow(activity, targetActivityClassName, null);
-            }
-            return true;
-        }
-
-        @Override
-        public boolean handleBackFlow(Fragment fragment, int resultCode, Intent data) {
-            throw new RuntimeException("在activity中就会处理，不会传递到fragment");
-        }
-    },
-    /**
-     * 返回到指定的fragment
-     */
-    back_to_fragment(2) {
-        @Override
-        public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
-            Intent data = new Intent();
-            data.putExtra(BACK_FLOW_TYPE, type);
-            data.putExtra(BACK_TO_FRAGMENT, fragmentClassName);
-            activity.setResult(BackFlow.RESULT_CODE, data);
-            activity.finish();
-        }
-
-        @Override
-        public boolean handleBackFlow(Activity activity, int resultCode, Intent data) {
-            return false;
-        }
-
-        @Override
-        public boolean handleBackFlow(Fragment fragment, int resultCode, Intent data) {
-            String currFragmentClassName = fragment.getClass().getName();
-            String targetFragmentClassName = data.getStringExtra(BACK_TO_FRAGMENT);
-
-            if (!currFragmentClassName.equals(targetFragmentClassName)) {// not arrived target fragment
-                requestBackFlow(fragment.getActivity(), targetFragmentClassName, null);
-            }
-            return true;
-        }
-    },
-    /**
-     * 返回到activity和fragment都相同的位置
-     */
-    back_to_activity_fragment(3) {
-        @Override
-        public void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName) {
-            Intent data = new Intent();
-            data.putExtra(BACK_FLOW_TYPE, type);
-            data.putExtra(BACK_TO_ACTIVITY, activityClassName);
-            data.putExtra(BACK_TO_FRAGMENT, fragmentClassName);
-            activity.setResult(BackFlow.RESULT_CODE, data);
-            activity.finish();
-        }
-
-        @Override
-        public boolean handleBackFlow(Activity activity, int resultCode, Intent data) {
-            return false;
-        }
-
-        @Override
-        public boolean handleBackFlow(Fragment fragment, int resultCode, Intent data) {
-            String currFragmentClassName = fragment.getClass().getName();
-            String currActivityClassName = fragment.getActivity().getClass().getName();
-
-            String targetActivityClassName = data.getStringExtra(BACK_TO_ACTIVITY);
-            String targetFragmentClassName = data.getStringExtra(BACK_TO_FRAGMENT);
-
-            // must arrived target activity and fragment at the same time
-            if (!currFragmentClassName.equals(targetFragmentClassName) || !currActivityClassName.equals(targetActivityClassName)) {
-                requestBackFlow(fragment.getActivity(), targetFragmentClassName, targetActivityClassName);
-            }
-            return true;
-        }
-    };
-
-    public static final String BACK_FLOW_TYPE = "back_flow_type";
-    /**
-     * 返回到指定的activity
-     * type is String
-     */
-    public static final String BACK_TO_ACTIVITY = "back_to_activity";
-    /**
-     * 返回到指定的fragment
-     * type is String
-     */
-    public static final String BACK_TO_FRAGMENT = "back_to_fragment";
-
-
-    protected final int type;
-
-    BackFlowType(int type) {
-        this.type = type;
-    }
-
-    public int getType() {
-        return type;
-    }
-
-    public abstract void requestBackFlow(Activity activity, String activityClassName, String fragmentClassName);
-
-    /**
-     * @return handled 是否处理了；
-     * true:不需要再次分发给BaseActivity去处理，否则继续分发给BaseActivity，
-     */
-    public abstract boolean handleBackFlow(Activity activity, int resultCode, Intent data);
-
-    /**
-     * @return handled 是否处理了；
-     * true:不需要再次分发给BaseF去处理，否则继续分发给BaseActivity，
-     */
-    public abstract boolean handleBackFlow(Fragment fragment, int resultCode, Intent data);
-
-
-    public static BackFlowType get(int type) {
-        for (BackFlowType backFlowType : BackFlowType.values()) {
-            if (backFlowType.type == type) {
-                return backFlowType;
-            }
-        }
-        // error status
-        Log.w("BackFlowType", new Throwable("error back flow type(" + type + "), so return finisn_app back flow type"));
-        return finish_app;
-    }
-
-}

@@ -1,9 +1,11 @@
-package cn.ytxu.androidbackflow;
+package cn.ytxu.androidbackflow.sample;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import cn.ytxu.androidbackflow.BaseActivity;
+import cn.ytxu.androidbackflow.R;
+
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
