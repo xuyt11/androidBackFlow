@@ -21,6 +21,7 @@ public class BaseLetterActivity extends BaseActivity {
 
         jumpBtn = $(R.id.letter_jump_btn);
         rollbackFlowBtn = $(R.id.letter_back_flow_btn);
+        rollbackFlowBtn.setVisibility(View.GONE);
 
         setTitle(getClass().getSimpleName());
         jumpBtn.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +45,7 @@ public class BaseLetterActivity extends BaseActivity {
     }
 
     protected void setRollbackFlow(final Class<? extends Activity> atyClass, String text) {
+        rollbackFlowBtn.setVisibility(View.VISIBLE);
         rollbackFlowBtn.setText(text);
         rollbackFlowBtn.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -17,6 +17,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("Main View");
         $(R.id.main_jump_to_letter_btn).setOnClickListener(this);
         $(R.id.main_jump_to_container_btn).setOnClickListener(this);
     }

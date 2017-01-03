@@ -29,6 +29,7 @@ public class BaseLetterFragment extends BaseFragment {
         tipTxt = $(R.id.letter_tip_txt);
         jumpBtn = $(R.id.letter_jump_btn);
         rollbackFlowBtn = $(R.id.letter_back_flow_btn);
+        rollbackFlowBtn.setVisibility(View.GONE);
         tipTxt.setText(getClass().getSimpleName());
 
         jumpBtn.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +59,7 @@ public class BaseLetterFragment extends BaseFragment {
     }
 
     protected void setRollbackFlow(final Class<? extends Fragment> atyClass, String text) {
+        rollbackFlowBtn.setVisibility(View.VISIBLE);
         rollbackFlowBtn.setText(text);
         rollbackFlowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
