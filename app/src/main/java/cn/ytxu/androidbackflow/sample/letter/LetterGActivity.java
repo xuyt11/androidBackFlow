@@ -4,7 +4,7 @@ package cn.ytxu.androidbackflow.sample.letter;
 import android.os.Bundle;
 
 import cn.ytxu.androidbackflow.sample.letter.base.BaseLetterActivity;
-import cn.ytxu.androidbackflow.sample.ContainerActivity;
+import cn.ytxu.androidbackflow.sample.container.ContainerActivity;
 
 public class LetterGActivity extends BaseLetterActivity {
 

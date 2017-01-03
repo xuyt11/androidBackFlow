@@ -9,6 +9,10 @@ public class BaseFragment extends Fragment {
 
     protected View root;
 
+    public void setRoot(View root) {
+        this.root = root;
+    }
+
     public <T extends View> T $(@IdRes int id) {
         return (T) root.findViewById(id);
     }

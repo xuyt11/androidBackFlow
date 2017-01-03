@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".sample.ContainerActivity" />
+        <activity android:name=".sample.container.ContainerActivity" />
 
         <!-- letter -->
         <activity android:name=".sample.letter.LetterAActivity" />
