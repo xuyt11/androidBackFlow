@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="100dp"
-        android:text="jump to next fragment activity" />
+        android:text="jump to next fragment activity"
+        android:textAllCaps="false" />
 
     <Button
         android:id="@+id/letter_back_flow_btn"
@@ -28,6 +29,7 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
         android:text="rollback flow fragment"
+        android:textAllCaps="false"
         android:textColor="@android:color/holo_orange_dark" />
 
     <Button
@@ -37,5 +39,6 @@
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
         android:text="finish_app"
+        android:textAllCaps="false"
         android:textColor="@android:color/holo_red_dark" />
 </LinearLayout>

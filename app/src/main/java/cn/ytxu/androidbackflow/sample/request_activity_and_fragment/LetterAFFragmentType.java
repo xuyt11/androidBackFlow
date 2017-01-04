@@ -1,17 +1,17 @@
-package cn.ytxu.androidbackflow.sample.request_fragment;
+package cn.ytxu.androidbackflow.sample.request_activity_and_fragment;
 
 import android.support.v4.app.Fragment;
 
 /**
  * Created by ytxu on 2016/12/31.
  */
-public enum LetterFragmentType {
+public enum LetterAFFragmentType {
     a, b, c, d, e, f, g;//, h, i, j, k, l, m, n, o, p, q, r, s, t, u, v, w, x, y, z;
 
     private final String fragmentName;
 
-    LetterFragmentType() {
-        this.fragmentName = String.format("cn.ytxu.androidbackflow.sample.request_fragment.letter.Letter%sFragment", name().toUpperCase());
+    LetterAFFragmentType() {
+        this.fragmentName = String.format("cn.ytxu.androidbackflow.sample.request_activity_and_fragment.letter.LetterAF%sFragment", name().toUpperCase());
     }
 
 
@@ -20,13 +20,13 @@ public enum LetterFragmentType {
     }
 
     public static String getNextFragmentName(Fragment fragment) {
-        LetterFragmentType type = get(fragment);
-        return LetterFragmentType.values()[type.ordinal() + 1].getFragmentName();
+        LetterAFFragmentType type = get(fragment);
+        return LetterAFFragmentType.values()[type.ordinal() + 1].getFragmentName();
     }
 
-    public static LetterFragmentType get(Fragment fragment) {
+    public static LetterAFFragmentType get(Fragment fragment) {
         String currName = fragment.getClass().getName();
-        for (LetterFragmentType letterType : LetterFragmentType.values()) {
+        for (LetterAFFragmentType letterType : LetterAFFragmentType.values()) {
             if (letterType.fragmentName.equals(currName)) {
                 return letterType;
             }

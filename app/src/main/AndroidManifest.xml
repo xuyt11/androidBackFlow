@@ -16,9 +16,14 @@
             </intent-filter>
         </activity>
 
+        <!-- request activity and fragment -->
+        <activity android:name=".sample.request_activity_and_fragment.ContainerAF1Activity" />
+        <activity android:name=".sample.request_activity_and_fragment.ContainerAF2Activity" />
+
+        <!-- request fragment -->
         <activity android:name=".sample.request_fragment.ContainerActivity" />
 
-        <!-- letter -->
+        <!-- request activity -->
         <activity android:name=".sample.request_activity.letter.LetterAActivity" />
         <activity android:name=".sample.request_activity.letter.LetterBActivity" />
         <activity android:name=".sample.request_activity.letter.LetterCActivity" />

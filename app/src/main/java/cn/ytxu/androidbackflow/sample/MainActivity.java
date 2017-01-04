@@ -6,6 +6,8 @@ import android.view.View;
 
 import cn.ytxu.androidbackflow.BaseActivity;
 import cn.ytxu.androidbackflow.R;
+import cn.ytxu.androidbackflow.sample.request_activity_and_fragment.ContainerAF1Activity;
+import cn.ytxu.androidbackflow.sample.request_activity_and_fragment.letter.LetterAFAFragment;
 import cn.ytxu.androidbackflow.sample.request_fragment.ContainerActivity;
 import cn.ytxu.androidbackflow.sample.request_fragment.letter.LetterAFragment;
 import cn.ytxu.androidbackflow.sample.request_activity.letter.LetterAActivity;
@@ -20,6 +22,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setTitle("Main View");
         $(R.id.main_btn_4_requedst_activity).setOnClickListener(this);
         $(R.id.main_btn_4_requedst_fragment).setOnClickListener(this);
+        $(R.id.main_btn_4_requedst_activity_and_fragment).setOnClickListener(this);
     }
 
     @Override
@@ -31,6 +34,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.main_btn_4_requedst_fragment: {
                 Intent intent = new Intent(this, ContainerActivity.class);
                 intent.putExtra(ContainerActivity.PARAM_CLASSNAME, LetterAFragment.class.getName());
+                startActivity(intent);
+            }
+            break;
+            case R.id.main_btn_4_requedst_activity_and_fragment: {
+                Intent intent = new Intent(this, ContainerAF1Activity.class);
+                intent.putExtra(ContainerAF1Activity.PARAM_CLASSNAME, LetterAFAFragment.class.getName());
                 startActivity(intent);
             }
             break;
