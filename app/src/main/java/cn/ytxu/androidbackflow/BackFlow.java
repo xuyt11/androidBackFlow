@@ -13,7 +13,8 @@ import android.util.Log;
  * tip: 需要有BaseActivity与BaseFragment两个基础类，用于处理
  */
 public class BackFlow {
-    public static final String TAG = BackFlow.class.getSimpleName();
+    private static final String _TAG = BackFlow.class.getSimpleName();
+    public static final String TAG = _TAG + "-->";
     /**
      * 这是回退功能的核心结构，其他的操作的resultCode不能与其一样，否则会有错误
      */
@@ -71,7 +72,7 @@ public class BackFlow {
             return false;
         }
 
-        logData("handle activity", activity.getClass().getName(), data);
+        logData("curr activity", activity.getClass().getName(), data);
         return BackFlowType.get(data).handleBackFlow(activity, resultCode, data);
     }
 
@@ -87,7 +88,7 @@ public class BackFlow {
             return false;
         }
 
-        logData("handle fragment", fragment.getClass().getName(), data);
+        logData("curr fragment", fragment.getClass().getName(), data);
         return BackFlowType.get(data).handleBackFlow(fragment, resultCode, data);
     }
 
@@ -100,16 +101,16 @@ public class BackFlow {
     }
 
     private static void logData(String handleTag, String handleObject, Intent data) {
-        Log.i(TAG, "ytxu-->╔═══════════════════════════════════════════════════════════════════════════════════════");
-        Log.i(TAG, "ytxu-->║" + handleTag + ":" + handleObject);
+        Log.i(_TAG, BackFlow.TAG + "╔═══════════════════════════════════════════════════════════════════════════════════════");
+        Log.i(_TAG, BackFlow.TAG + "║" + handleTag + ":" + handleObject);
 
         Bundle bundle = data.getExtras();
         for (String key : bundle.keySet()) {
             String value = String.valueOf(bundle.get(key));
-            Log.i(TAG, "ytxu-->║" + key + ":" + value);
+            Log.i(_TAG, BackFlow.TAG + "║" + key + ":" + value);
         }
 
-        Log.i(TAG, "ytxu-->╚═══════════════════════════════════════════════════════════════════════════════════════");
+        Log.i(_TAG, BackFlow.TAG + "╚═══════════════════════════════════════════════════════════════════════════════════════");
     }
 
 }

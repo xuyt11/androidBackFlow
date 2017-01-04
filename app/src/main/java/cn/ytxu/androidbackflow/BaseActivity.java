@@ -11,15 +11,15 @@ import android.view.View;
 import cn.ytxu.androidbackflow.sample.App;
 
 public class BaseActivity extends AppCompatActivity {
-    private final String tag = this.getClass().getSimpleName();
+    private final String TAG = this.getClass().getSimpleName();
 
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(tag, "ytxu-->2current process name:" + ((App) getApplication()).getCurProcessName(this));
-        Log.i(tag, "ytxu-->2taskId:" + getTaskId());
+        Log.i(TAG, BackFlow.TAG + "current process name:" + ((App) getApplication()).getCurProcessName(this));
+        Log.i(TAG, BackFlow.TAG + "taskId:" + getTaskId());
     }
 
     public <T extends View> T $(@IdRes int id) {
@@ -36,7 +36,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(tag, "ytxu-->onActivityResult");
+        Log.i(TAG, BackFlow.TAG + "onActivityResult");
         if (BackFlow.handle(this, resultCode, data)) {
             return;
         }
