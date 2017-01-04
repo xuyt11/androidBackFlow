@@ -22,6 +22,17 @@
             android:name=".sample.multi_process.MultiProcessActivity"
             android:process=":multi" />
 
+        <!-- multi task -->
+        <activity
+            android:name=".sample.multi_task.MultiTaskActivity"
+            android:taskAffinity=":a132" />
+
+        <!-- multi task and process -->
+        <activity
+            android:name=".sample.multi_task_and_process.MultiTaskAndProcessActivity"
+            android:process=":multi"
+            android:taskAffinity=":a132" />
+
         <!-- request activity and fragment -->
         <activity android:name=".sample.request_activity_and_fragment.ContainerAF1Activity" />
         <activity android:name=".sample.request_activity_and_fragment.ContainerAF2Activity" />

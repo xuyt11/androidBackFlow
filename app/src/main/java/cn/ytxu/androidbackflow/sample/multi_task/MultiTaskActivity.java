@@ -1,4 +1,4 @@
-package cn.ytxu.androidbackflow.sample.multi_process;
+package cn.ytxu.androidbackflow.sample.multi_task;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +15,8 @@ import cn.ytxu.androidbackflow.sample.request_fragment.letter.LetterAFragment;
 /**
  * Created by ytxu on 17/1/4.
  */
-public class MultiProcessActivity extends BaseActivity implements View.OnClickListener {
-    private static final String TAG = MultiProcessActivity.class.getSimpleName();
+public class MultiTaskActivity extends BaseActivity implements View.OnClickListener {
+    private static final String TAG = MultiTaskActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,7 @@ public class MultiProcessActivity extends BaseActivity implements View.OnClickLi
             }
             break;
             case R.id.main_btn_4_multi: {
-                startActivity(new Intent(this, MultiProcessActivity.class));
+                startActivity(new Intent(this, MultiTaskActivity.class));
             }
             default:
                 break;

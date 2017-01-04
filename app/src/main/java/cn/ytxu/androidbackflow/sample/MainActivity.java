@@ -2,7 +2,6 @@ package cn.ytxu.androidbackflow.sample;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import cn.ytxu.androidbackflow.BaseActivity;
@@ -28,7 +27,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         $(R.id.main_btn_4_requedst_activity_and_fragment).setOnClickListener(this);
         $(R.id.main_btn_4_multi).setOnClickListener(this);
 
-        Log.i(TAG, "init-->current process name:" + ((App) getApplication()).getCurProcessName(this));
     }
 
     @Override
@@ -50,7 +48,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             }
             break;
             case R.id.main_btn_4_multi: {
-                startActivity(new Intent(this, MultiProcessActivity.class));
+                Intent intent = new Intent(this, MultiProcessActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
             }
             break;
             default:
