@@ -67,12 +67,11 @@ public class BackFlow {
      * false：不能处理，需要继续分发；
      */
     public static boolean handle(Activity activity, int resultCode, Intent data) {
-        Log.e(TAG, "ytxu-->handle activity(" + activity.getClass().getName() + ")");
         if (!canHandle(resultCode, data)) {
             return false;
         }
 
-        logData(data);
+        logData("handle activity", activity.getClass().getName(), data);
         return BackFlowType.get(data).handleBackFlow(activity, resultCode, data);
     }
 
@@ -84,12 +83,11 @@ public class BackFlow {
      * false：不能处理，需要继续分发；
      */
     public static boolean handle(Fragment fragment, int resultCode, Intent data) {
-        Log.e(TAG, "ytxu-->handle fragment(" + fragment.getClass().getName() + ")");
         if (!canHandle(resultCode, data)) {
             return false;
         }
 
-        logData(data);
+        logData("handle fragment", fragment.getClass().getName(), data);
         return BackFlowType.get(data).handleBackFlow(fragment, resultCode, data);
     }
 
@@ -101,14 +99,17 @@ public class BackFlow {
         return data.hasExtra(BackFlowType.BACK_FLOW_TYPE);
     }
 
-    private static void logData(Intent data) {
+    private static void logData(String handleTag, String handleObject, Intent data) {
+        Log.i(TAG, "╔═══════════════════════════════════════════════════════════════════════════════════════");
+        Log.i(TAG, "║" + handleTag + ":" + handleObject);
+
         Bundle bundle = data.getExtras();
-        StringBuilder builder = new StringBuilder();
         for (String key : bundle.keySet()) {
             String value = String.valueOf(bundle.get(key));
-            builder.append("{key:").append(key).append(", value:").append(value).append("}\n");
+            Log.i(TAG, "║" + key + ":" + value);
         }
-        Log.e(TAG, "ytxu-->data:" + builder.toString());
+
+        Log.i(TAG, "╚═══════════════════════════════════════════════════════════════════════════════════════");
     }
 
 }
