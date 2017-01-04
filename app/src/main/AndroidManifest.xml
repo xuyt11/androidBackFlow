@@ -3,6 +3,7 @@
     package="cn.ytxu.androidbackflow">
 
     <application
+        android:name=".sample.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -15,6 +16,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- multi process -->
+        <activity
+            android:name=".sample.multi_process.MultiProcessActivity"
+            android:process=":multi" />
 
         <!-- request activity and fragment -->
         <activity android:name=".sample.request_activity_and_fragment.ContainerAF1Activity" />

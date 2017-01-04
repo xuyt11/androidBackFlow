@@ -4,7 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.ytxu.androidbackflow.sample.MainActivity">
+    tools:context="cn.ytxu.androidbackflow.sample.multi_process.MultiProcessActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,15 +41,6 @@
             android:text="request activity and fragment"
             android:textAllCaps="false"
             android:textColor="@android:color/holo_blue_dark" />
-
-        <Button
-            android:id="@+id/main_btn_4_multi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="jump to multi process"
-            android:textAllCaps="false"
-            android:textColor="@android:color/holo_green_dark" />
     </LinearLayout>
 </ScrollView>
 
