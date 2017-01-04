@@ -5,6 +5,15 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+/**
+ * tip:
+ * 1、若在回退链中间有任何一个TempActivity消耗过onActivityResult方法，<br>
+ * 则会停留在该TempActivity，不能继续回退 <br>
+ * 2、现在发现的消耗onActivityResult方法的情况有：<br>
+ * a: 切换task；<br>
+ * b: 切换process；<br>
+ * c: 在startActivity时，调用了intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);<br>
+ */
 enum BackFlowType {
     /**
      * 所有错误的type，都将返回该类型，且都不会处理
@@ -28,7 +37,7 @@ enum BackFlowType {
         }
     },
     /**
-     * 结束整个App的所有的activity
+     * 结束App功能：结束App中所有的activity（准确的说是：finish该task中所有的activity）
      */
     finish_app(1) {
         @Override
@@ -49,7 +58,7 @@ enum BackFlowType {
         }
     },
     /**
-     * 返回到指定的activity
+     * 返回到指定的activity（回退到指定的activity）
      */
     back_to_activity(2) {
         @Override
@@ -75,7 +84,7 @@ enum BackFlowType {
         }
     },
     /**
-     * 返回到指定的fragment
+     * 返回到指定的fragment（回退到包含了指定fragment的activity）
      */
     back_to_fragment(3) {
         @Override
@@ -101,7 +110,7 @@ enum BackFlowType {
         }
     },
     /**
-     * 返回到activity和fragment都相同的位置
+     * 返回到activity和fragment都一致的activity
      */
     back_to_activity_fragment(4) {
         @Override

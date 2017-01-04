@@ -21,8 +21,8 @@ public class BackFlow {
     public static final int RESULT_CODE = Integer.MAX_VALUE;
     /**
      * startActivity方法调用的，防止不能触发onActivityResult方法
-     * 其他的requestCode，不能与其一样，否则会出错
-     * Can only use lower 16 bits for requestCode
+     * 其他的requestCode，不能与其一样，否则App内部业务逻辑可能有异常情况
+     * tip: Can only use lower 16 bits for requestCode
      */
     public static final int REQUEST_CODE = 0x0000ffff;
 
