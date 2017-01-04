@@ -18,8 +18,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(tag, "init-->2current process name:" + ((App) getApplication()).getCurProcessName(this));
-        Log.i(tag, "init-->2taskId:" + getTaskId());
+        Log.i(tag, "ytxu-->2current process name:" + ((App) getApplication()).getCurProcessName(this));
+        Log.i(tag, "ytxu-->2taskId:" + getTaskId());
     }
 
     public <T extends View> T $(@IdRes int id) {
@@ -28,12 +28,15 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void startActivity(Intent intent) {
+        // 可以放开，查看该标签的对BackFlow的影响
+        // 有该标签，会立即调用当前的onActivityResult(requestCode, 0, null)方法
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityForResult(intent, BackFlow.REQUEST_CODE);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(tag, "onActivityResult");
+        Log.i(tag, "ytxu-->onActivityResult");
         if (BackFlow.handle(this, resultCode, data)) {
             return;
         }

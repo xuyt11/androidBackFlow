@@ -11,16 +11,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hello World!" />
-
         <Button
             android:id="@+id/main_btn_4_requedst_activity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
             android:text="request activity"
             android:textAllCaps="false" />
 
@@ -28,7 +23,7 @@
             android:id="@+id/main_btn_4_requedst_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
             android:text="request fragment"
             android:textAllCaps="false"
             android:textColor="@android:color/holo_orange_dark" />
@@ -37,19 +32,37 @@
             android:id="@+id/main_btn_4_requedst_activity_and_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
             android:text="request activity and fragment"
             android:textAllCaps="false"
             android:textColor="@android:color/holo_blue_dark" />
 
         <Button
-            android:id="@+id/main_btn_4_multi"
+            android:id="@+id/main_btn_4_multi_process"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_marginTop="10dp"
             android:text="jump to multi process"
             android:textAllCaps="false"
             android:textColor="@android:color/holo_green_dark" />
+
+        <Button
+            android:id="@+id/main_btn_4_multi_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="jump to multi task"
+            android:textAllCaps="false"
+            android:textColor="@android:color/tertiary_text_light" />
+
+        <Button
+            android:id="@+id/main_btn_4_multi_task_and_process"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="jump to multi task and process"
+            android:textAllCaps="false"
+            android:textColor="@android:color/holo_red_dark" />
     </LinearLayout>
 </ScrollView>
 

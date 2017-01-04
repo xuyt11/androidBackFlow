@@ -7,6 +7,8 @@ import android.view.View;
 import cn.ytxu.androidbackflow.BaseActivity;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.multi_process.MultiProcessActivity;
+import cn.ytxu.androidbackflow.sample.multi_task.MultiTaskActivity;
+import cn.ytxu.androidbackflow.sample.multi_task_and_process.MultiTaskAndProcessActivity;
 import cn.ytxu.androidbackflow.sample.request_activity_and_fragment.ContainerAF1Activity;
 import cn.ytxu.androidbackflow.sample.request_activity_and_fragment.letter.LetterAFAFragment;
 import cn.ytxu.androidbackflow.sample.request_fragment.ContainerActivity;
@@ -25,7 +27,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         $(R.id.main_btn_4_requedst_activity).setOnClickListener(this);
         $(R.id.main_btn_4_requedst_fragment).setOnClickListener(this);
         $(R.id.main_btn_4_requedst_activity_and_fragment).setOnClickListener(this);
-        $(R.id.main_btn_4_multi).setOnClickListener(this);
+        $(R.id.main_btn_4_multi_process).setOnClickListener(this);
+        $(R.id.main_btn_4_multi_task).setOnClickListener(this);
+        $(R.id.main_btn_4_multi_task_and_process).setOnClickListener(this);
 
     }
 
@@ -47,8 +51,20 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
             }
             break;
-            case R.id.main_btn_4_multi: {
+            case R.id.main_btn_4_multi_process: {
                 Intent intent = new Intent(this, MultiProcessActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+            break;
+            case R.id.main_btn_4_multi_task: {
+                Intent intent = new Intent(this, MultiTaskActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+            break;
+            case R.id.main_btn_4_multi_task_and_process: {
+                Intent intent = new Intent(this, MultiTaskAndProcessActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
             }

@@ -100,16 +100,16 @@ public class BackFlow {
     }
 
     private static void logData(String handleTag, String handleObject, Intent data) {
-        Log.i(TAG, "╔═══════════════════════════════════════════════════════════════════════════════════════");
-        Log.i(TAG, "║" + handleTag + ":" + handleObject);
+        Log.i(TAG, "ytxu-->╔═══════════════════════════════════════════════════════════════════════════════════════");
+        Log.i(TAG, "ytxu-->║" + handleTag + ":" + handleObject);
 
         Bundle bundle = data.getExtras();
         for (String key : bundle.keySet()) {
             String value = String.valueOf(bundle.get(key));
-            Log.i(TAG, "║" + key + ":" + value);
+            Log.i(TAG, "ytxu-->║" + key + ":" + value);
         }
 
-        Log.i(TAG, "╚═══════════════════════════════════════════════════════════════════════════════════════");
+        Log.i(TAG, "ytxu-->╚═══════════════════════════════════════════════════════════════════════════════════════");
     }
 
 }

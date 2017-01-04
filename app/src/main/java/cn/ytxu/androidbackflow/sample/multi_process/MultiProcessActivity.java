@@ -27,9 +27,10 @@ public class MultiProcessActivity extends BaseActivity implements View.OnClickLi
         $(R.id.main_btn_4_requedst_activity).setOnClickListener(this);
         $(R.id.main_btn_4_requedst_fragment).setOnClickListener(this);
         $(R.id.main_btn_4_requedst_activity_and_fragment).setOnClickListener(this);
-        $(R.id.main_btn_4_multi).setOnClickListener(this);
 
-
+        $(R.id.main_btn_4_multi_task).setVisibility(View.GONE);
+        $(R.id.main_btn_4_multi_process).setVisibility(View.GONE);
+        $(R.id.main_btn_4_multi_task_and_process).setVisibility(View.GONE);
     }
 
     @Override
@@ -55,9 +56,6 @@ public class MultiProcessActivity extends BaseActivity implements View.OnClickLi
                 startActivity(intent);
             }
             break;
-            case R.id.main_btn_4_multi: {
-                startActivity(new Intent(this, MultiProcessActivity.class));
-            }
             default:
                 break;
         }

@@ -23,13 +23,14 @@ public class MultiTaskAndProcessActivity extends BaseActivity implements View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        setTitle("Multi Process View");
+        setTitle("Multi Task And Process View");
         $(R.id.main_btn_4_requedst_activity).setOnClickListener(this);
         $(R.id.main_btn_4_requedst_fragment).setOnClickListener(this);
         $(R.id.main_btn_4_requedst_activity_and_fragment).setOnClickListener(this);
-        $(R.id.main_btn_4_multi).setOnClickListener(this);
 
-
+        $(R.id.main_btn_4_multi_task).setVisibility(View.GONE);
+        $(R.id.main_btn_4_multi_process).setVisibility(View.GONE);
+        $(R.id.main_btn_4_multi_task_and_process).setVisibility(View.GONE);
     }
 
     @Override
@@ -55,9 +56,6 @@ public class MultiTaskAndProcessActivity extends BaseActivity implements View.On
                 startActivity(intent);
             }
             break;
-            case R.id.main_btn_4_multi: {
-                startActivity(new Intent(this, MultiTaskAndProcessActivity.class));
-            }
             default:
                 break;
         }

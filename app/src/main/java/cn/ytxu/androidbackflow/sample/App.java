@@ -15,7 +15,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.i(TAG, "init-->current process name:" + getCurProcessName(this));
+        Log.i(TAG, "ytxu-->init-->current process name:" + getCurProcessName(this));
     }
 
     public String getCurProcessName(Context context) {
