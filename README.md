@@ -18,18 +18,18 @@ BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClas
 ```
 3. 返回到指定的fragment（回退到包含了指定fragment的activity）
 ```java
-BackFlow.requestF(activity | fragment, @NonNull Class<? extends ragment> fragmentClass);
+BackFlow.requestF(activity | fragment, @NonNull Class<? extends Fragment> fragmentClass);
 ```
 4. 返回到activity和fragment都一致的activity；
 ```java
-BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends ragment> fragmentClass);
+BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment> fragmentClass);
 ```
 
 
 ## 内部实现
 1. 利用startActivityForResult、onActivityResult、setResult与finish(activity)4四个方法，进行实现的；
 2. 需要有两个基础类：BaseActivity与BaseFragment，所有的activity与fragment都需要继承于他们；
-3. 需要@Override App中BaseActivity与BaseFragment两个类的startActivity(intent)方法，并且在内部实现中调用startActivityForResult(intent, requestCode)方法，使得在BackFlow操作时，能串行的回退；
+3. 需要@Override App中BaseActivity与BaseFragment两个类的startActivity(intent)方法，并且在内部实现中调用startActivityForResult(intent, requestCode)方法，使得在BackFlow操作时，能串行链式的回退；
 ```java
 @Override
 public void startActivity(Intent intent) {

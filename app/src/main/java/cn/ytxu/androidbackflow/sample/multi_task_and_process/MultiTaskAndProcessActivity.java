@@ -21,16 +21,12 @@ public class MultiTaskAndProcessActivity extends BaseActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.multi_activity);
 
         setTitle("Multi Task And Process View");
         $(R.id.main_btn_4_requedst_activity).setOnClickListener(this);
         $(R.id.main_btn_4_requedst_fragment).setOnClickListener(this);
         $(R.id.main_btn_4_requedst_activity_and_fragment).setOnClickListener(this);
-
-        $(R.id.main_btn_4_multi_task).setVisibility(View.GONE);
-        $(R.id.main_btn_4_multi_process).setVisibility(View.GONE);
-        $(R.id.main_btn_4_multi_task_and_process).setVisibility(View.GONE);
     }
 
     @Override
