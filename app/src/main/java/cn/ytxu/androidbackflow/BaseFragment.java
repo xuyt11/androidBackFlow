@@ -24,9 +24,7 @@ public class BaseFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (BackFlow.handle(this, resultCode, data)) {
-            return;
-        }
+        BackFlow.logData(getClass().getSimpleName(), data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 

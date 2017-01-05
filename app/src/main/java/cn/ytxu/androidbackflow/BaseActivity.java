@@ -36,8 +36,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(TAG, BackFlow.TAG + "onActivityResult");
-        if (BackFlow.handle(this, resultCode, data)) {
+        if (BackFlow.handle(this, getSupportFragmentManager().getFragments(), requestCode, resultCode, data)) {
             return;
         }
         super.onActivityResult(requestCode, resultCode, data);

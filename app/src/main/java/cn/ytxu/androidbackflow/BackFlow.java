@@ -7,6 +7,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+
 /**
  * Created by ytxu on 16/12/30.
  * 回退流程，回退到制定的activity或fragment上，在这中间的activity都将finish
@@ -28,89 +32,70 @@ public class BackFlow {
 
 
     //********************* execute back *********************
-    public static void finishApp(Activity activity) {
-        BackFlowType.finish_app.requestBackFlow(activity, null, null);
+    public static <Self extends Activity> void finishApp(Self activity) {
+        BackFlowType.finish_app.requestBackFlow(activity, null, Collections.EMPTY_LIST);
     }
 
-    public static void finishApp(Fragment fragment) {
-        BackFlowType.finish_app.requestBackFlow(fragment.getActivity(), null, null);
+    public static <Self extends Fragment> void finishApp(Self fragment) {
+        BackFlowType.finish_app.requestBackFlow(fragment.getActivity(), null, Collections.EMPTY_LIST);
     }
 
-    public static <A extends Activity> void request(Activity activity, @NonNull Class<A> atyClass) {
-        BackFlowType.back_to_activity.requestBackFlow(activity, atyClass.getName(), null);
+    public static <Self extends Activity, A extends Activity> void request(Self activity, @NonNull Class<A> atyClass) {
+        BackFlowType.back_to_activity.requestBackFlow(activity, atyClass, Collections.EMPTY_LIST);
     }
 
-    public static <A extends Activity> void request(Fragment fragment, @NonNull Class<A> atyClass) {
-        BackFlowType.back_to_activity.requestBackFlow(fragment.getActivity(), atyClass.getName(), null);
+    public static <Self extends Fragment, A extends Activity> void request(Self fragment, @NonNull Class<A> atyClass) {
+        BackFlowType.back_to_activity.requestBackFlow(fragment.getActivity(), atyClass, Collections.EMPTY_LIST);
     }
 
-    public static <F extends Fragment> void requestF(Activity activity, @NonNull Class<F> fragmentClass) {
-        BackFlowType.back_to_fragment.requestBackFlow(activity, null, fragmentClass.getName());
+    public static <Self extends Activity, F extends Fragment> void requestF(Self activity, @NonNull Class<F>... fragmentClazzs) {
+        BackFlowType.back_to_fragment.requestBackFlow(activity, null, Arrays.asList(fragmentClazzs));
     }
 
-    public static <F extends Fragment> void requestF(Fragment fragment, @NonNull Class<F> fragmentClass) {
-        BackFlowType.back_to_fragment.requestBackFlow(fragment.getActivity(), null, fragmentClass.getName());
+    public static <Self extends Fragment, F extends Fragment> void requestF(Self fragment, @NonNull Class<F>... fragmentClazzs) {
+        BackFlowType.back_to_fragment.requestBackFlow(fragment.getActivity(), null, Arrays.asList(fragmentClazzs));
     }
 
-    public static <A extends Activity, F extends Fragment> void request(Activity activity, @NonNull Class<A> atyClass, @NonNull Class<F> fragmentClass) {
-        BackFlowType.back_to_activity_fragment.requestBackFlow(activity, atyClass.getName(), fragmentClass.getName());
+    public static <A extends Activity, F extends Fragment> void request(Activity activity, @NonNull Class<A> atyClass, @NonNull Class<F>... fragmentClazzs) {
+        BackFlowType.back_to_activity_fragment.requestBackFlow(activity, atyClass, Arrays.asList(fragmentClazzs));
     }
 
-    public static <A extends Activity, F extends Fragment> void request(Fragment fragment, @NonNull Class<A> atyClass, @NonNull Class<F> fragmentClass) {
-        BackFlowType.back_to_activity_fragment.requestBackFlow(fragment.getActivity(), atyClass.getName(), fragmentClass.getName());
+    public static <A extends Activity, F extends Fragment> void request(Fragment fragment, @NonNull Class<A> atyClass, @NonNull Class<F>... fragmentClazzs) {
+        BackFlowType.back_to_activity_fragment.requestBackFlow(fragment.getActivity(), atyClass, Arrays.asList(fragmentClazzs));
     }
 
 
     //********************* handle back *********************
 
     /**
-     * @return true：已经处理了，不需要再次分发给该activity去处理；
+     * @return true：已经处理了，不需要再次分发给该activity的super.onActivityResult去处理；
      * false：不能处理，需要继续分发；
      */
-    public static boolean handle(Activity activity, int resultCode, Intent data) {
+    public static boolean handle(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
+        Log.i(BackFlow._TAG, BackFlow.TAG + "called onActivityResult:" + activity.getClass().getSimpleName());
         if (!canHandle(resultCode, data)) {
             return false;
         }
 
-        logData("curr activity", activity.getClass().getName(), data);
-        return BackFlowType.get(data).handleBackFlow(activity, resultCode, data);
-    }
-
-    /**
-     * tip: 在activity已经处理了finishApp与back_to_activity两个分类，
-     * 不需要处理finishApp与back_to_activity两个分类
-     *
-     * @return true：已经处理了，不需要再次分发给该fragment去处理；
-     * false：不能处理，需要继续分发；
-     */
-    public static boolean handle(Fragment fragment, int resultCode, Intent data) {
-        if (!canHandle(resultCode, data)) {
-            return false;
-        }
-
-        logData("curr fragment", fragment.getClass().getName(), data);
-        return BackFlowType.get(data).handleBackFlow(fragment, resultCode, data);
+        logData(activity.getClass().getSimpleName(), data);
+        return BackFlowType.get(data).handleBackFlow(activity, fragments, requestCode, resultCode, data);
     }
 
     private static boolean canHandle(int resultCode, Intent data) {
-        if (resultCode != RESULT_CODE || data == null) {
-            return false;
-        }
-
-        return data.hasExtra(BackFlowType.BACK_FLOW_TYPE);
+        return resultCode == RESULT_CODE && BackFlowType.isBackFlowType(data);
     }
 
-    private static void logData(String handleTag, String handleObject, Intent data) {
-        Log.i(_TAG, BackFlow.TAG + "╔═══════════════════════════════════════════════════════════════════════════════════════");
-        Log.i(_TAG, BackFlow.TAG + "║" + handleTag + ":" + handleObject);
+    public static void logData(String handleObject, Intent data) {
+        Log.i(BackFlow._TAG, BackFlow.TAG + "╔═══════════════════════════════════════════════════════════════════════════════════════");
+        Log.i(BackFlow._TAG, BackFlow.TAG + "║curr handle object:" + handleObject);
 
         Bundle bundle = data.getExtras();
         for (String key : bundle.keySet()) {
             String value = String.valueOf(bundle.get(key));
-            Log.i(_TAG, BackFlow.TAG + "║" + key + ":" + value);
+            Log.i(BackFlow._TAG, BackFlow.TAG + "║" + key + ":" + value);
         }
 
-        Log.i(_TAG, BackFlow.TAG + "╚═══════════════════════════════════════════════════════════════════════════════════════");
+        Log.i(BackFlow._TAG, BackFlow.TAG + "╚═══════════════════════════════════════════════════════════════════════════════════════");
     }
 
 }
