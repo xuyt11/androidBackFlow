@@ -31,7 +31,7 @@ enum BackFlowType {
 
         @Override
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
-            Log.w(TAG, new Throwable("error back flow type"));
+            Log.w(BackFlowType.class.getSimpleName(), new Throwable("error back flow type"));
             return false;
         }
     },
@@ -65,10 +65,8 @@ enum BackFlowType {
 
         @Override
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
-            String currActivityClassName = activity.getClass().getName();
             String targetActivityClassName = BackFlowExtra.getActivity(data);
-
-            if (!isMatch(currActivityClassName, targetActivityClassName)) {// not arrived target activity
+            if (!BackFlowViewHelper.isTargetActivity(activity, targetActivityClassName)) {
                 requestBackFlowInner(activity, data);// request again
             }
             return true;
@@ -89,10 +87,10 @@ enum BackFlowType {
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
             List<String> fragmentClassNames = BackFlowExtra.getFragments(data);
             try {
-                Fragment fragment = BackFlowFindTargetFragmentHelper.findTargetFragment(fragments, fragmentClassNames.listIterator());
+                Fragment fragment = BackFlowViewHelper.findTargetFragment(fragments, fragmentClassNames.listIterator());
                 fragment.onActivityResult(requestCode, resultCode, data);
                 return true;
-            } catch (BackFlowFindTargetFragmentHelper.NotFindTargetFragmentException e) {
+            } catch (BackFlowViewHelper.NotFindTargetFragmentException e) {
                 requestBackFlowInner(activity, data);// send request again
                 return true;
             }
@@ -112,27 +110,23 @@ enum BackFlowType {
 
         @Override
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
-            String currActivityClassName = activity.getClass().getName();
             String targetActivityClassName = BackFlowExtra.getActivity(data);
-            if (!isMatch(currActivityClassName, targetActivityClassName)) {
+            if (!BackFlowViewHelper.isTargetActivity(activity, targetActivityClassName)) {
                 requestBackFlowInner(activity, data);// send request again
                 return true;
             }
 
             List<String> fragmentClassNames = BackFlowExtra.getFragments(data);
             try {
-                Fragment fragment = BackFlowFindTargetFragmentHelper.findTargetFragment(fragments, fragmentClassNames.listIterator());
+                Fragment fragment = BackFlowViewHelper.findTargetFragment(fragments, fragmentClassNames.listIterator());
                 fragment.onActivityResult(requestCode, resultCode, data);
                 return true;
-            } catch (BackFlowFindTargetFragmentHelper.NotFindTargetFragmentException e) {
+            } catch (BackFlowViewHelper.NotFindTargetFragmentException e) {
                 requestBackFlowInner(activity, data);// send request again
                 return true;
             }
         }
     };
-
-    public static final String TAG = BackFlowType.class.getSimpleName();
-
 
     protected final int type;
 
@@ -141,16 +135,15 @@ enum BackFlowType {
     }
 
     /**
-     * 1、若activityClassName!=null，则会回退到该activity；
-     * 若有多个activity实例，则只会回退到第一个匹配；
-     * 2、若fragmentClassName!=null，则会回退到该fragment；
-     * 若有多个fragment实例，则只会回退到第一个匹配；
-     * 3、若activityClassName!=null && fragmentClassName!=null，则会回退到包含了该fragment的activity；
-     * 但，activity只能包含单个fragment
-     * 4、若在整个回退流程流程中，没有匹配目标，则相当于finish_app的功能。
+     * 1、若atyClass!=null && !atyClass.isEmpty()，则会回退到包含了该fragment顺序列的activity；<br>
+     * 2、若atyClass!=null && fragmentClazzs==null，则会回退到该activity；<br>
+     * 若有多个activity实例，则只会回退到第一个匹配；<br>
+     * 3、若atyClass==null && fragmentClazzs!=null，则会回退到第一个匹配该fragment顺序列的activity；<br>
+     * 4、若在整个回退流程流程中，没有匹配到目标，则相当于finish_app的功能。<br>
      *
-     * @param activityClassName 回退到该activity
-     * @param fragmentClazzs    回退到该fragment的顺序列表
+     * @param atyClass       回退到该activity
+     * @param fragmentClazzs 回退到该fragment的顺序列表
+     * @param extra          额外的附加数据
      */
     abstract void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra);
 
@@ -171,9 +164,6 @@ enum BackFlowType {
      */
     abstract boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data);
 
-    protected boolean isMatch(String currClassName, String targetClassName) {
-        return currClassName.equals(targetClassName);
-    }
 
     static BackFlowType get(Intent data) {
         int type = BackFlowExtra.getType(data);
@@ -190,5 +180,3 @@ enum BackFlowType {
         return BackFlowExtra.isBackFlowType(data);
     }
 }
-
-

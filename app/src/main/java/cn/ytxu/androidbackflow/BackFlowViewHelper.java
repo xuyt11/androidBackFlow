@@ -1,5 +1,6 @@
 package cn.ytxu.androidbackflow;
 
+import android.app.Activity;
 import android.support.v4.app.Fragment;
 
 import java.util.List;
@@ -8,8 +9,15 @@ import java.util.ListIterator;
 /**
  * Created by ytxu on 2017/1/5.
  */
-class BackFlowFindTargetFragmentHelper {
+class BackFlowViewHelper {
 
+    //**************************** activity ****************************
+    static boolean isTargetActivity(Activity activity, String targetActivityClassName) {
+        return activity.getClass().getName().equals(targetActivityClassName);
+    }
+
+
+    //**************************** fragment ****************************
     static Fragment findTargetFragment(List<Fragment> fragments, ListIterator<String> targetFragmentClassNameListIter) throws NotFindTargetFragmentException {
         if (fragments == null || fragments.isEmpty()) {
             throw new NotFindTargetFragmentException();
