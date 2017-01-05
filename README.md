@@ -86,6 +86,13 @@ BackFlow.finishApp(activity)
     * 在startActivity时，调用了intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
 
-
+## TIP(限制)
+1. onActivityResults方法不会被触发的情况：
+    * 若是从activity调用的startActivity方法，则activity中fragment的onActivityResults方法不会被触发；
+    * 若是从AFragment调用的startActivity方法，则在其activity中其他Fragment的onActivityResults方法不会被触发；
+    * 具体事例可以从request activity and fragment-->ContainerAF1Activity.LetterAFFFragment的第二个按钮
+2.
+3.
+4.
 
 
