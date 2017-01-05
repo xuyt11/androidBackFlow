@@ -5,23 +5,25 @@ a tool to control the view(activity and fragment) rollback flow
 
 
 ## 快速使用
-0. 使用前：将App中所有的activity与fragment都继承于两个基础类（BaseActivity与BaseFragment）；或在自己的基础类中@override startActivity与onActivityResult两个方法；
+0. 使用前：
+    * 将App中所有的activity与fragment都继承于两个基础类（BaseActivity与BaseFragment）；
+    * 或在自己的基础类中@override startActivity与onActivityResult两个方法；
 1. 结束App功能：结束App中所有的activity（准确的说是：finish该task中所有的activity）
-    ```java
-    BackFlow.finishApp(activity | fragment);
-    ```
+```java
+   BackFlow.finishApp(activity | fragment);
+```
 2. 返回到指定的activity（回退到指定的activity）
-    ```java
-    BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass);
-    ```
+```java
+BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass);
+```
 3. 返回到指定的fragment（回退到包含了指定fragment的activity）
-    ```java
-    BackFlow.requestF(activity | fragment, @NonNull Class<? extends ragment> fragmentClass);
-    ```
+```java
+BackFlow.requestF(activity | fragment, @NonNull Class<? extends ragment> fragmentClass);
+```
 4. 返回到activity和fragment都一致的activity；
-    ```java
-    BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends ragment> fragmentClass);
-    ```
+```java
+BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends ragment> fragmentClass);
+```
 
 
 ## 内部实现
