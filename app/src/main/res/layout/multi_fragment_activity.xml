@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".sample.multi_fragment.MultiFragmentActivity">
+
+    <Button
+        android:id="@+id/multi_fragment_4_requedst_activity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="request activity"
+        android:textAllCaps="false"
+        android:textColor="#000000" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/multi_fragment_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#af1234"
+        android:layout_weight="1"
+        android:scrollbars="none" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/multi_fragment_tab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed" />
+
+</LinearLayout>

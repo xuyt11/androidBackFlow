@@ -9,7 +9,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="normal state"
+            android:textColor="#000000"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/main_btn_4_requedst_activity"
@@ -17,7 +26,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="request activity"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/main_btn_4_requedst_fragment"
@@ -26,7 +36,7 @@
             android:layout_marginTop="10dp"
             android:text="request fragment"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_orange_dark" />
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/main_btn_4_requedst_activity_and_fragment"
@@ -35,7 +45,15 @@
             android:layout_marginTop="10dp"
             android:text="request activity and fragment"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_blue_dark" />
+            android:textColor="#000000" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="multi task or process state"
+            android:textColor="#0000ff"
+            android:textSize="24sp" />
 
         <Button
             android:id="@+id/main_btn_4_multi_process"
@@ -44,7 +62,7 @@
             android:layout_marginTop="10dp"
             android:text="jump to multi process"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_green_dark" />
+            android:textColor="#8e8edf" />
 
         <Button
             android:id="@+id/main_btn_4_multi_task"
@@ -53,7 +71,7 @@
             android:layout_marginTop="10dp"
             android:text="jump to multi task"
             android:textAllCaps="false"
-            android:textColor="@android:color/tertiary_text_light" />
+            android:textColor="#353578" />
 
         <Button
             android:id="@+id/main_btn_4_multi_task_and_process"
@@ -62,7 +80,33 @@
             android:layout_marginTop="10dp"
             android:text="jump to multi task and process"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_red_dark" />
+            android:textColor="#0909a4" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="multi fragment state"
+            android:textColor="#ff0000"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/main_btn_4_multi_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="jump to multi fragment"
+            android:textAllCaps="false"
+            android:textColor="#d76e6e" />
+
+        <Button
+            android:id="@+id/main_btn_4_multi_fragment_contains_sub_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="jump to multi fragment contains sub fragment"
+            android:textAllCaps="false"
+            android:textColor="#c11313" />
     </LinearLayout>
 </ScrollView>
 

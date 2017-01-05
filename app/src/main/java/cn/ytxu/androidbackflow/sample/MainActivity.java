@@ -6,6 +6,7 @@ import android.view.View;
 
 import cn.ytxu.androidbackflow.BaseActivity;
 import cn.ytxu.androidbackflow.R;
+import cn.ytxu.androidbackflow.sample.multi_fragment.MultiFragmentActivity;
 import cn.ytxu.androidbackflow.sample.multi_process.MultiProcessActivity;
 import cn.ytxu.androidbackflow.sample.multi_task.MultiTaskActivity;
 import cn.ytxu.androidbackflow.sample.multi_task_and_process.MultiTaskAndProcessActivity;
@@ -30,7 +31,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         $(R.id.main_btn_4_multi_process).setOnClickListener(this);
         $(R.id.main_btn_4_multi_task).setOnClickListener(this);
         $(R.id.main_btn_4_multi_task_and_process).setOnClickListener(this);
-
+        $(R.id.main_btn_4_multi_fragment).setOnClickListener(this);
+        $(R.id.main_btn_4_multi_fragment_contains_sub_fragment).setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +68,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.main_btn_4_multi_task_and_process: {
                 Intent intent = new Intent(this, MultiTaskAndProcessActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+            break;
+            case R.id.main_btn_4_multi_fragment: {
+                Intent intent = new Intent(this, MultiFragmentActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case R.id.main_btn_4_multi_fragment_contains_sub_fragment: {
+                // TODO
+                Intent intent = new Intent(this, MultiTaskAndProcessActivity.class);
                 startActivity(intent);
             }
             break;

@@ -17,6 +17,11 @@
             </intent-filter>
         </activity>
 
+
+        <!-- multi fragment -->
+        <activity android:name=".sample.multi_fragment.MultiFragmentActivity" />
+        <activity android:name=".sample.multi_fragment.MFSecondActivity" />
+
         <!-- multi process -->
         <activity
             android:name=".sample.multi_process.MultiProcessActivity"

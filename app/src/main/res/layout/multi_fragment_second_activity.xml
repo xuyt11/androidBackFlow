@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".sample.multi_fragment.MFSecondActivity">
+
+    <Button
+        android:id="@+id/mf2_finish_app_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:text="finish_app"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_red_dark" />
+
+    <Button
+        android:id="@+id/mf2_back_2_a_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="back to A fragment"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/mf2_back_2_b_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="back to B fragment"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/mf2_back_2_c_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="back to C fragment"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/mf2_back_2_d_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="back to D fragment"
+        android:textAllCaps="false" />
+</LinearLayout>

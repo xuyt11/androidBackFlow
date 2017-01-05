@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".sample.multi_fragment.letter.MFBaseLetterFragment">
+
+    <TextView
+        android:id="@+id/mf_letter_tip_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/mf_letter_jump_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="50dp"
+        android:text="jump to next fragment activity"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/mf_letter_finish_app_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="finish_app"
+        android:textAllCaps="false"
+        android:textColor="@android:color/holo_red_dark" />
+</LinearLayout>
