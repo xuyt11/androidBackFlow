@@ -10,7 +10,7 @@ a tool to control the view(activity and fragment) rollback flow
     * 或在自己的基础类中@override startActivity与onActivityResult两个方法；
 1. 结束App功能：结束App中所有的activity（准确的说是：finish该task中所有的activity）
 ```java
-   BackFlow.finishApp(activity | fragment);
+BackFlow.finishApp(activity | fragment);
 ```
 2. 返回到指定的activity（回退到指定的activity）
 ```java
@@ -30,28 +30,28 @@ BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClas
 1. 利用startActivityForResult、onActivityResult、setResult与finish(activity)4四个方法，进行实现的；
 2. 需要有两个基础类：BaseActivity与BaseFragment，所有的activity与fragment都需要继承于他们；
 3. 需要@Override App中BaseActivity与BaseFragment两个类的startActivity(intent)方法，并且在内部实现中调用startActivityForResult(intent, requestCode)方法，使得在BackFlow操作时，能串行的回退；
-    ```java
-       @Override
-       public void startActivity(Intent intent) {
-           startActivityForResult(intent, BackFlow.REQUEST_CODE);
-       }
-    ```
+```java
+@Override
+public void startActivity(Intent intent) {
+   startActivityForResult(intent, BackFlow.REQUEST_CODE);
+}
+```
 4. 需要@Override App中BaseActivity与BaseFragment两个类的onActivityResult(requestCode, resultCode, data)方法，并在内部调用BackFlow.handle(this, resultCode, data)来进行回退操作的管理，并在目标位置结束继续调用onActivityResult方法；
-    ```java
-       @Override
-       protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-           if (BackFlow.handle(this, resultCode, data)) {
-               return;
-           }
-           super.onActivityResult(requestCode, resultCode, data);
-       }
-    ```
+```java
+@Override
+protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+   if (BackFlow.handle(this, resultCode, data)) {
+       return;
+   }
+   super.onActivityResult(requestCode, resultCode, data);
+}
+```
 5. 调用BackFlow方法执行回退操作；
     * BackFlow操作内部会调用setResult与finish(activity)方法，用于链式回退；
     * 例如：退出当前的App（finish该task中所有的activity） **tip：有些情况会有影响，下面会有讲解**
-    ```java
-       BackFlow.finishApp(activity)
-    ```
+```java
+BackFlow.finishApp(activity)
+```
 
 
 ## 代码简介
