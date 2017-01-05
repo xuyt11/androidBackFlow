@@ -64,7 +64,7 @@ public class BaseLetterFragment extends BaseFragment {
         rollbackFlowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.requestF(BaseLetterFragment.this, atyClass);
+                BackFlow.request(BaseLetterFragment.this, atyClass);
             }
         });
     }

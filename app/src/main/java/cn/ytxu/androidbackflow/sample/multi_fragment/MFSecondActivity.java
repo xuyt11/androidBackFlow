@@ -30,25 +30,25 @@ public class MFSecondActivity extends BaseActivity {
         $(R.id.mf2_back_2_a_fragment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.requestF(MFSecondActivity.this, MFLetterAFragment.class);
+                BackFlow.request(MFSecondActivity.this, MFLetterAFragment.class);
             }
         });
         $(R.id.mf2_back_2_b_fragment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.requestF(MFSecondActivity.this, MFLetterBFragment.class);
+                BackFlow.request(MFSecondActivity.this, MFLetterBFragment.class);
             }
         });
         $(R.id.mf2_back_2_c_fragment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.requestF(MFSecondActivity.this, MFLetterCFragment.class);
+                BackFlow.request(MFSecondActivity.this, MFLetterCFragment.class);
             }
         });
         $(R.id.mf2_back_2_d_fragment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.requestF(MFSecondActivity.this, MFLetterDFragment.class);
+                BackFlow.request(MFSecondActivity.this, MFLetterDFragment.class);
             }
         });
 

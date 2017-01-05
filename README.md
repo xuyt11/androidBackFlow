@@ -18,7 +18,7 @@ BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClas
 ```
 3. 返回到指定的fragment（回退到包含了指定fragment的activity）
 ```java
-BackFlow.requestF(activity | fragment, @NonNull Class<? extends Fragment> fragmentClass);
+BackFlow.request(activity | fragment, @NonNull Class<? extends Fragment> fragmentClass);
 ```
 4. 返回到activity和fragment都一致的activity；
 ```java
