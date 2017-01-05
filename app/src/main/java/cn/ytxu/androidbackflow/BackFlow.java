@@ -22,10 +22,12 @@ import cn.ytxu.androidbackflow.sample.multi_fragment.letter.MFBaseLetterFragment
 public class BackFlow {
     private static final String _TAG = BackFlow.class.getSimpleName();
     public static final String TAG = _TAG + "-->";
+
     /**
      * 这是回退功能的核心结构，其他的操作的resultCode不能与其一样，否则会有错误
      */
     public static final int RESULT_CODE = Integer.MAX_VALUE;
+
     /**
      * startActivity方法调用的，防止不能触发onActivityResult方法
      * 其他的requestCode，不能与其一样，否则App内部业务逻辑可能有异常情况
@@ -34,7 +36,7 @@ public class BackFlow {
     public static final int REQUEST_CODE = 0x0000ffff;
 
 
-    //********************* execute back *********************
+    //********************* execute back flow *********************
     public static void finishApp(Activity activity) {
         BackFlowType.finish_app.requestBackFlow(activity, null, Collections.EMPTY_LIST, null);
     }
@@ -92,7 +94,7 @@ public class BackFlow {
     }
 
 
-    //********************* handle back *********************
+    //********************* handle back flow *********************
 
     /**
      * @return true：已经处理了，不需要再次分发给该activity的super.onActivityResult去处理；

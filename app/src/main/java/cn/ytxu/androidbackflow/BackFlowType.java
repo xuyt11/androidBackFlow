@@ -23,7 +23,7 @@ enum BackFlowType {
     /**
      * 所有错误的type，都将返回该类型，且都不会处理
      */
-    error(BackFlowExtra.ERROR_BACK_FLOW_TYPE) {
+    error(BackFlowExtraHelper.ERROR_BACK_FLOW_TYPE) {
         @Override
         void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
             throw new IllegalArgumentException("error back flow type");
@@ -59,13 +59,13 @@ enum BackFlowType {
     back_to_activity(2) {
         @Override
         void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
-            Intent data = BackFlowExtra.putActivity(initData(extra), atyClass);
+            Intent data = BackFlowExtraHelper.putActivity(initData(extra), atyClass);
             requestBackFlowInner(activity, data);
         }
 
         @Override
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
-            String targetActivityClassName = BackFlowExtra.getActivity(data);
+            String targetActivityClassName = BackFlowExtraHelper.getActivity(data);
             if (!BackFlowViewHelper.isTargetActivity(activity, targetActivityClassName)) {
                 requestBackFlowInner(activity, data);// request again
             }
@@ -79,13 +79,13 @@ enum BackFlowType {
     back_to_fragments(3) {
         @Override
         void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
-            Intent data = BackFlowExtra.putFragments(initData(extra), fragmentClazzs);
+            Intent data = BackFlowExtraHelper.putFragments(initData(extra), fragmentClazzs);
             requestBackFlowInner(activity, data);
         }
 
         @Override
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
-            List<String> fragmentClassNames = BackFlowExtra.getFragments(data);
+            List<String> fragmentClassNames = BackFlowExtraHelper.getFragments(data);
             try {
                 Fragment fragment = BackFlowViewHelper.findTargetFragment(fragments, fragmentClassNames.listIterator());
                 fragment.onActivityResult(requestCode, resultCode, data);
@@ -103,20 +103,20 @@ enum BackFlowType {
     back_to_activity_fragments(4) {
         @Override
         void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
-            Intent data = BackFlowExtra.putActivity(initData(extra), atyClass);
-            BackFlowExtra.putFragments(data, fragmentClazzs);
+            Intent data = BackFlowExtraHelper.putActivity(initData(extra), atyClass);
+            BackFlowExtraHelper.putFragments(data, fragmentClazzs);
             requestBackFlowInner(activity, data);
         }
 
         @Override
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
-            String targetActivityClassName = BackFlowExtra.getActivity(data);
+            String targetActivityClassName = BackFlowExtraHelper.getActivity(data);
             if (!BackFlowViewHelper.isTargetActivity(activity, targetActivityClassName)) {
                 requestBackFlowInner(activity, data);// send request again
                 return true;
             }
 
-            List<String> fragmentClassNames = BackFlowExtra.getFragments(data);
+            List<String> fragmentClassNames = BackFlowExtraHelper.getFragments(data);
             try {
                 Fragment fragment = BackFlowViewHelper.findTargetFragment(fragments, fragmentClassNames.listIterator());
                 fragment.onActivityResult(requestCode, resultCode, data);
@@ -148,7 +148,7 @@ enum BackFlowType {
     abstract void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra);
 
     protected Intent initData(@Nullable Bundle extra) {
-        return BackFlowExtra.putExtra(BackFlowExtra.init(type), extra);
+        return BackFlowExtraHelper.putExtra(BackFlowExtraHelper.init(type), extra);
     }
 
     protected void requestBackFlowInner(Activity activity, Intent data) {
@@ -166,7 +166,7 @@ enum BackFlowType {
 
 
     static BackFlowType get(Intent data) {
-        int type = BackFlowExtra.getType(data);
+        int type = BackFlowExtraHelper.getType(data);
         for (BackFlowType backFlowType : BackFlowType.values()) {
             if (backFlowType.type == type) {
                 return backFlowType;
@@ -177,6 +177,6 @@ enum BackFlowType {
 
 
     static boolean isBackFlowType(Intent data) {
-        return BackFlowExtra.isBackFlowType(data);
+        return BackFlowExtraHelper.isBackFlowType(data);
     }
 }

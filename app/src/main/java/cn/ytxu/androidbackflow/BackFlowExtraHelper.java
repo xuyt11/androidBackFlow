@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by ytxu on 2017/1/5.
  */
-class BackFlowExtra {
+class BackFlowExtraHelper {
     /**
      * 回退功能的类型: 类型的枚举是BackFlowType中的type
      * type is int
@@ -102,11 +102,11 @@ class BackFlowExtra {
         return data;
     }
 
-    static Bundle getExtra(Intent data) {
+    public static Bundle getExtra(Intent data) {
         return data.getBundleExtra(BACK_FLOW_EXTRA);
     }
 
-    static boolean hasExtra(Intent data) {
+    public static boolean hasExtra(Intent data) {
         return data.hasExtra(BACK_FLOW_EXTRA);
     }
 
