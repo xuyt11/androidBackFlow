@@ -2,6 +2,7 @@ package cn.ytxu.androidbackflow;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,44 +25,46 @@ enum BackFlowType {
      */
     error(BackFlowExtra.ERROR_BACK_FLOW_TYPE) {
         @Override
-        public <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs) {
+        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
             throw new IllegalArgumentException("error back flow type");
         }
 
         @Override
-        public boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
+        boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
             Log.w(TAG, new Throwable("error back flow type"));
             return false;
         }
     },
+
     /**
      * 结束App功能：结束App中所有的activity（准确的说是：finish该task中所有的activity）
      */
     finish_app(1) {
         @Override
-        public <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs) {
-            Intent data = initData();
+        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
+            Intent data = initData(extra);
             requestBackFlowInner(activity, data);
         }
 
         @Override
-        public boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
+        boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
             requestBackFlowInner(activity, data);// request again
             return true;
         }
     },
+
     /**
      * 返回到指定的activity（回退到指定的activity）
      */
     back_to_activity(2) {
         @Override
-        public <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs) {
-            Intent data = BackFlowExtra.putActivity(initData(), atyClass);
+        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
+            Intent data = BackFlowExtra.putActivity(initData(extra), atyClass);
             requestBackFlowInner(activity, data);
         }
 
         @Override
-        public boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
+        boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
             String currActivityClassName = activity.getClass().getName();
             String targetActivityClassName = BackFlowExtra.getActivity(data);
 
@@ -71,18 +74,19 @@ enum BackFlowType {
             return true;
         }
     },
+
     /**
      * 返回到指定的fragment列（回退到包含了指定fragment列的activity）
      */
-    back_to_fragment(3) {
+    back_to_fragments(3) {
         @Override
-        public <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs) {
-            Intent data = BackFlowExtra.putFragments(initData(), fragmentClazzs);
+        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
+            Intent data = BackFlowExtra.putFragments(initData(extra), fragmentClazzs);
             requestBackFlowInner(activity, data);
         }
 
         @Override
-        public boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
+        boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
             List<String> fragmentClassNames = BackFlowExtra.getFragments(data);
             try {
                 Fragment fragment = BackFlowFindTargetFragmentHelper.findTargetFragment(fragments, fragmentClassNames.listIterator());
@@ -98,16 +102,16 @@ enum BackFlowType {
     /**
      * 返回到activity和fragment列都一致的activity
      */
-    back_to_activity_fragment(4) {
+    back_to_activity_fragments(4) {
         @Override
-        public <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs) {
-            Intent data = BackFlowExtra.putActivity(initData(), atyClass);
+        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
+            Intent data = BackFlowExtra.putActivity(initData(extra), atyClass);
             BackFlowExtra.putFragments(data, fragmentClazzs);
             requestBackFlowInner(activity, data);
         }
 
         @Override
-        public boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
+        boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
             String currActivityClassName = activity.getClass().getName();
             String targetActivityClassName = BackFlowExtra.getActivity(data);
             if (!isMatch(currActivityClassName, targetActivityClassName)) {
@@ -148,10 +152,10 @@ enum BackFlowType {
      * @param activityClassName 回退到该activity
      * @param fragmentClazzs    回退到该fragment的顺序列表
      */
-    public abstract <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs);
+    abstract <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra);
 
-    protected Intent initData() {
-        return BackFlowExtra.init(type);
+    protected Intent initData(@Nullable Bundle extra) {
+        return BackFlowExtra.putExtra(BackFlowExtra.init(type), extra);
     }
 
     protected void requestBackFlowInner(Activity activity, Intent data) {
@@ -165,13 +169,13 @@ enum BackFlowType {
      * 若找到目标组，则停止分发；
      * 且若目标为fragment，会调用onActivityResult(resultCode, resultCode, data)方法
      */
-    public abstract boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data);
+    abstract boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data);
 
     protected boolean isMatch(String currClassName, String targetClassName) {
         return currClassName.equals(targetClassName);
     }
 
-    public static BackFlowType get(Intent data) {
+    static BackFlowType get(Intent data) {
         int type = BackFlowExtra.getType(data);
         for (BackFlowType backFlowType : BackFlowType.values()) {
             if (backFlowType.type == type) {
@@ -182,7 +186,7 @@ enum BackFlowType {
     }
 
 
-    public static boolean isBackFlowType(Intent data) {
+    static boolean isBackFlowType(Intent data) {
         return BackFlowExtra.isBackFlowType(data);
     }
 }
