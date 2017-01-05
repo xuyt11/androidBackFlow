@@ -7,9 +7,12 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import cn.ytxu.androidbackflow.sample.multi_fragment.letter.MFBaseLetterFragment;
 
 /**
  * Created by ytxu on 16/12/30.
@@ -32,71 +35,59 @@ public class BackFlow {
 
 
     //********************* execute back *********************
-    public static <Self extends Activity> void finishApp(Self activity) {
+    public static void finishApp(Activity activity) {
         BackFlowType.finish_app.requestBackFlow(activity, null, Collections.EMPTY_LIST, null);
     }
 
-    public static <Self extends Fragment> void finishApp(Self fragment) {
+    public static void finishApp(Fragment fragment) {
         BackFlowType.finish_app.requestBackFlow(fragment.getActivity(), null, Collections.EMPTY_LIST, null);
     }
 
-    public static <Self extends Activity, A extends Activity> void request(
-            Self activity, @NonNull Class<A> atyClass) {
+    public static void request(Activity activity, @NonNull Class<? extends Activity> atyClass) {
         BackFlowType.back_to_activity.requestBackFlow(activity, atyClass, Collections.EMPTY_LIST, null);
     }
 
-    public static <Self extends Activity, A extends Activity> void request(
-            Self activity, @NonNull Bundle extra, @NonNull Class<A> atyClass) {
+    public static void request(Activity activity, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass) {
         BackFlowType.back_to_activity.requestBackFlow(activity, atyClass, Collections.EMPTY_LIST, extra);
     }
 
-    public static <Self extends Fragment, A extends Activity> void request(
-            Self fragment, @NonNull Class<A> atyClass) {
+    public static void request(Fragment fragment, @NonNull Class<? extends Activity> atyClass) {
         BackFlowType.back_to_activity.requestBackFlow(fragment.getActivity(), atyClass, Collections.EMPTY_LIST, null);
     }
 
-    public static <Self extends Fragment, A extends Activity> void request(
-            Self fragment, @NonNull Bundle extra, @NonNull Class<A> atyClass) {
+    public static void request(Fragment fragment, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass) {
         BackFlowType.back_to_activity.requestBackFlow(fragment.getActivity(), atyClass, Collections.EMPTY_LIST, extra);
     }
 
-    public static <Self extends Activity, F extends Fragment> void request(
-            Self activity, @NonNull Class<F>... fragmentClazzs) {
+    public static void request(Activity activity, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         BackFlowType.back_to_fragments.requestBackFlow(activity, null, Arrays.asList(fragmentClazzs), null);
     }
 
-    public static <Self extends Activity, F extends Fragment> void request(
-            Self activity, @NonNull Bundle extra, @NonNull Class<F>... fragmentClazzs) {
+    public static void request(Activity activity, @NonNull Bundle extra, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         BackFlowType.back_to_fragments.requestBackFlow(activity, null, Arrays.asList(fragmentClazzs), extra);
     }
 
-    public static <Self extends Fragment, F extends Fragment> void request(
-            Self fragment, @NonNull Class<F>... fragmentClazzs) {
+    public static void request(Fragment fragment, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         BackFlowType.back_to_fragments.requestBackFlow(fragment.getActivity(), null, Arrays.asList(fragmentClazzs), null);
     }
 
-    public static <Self extends Fragment, F extends Fragment> void request(
-            Self fragment, @NonNull Bundle extra, @NonNull Class<F>... fragmentClazzs) {
+    public static void request(Fragment fragment, @NonNull Bundle extra, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         BackFlowType.back_to_fragments.requestBackFlow(fragment.getActivity(), null, Arrays.asList(fragmentClazzs), extra);
     }
 
-    public static <Self extends Activity, A extends Activity, F extends Fragment> void request(
-            Self activity, @NonNull Class<A> atyClass, @NonNull Class<F>... fragmentClazzs) {
+    public static void request(Activity activity, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         BackFlowType.back_to_activity_fragments.requestBackFlow(activity, atyClass, Arrays.asList(fragmentClazzs), null);
     }
 
-    public static <Self extends Activity, A extends Activity, F extends Fragment> void request(
-            Self activity, @NonNull Bundle extra, @NonNull Class<A> atyClass, @NonNull Class<F>... fragmentClazzs) {
+    public static void request(Activity activity, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         BackFlowType.back_to_activity_fragments.requestBackFlow(activity, atyClass, Arrays.asList(fragmentClazzs), extra);
     }
 
-    public static <Self extends Fragment, A extends Activity, F extends Fragment> void request(
-            Self fragment, @NonNull Class<A> atyClass, @NonNull Class<F>... fragmentClazzs) {
+    public static void request(Fragment fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         BackFlowType.back_to_activity_fragments.requestBackFlow(fragment.getActivity(), atyClass, Arrays.asList(fragmentClazzs), null);
     }
 
-    public static <Self extends Fragment, A extends Activity, F extends Fragment> void request(
-            Self fragment, @NonNull Bundle extra, @NonNull Class<A> atyClass, @NonNull Class<F>... fragmentClazzs) {
+    public static void request(Fragment fragment, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         BackFlowType.back_to_activity_fragments.requestBackFlow(fragment.getActivity(), atyClass, Arrays.asList(fragmentClazzs), extra);
     }
 

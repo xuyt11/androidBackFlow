@@ -59,7 +59,7 @@ class BackFlowExtra {
 
 
     //**************************** activity class name ****************************
-    static <A extends Activity> Intent putActivity(Intent data, @NonNull Class<A> atyClass) {
+    static Intent putActivity(Intent data, @NonNull Class<? extends Activity> atyClass) {
         return data.putExtra(BACK_FLOW_ACTIVITY, atyClass.getName());
     }
 
@@ -69,9 +69,9 @@ class BackFlowExtra {
 
 
     //**************************** fragment class name ****************************
-    static <F extends Fragment> Intent putFragments(Intent data, @NonNull List<Class<F>> fragmentClazzs) {
+    static Intent putFragments(Intent data, @NonNull List<Class<? extends Fragment>> fragmentClazzs) {
         JSONArray fragmentClassNameJsonArray = new JSONArray();
-        for (Class<F> fragmentClazz : fragmentClazzs) {
+        for (Class<? extends Fragment> fragmentClazz : fragmentClazzs) {
             fragmentClassNameJsonArray.put(fragmentClazz.getName());
         }
         return data.putExtra(BACK_FLOW_FRAGMENTS, fragmentClassNameJsonArray.toString());

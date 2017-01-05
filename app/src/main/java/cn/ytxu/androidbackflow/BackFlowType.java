@@ -25,7 +25,7 @@ enum BackFlowType {
      */
     error(BackFlowExtra.ERROR_BACK_FLOW_TYPE) {
         @Override
-        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
+        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
             throw new IllegalArgumentException("error back flow type");
         }
 
@@ -41,7 +41,7 @@ enum BackFlowType {
      */
     finish_app(1) {
         @Override
-        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
+        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
             Intent data = initData(extra);
             requestBackFlowInner(activity, data);
         }
@@ -58,7 +58,7 @@ enum BackFlowType {
      */
     back_to_activity(2) {
         @Override
-        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
+        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
             Intent data = BackFlowExtra.putActivity(initData(extra), atyClass);
             requestBackFlowInner(activity, data);
         }
@@ -80,7 +80,7 @@ enum BackFlowType {
      */
     back_to_fragments(3) {
         @Override
-        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
+        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
             Intent data = BackFlowExtra.putFragments(initData(extra), fragmentClazzs);
             requestBackFlowInner(activity, data);
         }
@@ -104,7 +104,7 @@ enum BackFlowType {
      */
     back_to_activity_fragments(4) {
         @Override
-        <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra) {
+        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
             Intent data = BackFlowExtra.putActivity(initData(extra), atyClass);
             BackFlowExtra.putFragments(data, fragmentClazzs);
             requestBackFlowInner(activity, data);
@@ -152,7 +152,7 @@ enum BackFlowType {
      * @param activityClassName 回退到该activity
      * @param fragmentClazzs    回退到该fragment的顺序列表
      */
-    abstract <A extends Activity, F extends Fragment> void requestBackFlow(Activity activity, @Nullable Class<A> atyClass, @NonNull List<Class<F>> fragmentClazzs, @Nullable Bundle extra);
+    abstract void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra);
 
     protected Intent initData(@Nullable Bundle extra) {
         return BackFlowExtra.putExtra(BackFlowExtra.init(type), extra);
