@@ -17,15 +17,15 @@ BackFlow.finishTask(activity | fragment);
 ```
 2. 返回到指定的activity（回退到指定的activity），若有多个activity实例，则只会回退到第一个匹配；
 ```java
-BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass);
+BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass)
 ```
 3. 返回到指定的fragment列（回退到第一个匹配该fragment顺序列的activity）
 ```java
-BackFlow.request(activity | fragment, @NonNull Class<? extends Fragment> fragmentClazzs);
+BackFlow.request(activity | fragment, @NonNull Class<? extends Fragment>... fragmentClazzs)
 ```
 4. 返回到activity和fragment列都一致的activity（回退到包含了该fragment顺序列的activity）
 ```java
-BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment> fragmentClazzs);
+BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs)
 ```
 5. 若有额外参数，可以使用带Bundle参数的request方法
     * 传入额外参数
@@ -42,7 +42,7 @@ BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClas
     ```
 6. 也可以自己去使用Builder去构建BackFlow request
 ```java
-BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFragments(FcsfAFragment.class, FCSFSecondAFragment.class).create().request();
+BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFragments(FcsfAFragment.class, FCSFSecondAFragment.class).create().request()
 ```
 
 
@@ -50,23 +50,23 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
 1. 利用startActivityForResult、onActivityResult、setResult与finish(activity)4四个方法，进行实现的；
 2. 需要有两个基础类：BaseActivity与BaseFragment，所有的activity与fragment都需要继承于他们；
 3. 需要@Override App中BaseActivity与BaseFragment两个类的startActivity(intent)方法，并且在内部实现中调用startActivityForResult(intent, requestCode)方法，使得在BackFlow操作时，能串行链式的回退；
-```java
-@Override
-public void startActivity(Intent intent) {
-   startActivityForResult(intent, BackFlow.REQUEST_CODE);
-}
-```
+    ```java
+    @Override
+    public void startActivity(Intent intent) {
+       startActivityForResult(intent, BackFlow.REQUEST_CODE);
+    }
+    ```
 4. 需要@Override App中BaseActivity的onActivityResult(requestCode, resultCode, data)方法，并在内部调用BackFlow.handle(this, resultCode, data)来进行回退操作的管理，并在目标位置结束继续调用onActivityResult方法；
-    * 不需要@Override BaseFragment
-```java
-@Override
-protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-   if (BackFlow.handle(this, getSupportFragmentManager().getFragments(), requestCode, resultCode, data)) {
-       return;
-   }
-   super.onActivityResult(requestCode, resultCode, data);
-}
-```
+    * tip: 不需要@Override BaseFragment
+    ```java
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+       if (BackFlow.handle(this, getSupportFragmentManager().getFragments(), requestCode, resultCode, data)) {
+           return;
+       }
+       super.onActivityResult(requestCode, resultCode, data);
+    }
+    ```
 5. 调用BackFlow方法执行回退操作；
     * BackFlow操作内部会调用setResult与finish(activity)方法，用于链式回退；
     ```java
