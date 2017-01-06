@@ -94,7 +94,7 @@ public class BackFlow {
     }
 
 
-    //********************* builder request param and intent *********************
+    //********************* builder request param and get extra *********************
     public static BackFlowParam.Builder builder(@NonNull BackFlowType type, @NonNull Activity activity) {
         return new BackFlowParam.Builder(type, activity);
     }

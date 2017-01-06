@@ -41,7 +41,7 @@ public class MFBaseLetterFragment extends BaseFragment {
             }
         });
 
-        $(R.id.mf_letter_finish_app_btn).setOnClickListener(new View.OnClickListener() {
+        $(R.id.mf_letter_finish_task_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BackFlow.finishTask(MFBaseLetterFragment.this);

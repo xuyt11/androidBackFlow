@@ -12,7 +12,7 @@ public class LetterGActivity extends BaseLetterActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setRollbackFlow(ContainerActivity.class, "回退栈中没有ContainerActivity，所以，会变为finish_app的效果");
+        setRollbackFlow(ContainerActivity.class, "回退栈中没有ContainerActivity，所以，会变为finish_task的效果");
     }
 
 }

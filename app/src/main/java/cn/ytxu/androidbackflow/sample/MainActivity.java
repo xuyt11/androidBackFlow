@@ -6,6 +6,7 @@ import android.view.View;
 
 import cn.ytxu.androidbackflow.BaseActivity;
 import cn.ytxu.androidbackflow.R;
+import cn.ytxu.androidbackflow.sample.fragment_contains_sub_fragment.first_level.FcsfAFragment;
 import cn.ytxu.androidbackflow.sample.multi_fragment.MultiFragmentActivity;
 import cn.ytxu.androidbackflow.sample.multi_process.MultiProcessActivity;
 import cn.ytxu.androidbackflow.sample.multi_task.MultiTaskActivity;
@@ -32,7 +33,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         $(R.id.main_btn_4_multi_task).setOnClickListener(this);
         $(R.id.main_btn_4_multi_task_and_process).setOnClickListener(this);
         $(R.id.main_btn_4_multi_fragment).setOnClickListener(this);
-        $(R.id.main_btn_4_multi_fragment_contains_sub_fragment).setOnClickListener(this);
+        $(R.id.main_btn_4_fragment_contains_sub_fragment).setOnClickListener(this);
     }
 
     @Override
@@ -76,9 +77,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intent);
             }
             break;
-            case R.id.main_btn_4_multi_fragment_contains_sub_fragment: {
-                // TODO
-                Intent intent = new Intent(this, MultiTaskAndProcessActivity.class);
+            case R.id.main_btn_4_fragment_contains_sub_fragment: {
+                Intent intent = new Intent(this, ContainerActivity.class);
+                intent.putExtra(ContainerActivity.PARAM_CLASSNAME, FcsfAFragment.class.getName());
                 startActivity(intent);
             }
             break;

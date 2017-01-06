@@ -56,7 +56,7 @@ public class BaseLetterActivity extends BaseActivity {
     }
 
     private void finishApp() {
-        $(R.id.letter_finish_app_btn).setOnClickListener(new View.OnClickListener() {
+        $(R.id.letter_finish_task_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BackFlow.finishTask(BaseLetterActivity.this);

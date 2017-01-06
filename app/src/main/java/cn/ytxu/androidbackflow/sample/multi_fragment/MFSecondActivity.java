@@ -20,7 +20,7 @@ public class MFSecondActivity extends BaseActivity {
 
         setTitle(getClass().getSimpleName());
 
-        $(R.id.mf2_finish_app_btn).setOnClickListener(new View.OnClickListener() {
+        $(R.id.mf2_finish_task_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 BackFlow.finishTask(MFSecondActivity.this);

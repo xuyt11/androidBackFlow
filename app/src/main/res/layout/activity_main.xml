@@ -100,11 +100,11 @@
             android:textColor="#d76e6e" />
 
         <Button
-            android:id="@+id/main_btn_4_multi_fragment_contains_sub_fragment"
+            android:id="@+id/main_btn_4_fragment_contains_sub_fragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="jump to multi fragment contains sub fragment"
+            android:text="jump to fragment contains sub fragment"
             android:textAllCaps="false"
             android:textColor="#c11313" />
     </LinearLayout>

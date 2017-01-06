@@ -33,12 +33,12 @@
         android:textColor="@android:color/holo_orange_dark" />
 
     <Button
-        android:id="@+id/letter_finish_app_btn"
+        android:id="@+id/letter_finish_task_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
-        android:text="finish_app"
+        android:text="finish_task"
         android:textAllCaps="false"
         android:textColor="@android:color/holo_red_dark" />
 </LinearLayout>

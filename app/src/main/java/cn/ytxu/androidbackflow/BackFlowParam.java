@@ -17,7 +17,7 @@ import java.util.List;
  * 2、若atyClass!=null && fragmentClazzs.isEmpty()，则会回退到该activity；<br>
  * 若有多个activity实例，则只会回退到第一个匹配；<br>
  * 3、若atyClass==null && !fragmentClazzs.isEmpty()，则会回退到第一个匹配该fragment顺序列的activity；<br>
- * 4、若在整个回退流程流程中，没有匹配到目标，则相当于finish_app的功能。<br>
+ * 4、若在整个回退流程流程中，没有匹配到目标，则相当于finish_task的功能。<br>
  */
 public final class BackFlowParam {
     private final BackFlowType type;

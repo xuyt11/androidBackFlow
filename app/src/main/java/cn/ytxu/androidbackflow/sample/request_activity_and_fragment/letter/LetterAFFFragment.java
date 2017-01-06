@@ -15,7 +15,7 @@ public class LetterAFFFragment extends BaseLetterAFFragment {
 
         if (getActivity() instanceof ContainerAF1Activity) {
             setRollbackFlow(ContainerAF1Activity.class, LetterAFFFragment.class,
-                    "由于根activity是MainActivity，没有Fragment，\n所以只会退到MainActivity，\n不会变成finish_app的效果");
+                    "回退中没有匹配的，\n所以会变成finish_task的效果");
         }
     }
 }

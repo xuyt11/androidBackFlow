@@ -56,8 +56,8 @@ BackFlow.finishApp(activity)
 
 ## 代码简介
 1. 主功能：BackFlowType.java
-    * 共五个分类：error，finish_app，back_to_activity，back_to_fragment，back_to_activity_fragment
-       * finish_app: 结束App功能：结束App中所有的activity（准确的说是：finish该task中所有的activity）
+    * 共五个分类：error，finish_task，back_to_activity，back_to_fragment，back_to_activity_fragment
+       * finish_task: 结束App功能：结束App中所有的activity（准确的说是：finish该task中所有的activity）
        * back_to_activity: 返回到指定的activity（回退到指定的activity）
        * back_to_fragment: 返回到指定的fragment（回退到包含了指定fragment的activity）；
        * back_to_activity_fragment: 返回到activity和fragment都一致的activity；

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".sample.fragment_contains_sub_fragment.first_level.ContainsSFFragment">
+
+    <Button
+        android:id="@+id/fcsf_4_jump_2_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="jump to next"
+        android:textAllCaps="false"
+        android:textColor="#000000" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/fcsf_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#af1234"
+        android:scrollbars="none" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/fcsf_tab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:tabGravity="fill"
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed" />
+
+</LinearLayout>
