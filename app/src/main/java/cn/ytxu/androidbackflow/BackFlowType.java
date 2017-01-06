@@ -3,7 +3,6 @@ package cn.ytxu.androidbackflow;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -25,7 +24,7 @@ enum BackFlowType {
      */
     error(BackFlowExtraHelper.ERROR_BACK_FLOW_TYPE) {
         @Override
-        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
+        Intent createRequestData(BackFlowRequestParam param) {
             throw new IllegalArgumentException("error back flow type");
         }
 
@@ -37,50 +36,66 @@ enum BackFlowType {
     },
 
     /**
-     * 结束App功能：结束App中所有的activity（准确的说是：finish该task中所有的activity）
+     * 结束App功能：结束App中所有的activity（准确的说是：finish该task中所有的activity）<br>
+     * 若在整个回退流程流程中，没有匹配到目标，也相当于finish_app的功能。
      */
     finish_app(1) {
         @Override
-        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
-            Intent data = initData(extra);
-            requestBackFlowInner(activity, data);
+        Intent createRequestData(BackFlowRequestParam param) {
+            if (param.atyClass != null || !param.fragmentClazzs.isEmpty()) {
+                throw new IllegalArgumentException("error back flow param");
+            }
+            return initData(param.extra);
         }
 
         @Override
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
-            requestBackFlowInner(activity, data);// request again
+            BackFlow.request(activity, data);// send request again
             return true;
         }
     },
 
     /**
-     * 返回到指定的activity（回退到指定的activity）
+     * 返回到指定的activity（回退到指定的activity），若有多个activity实例，则只会回退到第一个匹配；<br>
+     * atyClass!=null && fragmentClazzs.isEmpty()
      */
     back_to_activity(2) {
         @Override
-        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
-            Intent data = BackFlowExtraHelper.putActivity(initData(extra), atyClass);
-            requestBackFlowInner(activity, data);
+        Intent createRequestData(BackFlowRequestParam param) {
+            if (param.atyClass == null) {
+                throw new IllegalArgumentException("atyClass param must be non null");
+            }
+            if (!param.fragmentClazzs.isEmpty()) {
+                throw new IllegalArgumentException("error back flow param");
+            }
+            return BackFlowExtraHelper.putActivity(initData(param.extra), param.atyClass);
         }
 
         @Override
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
             String targetActivityClassName = BackFlowExtraHelper.getActivity(data);
             if (!BackFlowViewHelper.isTargetActivity(activity, targetActivityClassName)) {
-                requestBackFlowInner(activity, data);// request again
+                BackFlow.request(activity, data);// send request again
             }
             return true;
         }
     },
 
     /**
-     * 返回到指定的fragment列（回退到包含了指定fragment列的activity）
+     * 返回到指定的fragment列（回退到第一个匹配该fragment顺序列的activity）<br>
+     * atyClass==null && !fragmentClazzs.isEmpty()
      */
     back_to_fragments(3) {
         @Override
-        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
-            Intent data = BackFlowExtraHelper.putFragments(initData(extra), fragmentClazzs);
-            requestBackFlowInner(activity, data);
+        Intent createRequestData(BackFlowRequestParam param) {
+            if (param.atyClass != null) {
+                throw new IllegalArgumentException("atyClass param must be null");
+            }
+            if (param.fragmentClazzs.isEmpty()) {
+                throw new IllegalArgumentException("fragmentClazzs param must not empty");
+            }
+
+            return BackFlowExtraHelper.putFragments(initData(param.extra), param.fragmentClazzs);
         }
 
         @Override
@@ -91,28 +106,34 @@ enum BackFlowType {
                 fragment.onActivityResult(requestCode, resultCode, data);
                 return true;
             } catch (BackFlowViewHelper.NotFindTargetFragmentException e) {
-                requestBackFlowInner(activity, data);// send request again
+                BackFlow.request(activity, data);// send request again
                 return true;
             }
         }
     },
 
     /**
-     * 返回到activity和fragment列都一致的activity
+     * 返回到activity和fragment列都一致的activity（回退到包含了该fragment顺序列的activity）<br>
+     * atyClass!=null && !fragmentClazzs.isEmpty()
      */
     back_to_activity_fragments(4) {
         @Override
-        void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra) {
-            Intent data = BackFlowExtraHelper.putActivity(initData(extra), atyClass);
-            BackFlowExtraHelper.putFragments(data, fragmentClazzs);
-            requestBackFlowInner(activity, data);
+        Intent createRequestData(BackFlowRequestParam param) {
+            if (param.atyClass == null) {
+                throw new IllegalArgumentException("atyClass param must be non null");
+            }
+            if (param.fragmentClazzs.isEmpty()) {
+                throw new IllegalArgumentException("fragmentClazzs param must not empty");
+            }
+            Intent data = BackFlowExtraHelper.putActivity(initData(param.extra), param.atyClass);
+            return BackFlowExtraHelper.putFragments(data, param.fragmentClazzs);
         }
 
         @Override
         boolean handleBackFlow(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
             String targetActivityClassName = BackFlowExtraHelper.getActivity(data);
             if (!BackFlowViewHelper.isTargetActivity(activity, targetActivityClassName)) {
-                requestBackFlowInner(activity, data);// send request again
+                BackFlow.request(activity, data);// send request again
                 return true;
             }
 
@@ -122,7 +143,7 @@ enum BackFlowType {
                 fragment.onActivityResult(requestCode, resultCode, data);
                 return true;
             } catch (BackFlowViewHelper.NotFindTargetFragmentException e) {
-                requestBackFlowInner(activity, data);// send request again
+                BackFlow.request(activity, data);// send request again
                 return true;
             }
         }
@@ -134,26 +155,10 @@ enum BackFlowType {
         this.type = type;
     }
 
-    /**
-     * 1、若atyClass!=null && !atyClass.isEmpty()，则会回退到包含了该fragment顺序列的activity；<br>
-     * 2、若atyClass!=null && fragmentClazzs==null，则会回退到该activity；<br>
-     * 若有多个activity实例，则只会回退到第一个匹配；<br>
-     * 3、若atyClass==null && fragmentClazzs!=null，则会回退到第一个匹配该fragment顺序列的activity；<br>
-     * 4、若在整个回退流程流程中，没有匹配到目标，则相当于finish_app的功能。<br>
-     *
-     * @param atyClass       回退到该activity
-     * @param fragmentClazzs 回退到该fragment的顺序列表
-     * @param extra          额外的附加数据
-     */
-    abstract void requestBackFlow(Activity activity, @Nullable Class<? extends Activity> atyClass, @NonNull List<Class<? extends Fragment>> fragmentClazzs, @Nullable Bundle extra);
+    abstract Intent createRequestData(BackFlowRequestParam param);
 
     protected Intent initData(@Nullable Bundle extra) {
         return BackFlowExtraHelper.putExtra(BackFlowExtraHelper.init(type), extra);
-    }
-
-    protected void requestBackFlowInner(Activity activity, Intent data) {
-        activity.setResult(BackFlow.RESULT_CODE, data);
-        activity.finish();
     }
 
     /**
@@ -179,4 +184,5 @@ enum BackFlowType {
     static boolean isBackFlowType(Intent data) {
         return BackFlowExtraHelper.isBackFlowType(data);
     }
+
 }
