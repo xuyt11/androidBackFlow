@@ -102,12 +102,12 @@ class BackFlowIntent {
         return data;
     }
 
-    static Bundle getExtra(Intent data) {
-        return data.getBundleExtra(BACK_FLOW_EXTRA);
-    }
-
     static boolean hasExtra(Intent data) {
         return data.hasExtra(BACK_FLOW_EXTRA);
+    }
+
+    static Bundle getExtra(Intent data) {
+        return data.getBundleExtra(BACK_FLOW_EXTRA);
     }
 
 

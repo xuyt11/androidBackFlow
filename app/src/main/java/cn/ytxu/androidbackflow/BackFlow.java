@@ -103,12 +103,12 @@ public class BackFlow {
         return new BackFlowParam.Builder(type, fragment);
     }
 
-    public static Bundle getExtra(Intent data) {
-        return BackFlowIntent.getExtra(data);
-    }
-
     public static boolean hasExtra(Intent data) {
         return BackFlowIntent.hasExtra(data);
+    }
+
+    public static Bundle getExtra(Intent data) {
+        return BackFlowIntent.getExtra(data);
     }
 
 
