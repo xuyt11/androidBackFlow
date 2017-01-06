@@ -49,7 +49,8 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
 ## 内部实现
 1. 利用startActivityForResult、onActivityResult、setResult与finish(activity)4四个方法，进行实现的；
 2. 需要有两个基础类：BaseActivity与BaseFragment，所有的activity与fragment都需要继承于他们；
-3. 需要@Override App中BaseActivity与BaseFragment两个类的startActivity(intent)方法，并且在内部实现中调用startActivityForResult(intent, requestCode)方法，使得在BackFlow操作时，能串行链式的回退；
+3. 需要@Override App中BaseActivity与BaseFragment两个类的startActivity(intent)方法，
+    * 在内部实现中调用startActivityForResult(intent, requestCode)方法，使得在BackFlow操作时，能串行链式的回退；
     ```java
     @Override
     public void startActivity(Intent intent) {
