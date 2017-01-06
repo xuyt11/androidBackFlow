@@ -33,59 +33,59 @@ public class BackFlow {
 
     //********************* execute back flow *********************
     public static void finishApp(Activity activity) {
-        new BackFlowRequestParam.Builder(BackFlowType.finish_app, activity).create().request();
+        builder(BackFlowType.finish_app, activity).create().request();
     }
 
     public static void finishApp(Fragment fragment) {
-        new BackFlowRequestParam.Builder(BackFlowType.finish_app, fragment).create().request();
+        builder(BackFlowType.finish_app, fragment).create().request();
     }
 
     public static void request(Activity activity, @NonNull Class<? extends Activity> atyClass) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_activity, activity).setActivity(atyClass).create().request();
+        builder(BackFlowType.back_to_activity, activity).setActivity(atyClass).create().request();
     }
 
     public static void request(Activity activity, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_activity, activity).setActivity(atyClass).setExtra(extra).create().request();
+        builder(BackFlowType.back_to_activity, activity).setActivity(atyClass).setExtra(extra).create().request();
     }
 
     public static void request(Fragment fragment, @NonNull Class<? extends Activity> atyClass) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_activity, fragment).setActivity(atyClass).create().request();
+        builder(BackFlowType.back_to_activity, fragment).setActivity(atyClass).create().request();
     }
 
     public static void request(Fragment fragment, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_activity, fragment).setActivity(atyClass).setExtra(extra).create().request();
+        builder(BackFlowType.back_to_activity, fragment).setActivity(atyClass).setExtra(extra).create().request();
     }
 
     public static void request(Activity activity, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_fragments, activity).setFragments(fragmentClazzs).create().request();
+        builder(BackFlowType.back_to_fragments, activity).setFragments(fragmentClazzs).create().request();
     }
 
     public static void request(Activity activity, @NonNull Bundle extra, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_fragments, activity).setFragments(fragmentClazzs).setExtra(extra).create().request();
+        builder(BackFlowType.back_to_fragments, activity).setFragments(fragmentClazzs).setExtra(extra).create().request();
     }
 
     public static void request(Fragment fragment, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_fragments, fragment).setFragments(fragmentClazzs).create().request();
+        builder(BackFlowType.back_to_fragments, fragment).setFragments(fragmentClazzs).create().request();
     }
 
     public static void request(Fragment fragment, @NonNull Bundle extra, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_fragments, fragment).setFragments(fragmentClazzs).setExtra(extra).create().request();
+        builder(BackFlowType.back_to_fragments, fragment).setFragments(fragmentClazzs).setExtra(extra).create().request();
     }
 
     public static void request(Activity activity, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_activity_fragments, activity).setActivity(atyClass).setFragments(fragmentClazzs).create().request();
+        builder(BackFlowType.back_to_activity_fragments, activity).setActivity(atyClass).setFragments(fragmentClazzs).create().request();
     }
 
     public static void request(Activity activity, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_activity_fragments, activity).setActivity(atyClass).setFragments(fragmentClazzs).setExtra(extra).create().request();
+        builder(BackFlowType.back_to_activity_fragments, activity).setActivity(atyClass).setFragments(fragmentClazzs).setExtra(extra).create().request();
     }
 
     public static void request(Fragment fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_activity_fragments, fragment).setActivity(atyClass).setFragments(fragmentClazzs).create().request();
+        builder(BackFlowType.back_to_activity_fragments, fragment).setActivity(atyClass).setFragments(fragmentClazzs).create().request();
     }
 
     public static void request(Fragment fragment, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        new BackFlowRequestParam.Builder(BackFlowType.back_to_activity_fragments, fragment).setActivity(atyClass).setFragments(fragmentClazzs).setExtra(extra).create().request();
+        builder(BackFlowType.back_to_activity_fragments, fragment).setActivity(atyClass).setFragments(fragmentClazzs).setExtra(extra).create().request();
     }
 
     static void request(@NonNull Activity activity, @NonNull Intent requestData) {
@@ -94,13 +94,21 @@ public class BackFlow {
     }
 
 
-    //********************* builder request param *********************
-    public static BackFlowRequestParam.Builder builder(@NonNull BackFlowType type, @NonNull Activity activity) {
-        return new BackFlowRequestParam.Builder(type, activity);
+    //********************* builder request param and intent *********************
+    public static BackFlowParam.Builder builder(@NonNull BackFlowType type, @NonNull Activity activity) {
+        return new BackFlowParam.Builder(type, activity);
     }
 
-    public static BackFlowRequestParam.Builder builder(@NonNull BackFlowType type, @NonNull Fragment fragment) {
-        return new BackFlowRequestParam.Builder(type, fragment);
+    public static BackFlowParam.Builder builder(@NonNull BackFlowType type, @NonNull Fragment fragment) {
+        return new BackFlowParam.Builder(type, fragment);
+    }
+
+    public static Bundle getExtra(Intent data) {
+        return BackFlowIntent.getExtra(data);
+    }
+
+    public static boolean hasExtra(Intent data) {
+        return BackFlowIntent.hasExtra(data);
     }
 
 
@@ -117,7 +125,7 @@ public class BackFlow {
         }
 
         logData(activity.getClass().getSimpleName(), data);
-        return BackFlowType.get(data).handleBackFlow(activity, fragments, requestCode, resultCode, data);
+        return BackFlowType.get(data).handle(activity, fragments, requestCode, resultCode, data);
     }
 
     private static boolean canHandle(int resultCode, Intent data) {

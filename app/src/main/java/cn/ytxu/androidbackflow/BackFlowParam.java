@@ -19,7 +19,7 @@ import java.util.List;
  * 3、若atyClass==null && !fragmentClazzs.isEmpty()，则会回退到第一个匹配该fragment顺序列的activity；<br>
  * 4、若在整个回退流程流程中，没有匹配到目标，则相当于finish_app的功能。<br>
  */
-public final class BackFlowRequestParam {
+public final class BackFlowParam {
     private final BackFlowType type;
     private final Activity activity;
 
@@ -30,7 +30,7 @@ public final class BackFlowRequestParam {
 
     private Intent requestData;
 
-    private BackFlowRequestParam(@NonNull BackFlowType type, @NonNull Activity activity) {
+    private BackFlowParam(@NonNull BackFlowType type, @NonNull Activity activity) {
         this.type = type;
         this.activity = activity;
     }
@@ -42,14 +42,14 @@ public final class BackFlowRequestParam {
 
     //********************* builder request param *********************
     public static final class Builder {
-        private final BackFlowRequestParam P;
+        private final BackFlowParam P;
 
         Builder(@NonNull BackFlowType type, @NonNull Activity activity) {
-            P = new BackFlowRequestParam(type, activity);
+            P = new BackFlowParam(type, activity);
         }
 
         Builder(@NonNull BackFlowType type, @NonNull Fragment fragment) {
-            P = new BackFlowRequestParam(type, fragment.getActivity());
+            P = new BackFlowParam(type, fragment.getActivity());
         }
 
         public Builder setActivity(@NonNull Class<? extends Activity> atyClass) {
@@ -67,7 +67,7 @@ public final class BackFlowRequestParam {
             return this;
         }
 
-        public BackFlowRequestParam create() {
+        public BackFlowParam create() {
             P.requestData = P.type.createRequestData(P);
             return P;
         }

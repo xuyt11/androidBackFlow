@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by ytxu on 2017/1/5.
  */
-class BackFlowExtraHelper {
+class BackFlowIntent {
     /**
      * 回退功能的类型: 类型的枚举是BackFlowType中的type
      * type is int
@@ -45,8 +45,8 @@ class BackFlowExtraHelper {
 
 
     //**************************** back flow type ****************************
-    static Intent init(int type) {
-        return new Intent().putExtra(BACK_FLOW_TYPE, type);
+    private static Intent putType(Intent data, int type) {
+        return data.putExtra(BACK_FLOW_TYPE, type);
     }
 
     static int getType(Intent data) {
@@ -59,7 +59,7 @@ class BackFlowExtraHelper {
 
 
     //**************************** activity class name ****************************
-    static Intent putActivity(Intent data, @NonNull Class<? extends Activity> atyClass) {
+    private static Intent putActivity(Intent data, @NonNull Class<? extends Activity> atyClass) {
         return data.putExtra(BACK_FLOW_ACTIVITY, atyClass.getName());
     }
 
@@ -69,7 +69,7 @@ class BackFlowExtraHelper {
 
 
     //**************************** fragment class name ****************************
-    static Intent putFragments(Intent data, @NonNull List<Class<? extends Fragment>> fragmentClazzs) {
+    private static Intent putFragments(Intent data, @NonNull List<Class<? extends Fragment>> fragmentClazzs) {
         JSONArray fragmentClassNameJsonArray = new JSONArray();
         for (Class<? extends Fragment> fragmentClazz : fragmentClazzs) {
             fragmentClassNameJsonArray.put(fragmentClazz.getName());
@@ -95,19 +95,48 @@ class BackFlowExtraHelper {
 
 
     //**************************** extra ****************************
-    static Intent putExtra(Intent data, @Nullable Bundle extra) {
+    private static Intent putExtra(Intent data, @Nullable Bundle extra) {
         if (extra != null) {
             data.putExtra(BACK_FLOW_EXTRA, extra);
         }
         return data;
     }
 
-    public static Bundle getExtra(Intent data) {
+    static Bundle getExtra(Intent data) {
         return data.getBundleExtra(BACK_FLOW_EXTRA);
     }
 
-    public static boolean hasExtra(Intent data) {
+    static boolean hasExtra(Intent data) {
         return data.hasExtra(BACK_FLOW_EXTRA);
+    }
+
+
+    //**************************** builder ****************************
+    static final class Builder {
+        private final Intent requestData;
+
+        Builder(int type) {
+            this.requestData = putType(new Intent(), type);
+        }
+
+        Builder putActivity(@NonNull Class<? extends Activity> atyClass) {
+            BackFlowIntent.putActivity(requestData, atyClass);
+            return this;
+        }
+
+        Builder putFragments(@NonNull List<Class<? extends Fragment>> fragmentClazzs) {
+            BackFlowIntent.putFragments(requestData, fragmentClazzs);
+            return this;
+        }
+
+        Builder putExtra(@Nullable Bundle extra) {
+            BackFlowIntent.putExtra(requestData, extra);
+            return this;
+        }
+
+        Intent create() {
+            return requestData;
+        }
     }
 
 }
