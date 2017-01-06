@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
 import cn.ytxu.androidbackflow.sample.App;
@@ -18,8 +17,8 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i(TAG, BackFlow.TAG + "current process name:" + ((App) getApplication()).getCurProcessName(this));
-        Log.i(TAG, BackFlow.TAG + "taskId:" + getTaskId());
+        BackFlow.Logger.log(TAG, "current process name:" + ((App) getApplication()).getCurProcessName(this));
+        BackFlow.Logger.log(TAG, "taskId:" + getTaskId());
     }
 
     public <T extends View> T $(@IdRes int id) {

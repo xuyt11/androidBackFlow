@@ -23,7 +23,7 @@ public class MFSecondActivity extends BaseActivity {
         $(R.id.mf2_finish_app_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.finishApp(MFSecondActivity.this);
+                BackFlow.finishTask(MFSecondActivity.this);
             }
         });
 
@@ -31,6 +31,7 @@ public class MFSecondActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 BackFlow.request(MFSecondActivity.this, MFLetterAFragment.class);
+//                BackFlow.builder(BackFlowType.back_to_fragments, MFSecondActivity.this).setFragments(MFLetterAFragment.class).create().request();
             }
         });
         $(R.id.mf2_back_2_b_fragment).setOnClickListener(new View.OnClickListener() {

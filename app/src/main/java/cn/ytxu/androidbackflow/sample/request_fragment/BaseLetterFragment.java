@@ -73,7 +73,7 @@ public class BaseLetterFragment extends BaseFragment {
         $(R.id.letter_finish_app_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.finishApp(BaseLetterFragment.this);
+                BackFlow.finishTask(BaseLetterFragment.this);
             }
         });
     }

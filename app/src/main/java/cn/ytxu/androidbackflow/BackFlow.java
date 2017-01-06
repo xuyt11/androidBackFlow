@@ -31,13 +31,13 @@ public class BackFlow {
     public static final int REQUEST_CODE = 0x0000ffff;
 
 
-    //********************* execute back flow *********************
-    public static void finishApp(Activity activity) {
-        builder(BackFlowType.finish_app, activity).create().request();
+    //********************* request back flow *********************
+    public static void finishTask(Activity activity) {
+        builder(BackFlowType.finish_task, activity).create().request();
     }
 
-    public static void finishApp(Fragment fragment) {
-        builder(BackFlowType.finish_app, fragment).create().request();
+    public static void finishTask(Fragment fragment) {
+        builder(BackFlowType.finish_task, fragment).create().request();
     }
 
     public static void request(Activity activity, @NonNull Class<? extends Activity> atyClass) {
@@ -88,8 +88,8 @@ public class BackFlow {
         builder(BackFlowType.back_to_activity_fragments, fragment).setActivity(atyClass).setFragments(fragmentClazzs).setExtra(extra).create().request();
     }
 
-    static void request(@NonNull Activity activity, @NonNull Intent requestData) {
-        activity.setResult(RESULT_CODE, requestData);
+    static void request(@NonNull Activity activity, @NonNull Intent backFlowData) {
+        activity.setResult(RESULT_CODE, backFlowData);
         activity.finish();
     }
 
@@ -119,12 +119,12 @@ public class BackFlow {
      * false：不能处理，需要继续分发；
      */
     public static boolean handle(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
-        Log.i(BackFlow._TAG, BackFlow.TAG + "called onActivityResult:" + activity.getClass().getSimpleName());
+        Logger.log(BackFlow._TAG, "called onActivityResult:" + activity.getClass().getSimpleName());
         if (!canHandle(resultCode, data)) {
             return false;
         }
 
-        logData(activity.getClass().getSimpleName(), data);
+        Logger.logIntent(activity, data);
         return BackFlowType.get(data).handle(activity, fragments, requestCode, resultCode, data);
     }
 
@@ -132,17 +132,36 @@ public class BackFlow {
         return resultCode == RESULT_CODE && BackFlowType.isBackFlowType(data);
     }
 
-    public static void logData(String handleObject, Intent data) {
-        Log.i(BackFlow._TAG, BackFlow.TAG + "╔═══════════════════════════════════════════════════════════════════════════════════════");
-        Log.i(BackFlow._TAG, BackFlow.TAG + "║curr handle object:" + handleObject);
 
-        Bundle bundle = data.getExtras();
-        for (String key : bundle.keySet()) {
-            String value = String.valueOf(bundle.get(key));
-            Log.i(BackFlow._TAG, BackFlow.TAG + "║" + key + ":" + value);
+    //********************* back flow log *********************
+    public static final class Logger {
+        public static void logIntent(Activity handleObject, Intent data) {
+            logIntent(handleObject.getClass().getSimpleName(), data);
         }
 
-        Log.i(BackFlow._TAG, BackFlow.TAG + "╚═══════════════════════════════════════════════════════════════════════════════════════");
+        public static void logIntent(Fragment handleObject, Intent data) {
+            logIntent(handleObject.getClass().getSimpleName(), data);
+        }
+
+        public static void logIntent(String handleObjectSimpleName, Intent data) {
+            log(BackFlow._TAG, "╔═══════════════════════════════════════════════════════════════════════════════════════");
+            log(BackFlow._TAG, "║curr handle object:" + handleObjectSimpleName);
+
+            Bundle bundle = data.getExtras();
+            for (String key : bundle.keySet()) {
+                String value = String.valueOf(bundle.get(key));
+                log(BackFlow._TAG, "║" + key + ":" + value);
+            }
+
+            log(BackFlow._TAG, "╚═══════════════════════════════════════════════════════════════════════════════════════");
+        }
+
+        /**
+         * u can setup switch to manage the log print
+         */
+        public static void log(String tag, String msg) {
+            Log.i(tag, BackFlow.TAG + msg);
+        }
     }
 
 }

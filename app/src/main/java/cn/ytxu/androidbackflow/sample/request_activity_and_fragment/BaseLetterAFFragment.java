@@ -15,8 +15,6 @@ import cn.ytxu.androidbackflow.BackFlow;
 import cn.ytxu.androidbackflow.BaseFragment;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.request_activity_and_fragment.letter.LetterAFAFragment;
-import cn.ytxu.androidbackflow.sample.request_fragment.ContainerActivity;
-import cn.ytxu.androidbackflow.sample.request_fragment.LetterFragmentType;
 
 public class BaseLetterAFFragment extends BaseFragment {
 
@@ -110,7 +108,7 @@ public class BaseLetterAFFragment extends BaseFragment {
         $(R.id.letter_finish_app_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.finishApp(BaseLetterAFFragment.this);
+                BackFlow.finishTask(BaseLetterAFFragment.this);
             }
         });
     }

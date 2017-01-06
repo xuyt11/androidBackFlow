@@ -59,7 +59,7 @@ public class BaseLetterActivity extends BaseActivity {
         $(R.id.letter_finish_app_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.finishApp(BaseLetterActivity.this);
+                BackFlow.finishTask(BaseLetterActivity.this);
             }
         });
     }

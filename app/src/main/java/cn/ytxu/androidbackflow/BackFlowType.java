@@ -28,16 +28,17 @@ public enum BackFlowType {
 
         @Override
         boolean handle(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent data) {
-            Log.w(BackFlowType.class.getSimpleName(), new Throwable("error back flow type"));
+            Log.w(BackFlowType.class.getSimpleName(), new Throwable(BackFlow.TAG + "error back flow type"));
             return false;
         }
     },
 
     /**
-     * 结束App功能：结束App中所有的activity（准确的说是：finish该task中所有的activity）<br>
-     * 若在整个回退流程流程中，没有匹配到目标，也相当于finish_app的功能。
+     * 结束task：若该App是单task，则有结束App中所有的activity效果（finish该task中所有的activity）<br>
+     * 1、若在整个回退流程流程中，没有匹配到目标，也相当于finish_task的功能。
+     * 2、若中间有onActivityResult方法被消耗，则会停留在最后一个被消耗的activity（因为setResult已无效）。
      */
-    finish_app(1) {
+    finish_task(1) {
         @Override
         Intent createRequestData(BackFlowParam param) {
             if (param.atyClass != null || !param.fragmentClazzs.isEmpty()) {

@@ -3,7 +3,6 @@ package cn.ytxu.androidbackflow.sample.multi_fragment.letter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,7 @@ public class MFBaseLetterFragment extends BaseFragment {
     private Button jumpBtn;
 
     public MFBaseLetterFragment() {
-        Log.i(TAG, BackFlow.TAG + "init " + this.getClass().getSimpleName());
+        BackFlow.Logger.log(TAG, "init " + this.getClass().getSimpleName());
     }
 
     @Nullable
@@ -45,7 +44,7 @@ public class MFBaseLetterFragment extends BaseFragment {
         $(R.id.mf_letter_finish_app_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BackFlow.finishApp(MFBaseLetterFragment.this);
+                BackFlow.finishTask(MFBaseLetterFragment.this);
             }
         });
 

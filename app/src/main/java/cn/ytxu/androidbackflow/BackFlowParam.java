@@ -28,7 +28,7 @@ public final class BackFlowParam {
 
     Bundle extra;// 额外的附加数据
 
-    private Intent requestData;
+    private Intent backFlowData;
 
     private BackFlowParam(@NonNull BackFlowType type, @NonNull Activity activity) {
         this.type = type;
@@ -36,7 +36,7 @@ public final class BackFlowParam {
     }
 
     public void request() {
-        BackFlow.request(activity, requestData);
+        BackFlow.request(activity, backFlowData);
     }
 
 
@@ -68,7 +68,7 @@ public final class BackFlowParam {
         }
 
         public BackFlowParam create() {
-            P.requestData = P.type.createRequestData(P);
+            P.backFlowData = P.type.createRequestData(P);
             return P;
         }
     }
