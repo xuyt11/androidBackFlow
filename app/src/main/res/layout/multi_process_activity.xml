@@ -4,7 +4,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cn.ytxu.androidbackflow.sample.multi_process.MultiProcessActivity">
+    tools:context=".sample.multi_task_or_process.multi_process.MultiProcessActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

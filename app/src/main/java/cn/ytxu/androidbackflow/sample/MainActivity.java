@@ -6,16 +6,15 @@ import android.view.View;
 
 import cn.ytxu.androidbackflow.BaseActivity;
 import cn.ytxu.androidbackflow.R;
-import cn.ytxu.androidbackflow.sample.fragment_contains_sub_fragment.first_level.FcsfAFragment;
-import cn.ytxu.androidbackflow.sample.multi_fragment.MultiFragmentActivity;
-import cn.ytxu.androidbackflow.sample.multi_process.MultiProcessActivity;
-import cn.ytxu.androidbackflow.sample.multi_task.MultiTaskActivity;
-import cn.ytxu.androidbackflow.sample.multi_task_and_process.MultiTaskAndProcessActivity;
-import cn.ytxu.androidbackflow.sample.request_activity_and_fragment.ContainerAF1Activity;
-import cn.ytxu.androidbackflow.sample.request_activity_and_fragment.letter.LetterAFAFragment;
-import cn.ytxu.androidbackflow.sample.request_fragment.ContainerActivity;
-import cn.ytxu.androidbackflow.sample.request_fragment.letter.LetterAFragment;
-import cn.ytxu.androidbackflow.sample.request_activity.letter.LetterAActivity;
+import cn.ytxu.androidbackflow.sample.fragments.fragment_contains_sub_fragment.first_level.FcsfAFragment;
+import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.MultiFragmentActivity;
+import cn.ytxu.androidbackflow.sample.multi_task_or_process.multi_process.MultiProcessActivity;
+import cn.ytxu.androidbackflow.sample.multi_task_or_process.multi_task.MultiTaskActivity;
+import cn.ytxu.androidbackflow.sample.multi_task_or_process.multi_task_and_process.MultiTaskAndProcessActivity;
+import cn.ytxu.androidbackflow.sample.normal.request_activity_and_fragment.ContainerAF1Activity;
+import cn.ytxu.androidbackflow.sample.normal.request_activity_and_fragment.letter.LetterAFAFragment;
+import cn.ytxu.androidbackflow.sample.normal.request_fragment.letter.LetterAFragment;
+import cn.ytxu.androidbackflow.sample.normal.request_activity.letter.LetterAActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
     private static final String TAG = MainActivity.class.getSimpleName();

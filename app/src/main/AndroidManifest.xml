@@ -19,59 +19,59 @@
 
 
         <!-- multi fragment -->
-        <activity android:name=".sample.multi_fragment.MultiFragmentActivity" />
-        <activity android:name=".sample.multi_fragment.MFSecondActivity" />
+        <activity android:name=".sample.fragments.multi_fragment.MultiFragmentActivity" />
+        <activity android:name=".sample.fragments.multi_fragment.MFSecondActivity" />
 
         <!-- multi process -->
         <activity
-            android:name=".sample.multi_process.MultiProcessActivity"
+            android:name=".sample.multi_task_or_process.multi_process.MultiProcessActivity"
             android:process=":multi" />
 
         <!-- multi task -->
         <activity
-            android:name=".sample.multi_task.MultiTaskActivity"
+            android:name=".sample.multi_task_or_process.multi_task.MultiTaskActivity"
             android:taskAffinity=":a132" />
 
         <!-- multi task and process -->
         <activity
-            android:name=".sample.multi_task_and_process.MultiTaskAndProcessActivity"
+            android:name=".sample.multi_task_or_process.multi_task_and_process.MultiTaskAndProcessActivity"
             android:process=":multi"
             android:taskAffinity=":a132" />
 
         <!-- request activity and fragment -->
-        <activity android:name=".sample.request_activity_and_fragment.ContainerAF1Activity" />
-        <activity android:name=".sample.request_activity_and_fragment.ContainerAF2Activity" />
+        <activity android:name=".sample.normal.request_activity_and_fragment.ContainerAF1Activity" />
+        <activity android:name=".sample.normal.request_activity_and_fragment.ContainerAF2Activity" />
 
         <!-- request fragment -->
-        <activity android:name=".sample.request_fragment.ContainerActivity" />
+        <activity android:name=".sample.ContainerActivity" />
 
         <!-- request activity -->
-        <activity android:name=".sample.request_activity.letter.LetterAActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterBActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterCActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterDActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterEActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterFActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterGActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterHActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterIActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterJActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterKActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterLActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterMActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterNActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterOActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterPActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterQActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterRActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterSActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterTActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterUActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterVActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterWActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterXActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterYActivity" />
-        <activity android:name=".sample.request_activity.letter.LetterZActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterAActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterBActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterCActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterDActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterEActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterFActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterGActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterHActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterIActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterJActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterKActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterLActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterMActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterNActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterOActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterPActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterQActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterRActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterSActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterTActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterUActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterVActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterWActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterXActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterYActivity" />
+        <activity android:name=".sample.normal.request_activity.letter.LetterZActivity" />
     </application>
 
 </manifest>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".sample.multi_fragment.MFSecondActivity">
+    tools:context=".sample.fragments.multi_fragment.MFSecondActivity">
 
     <Button
         android:id="@+id/mf2_finish_task_btn"

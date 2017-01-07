@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".sample.fragment_contains_sub_fragment.second_level.FCSFSecondFragment">
+    tools:context=".sample.fragments.fragment_contains_sub_fragment.second_level.FCSFSecondFragment">
 
     <TextView
         android:id="@+id/fcsf2_tip_txt"

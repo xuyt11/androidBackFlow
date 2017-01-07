@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="cn.ytxu.androidbackflow.sample.request_fragment.BaseLetterFragment">
+    tools:context=".sample.normal.request_fragment.BaseLetterFragment">
 
     <TextView
         android:id="@+id/letter_tip_txt"

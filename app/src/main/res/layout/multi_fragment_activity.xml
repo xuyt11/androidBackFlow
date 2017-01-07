@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".sample.multi_fragment.MultiFragmentActivity">
+    tools:context=".sample.fragments.multi_fragment.MultiFragmentActivity">
 
     <Button
         android:id="@+id/multi_fragment_4_requedst_activity"
