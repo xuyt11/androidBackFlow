@@ -19,7 +19,7 @@ import java.util.List;
  */
 class BackFlowIntent {
     /**
-     * 回退功能的类型: 类型的枚举是BackFlowType中的type
+     * 回退功能的类型（BackFlowType.type）
      * type is int
      */
     private static final String BACK_FLOW_TYPE = "back_flow_type";

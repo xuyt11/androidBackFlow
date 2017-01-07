@@ -46,6 +46,10 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
 ```
 
 
+## <font color='red'>tip</font>
+* <font color='red'>fragment的sub fragment manager必须要是getChildFragmentManager</font>
+
+
 ## 内部实现
 1. 利用startActivityForResult、onActivityResult、setResult与finish(activity)4四个方法，进行实现的；
 2. 需要有两个基础类：BaseActivity与BaseFragment，所有的activity与fragment都需要继承于他们；
@@ -84,7 +88,7 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
 
 
 ## 代码简介
-1. 主功能：BackFlowType.java
+1. 主功能：BackFlowType
     * 共五个分类：error，finish_task，back_to_activity，back_to_fragments，back_to_activity_fragments
         * finish_task
             * 结束task：若该App是单task，则有结束App中所有的activity效果（finish该task中所有的activity）
@@ -98,7 +102,7 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
             * 返回到activity和fragment列都一致的activity（回退到包含了该fragment顺序列的activity）
         * error: 异常情况
             * onActivityResult方法参数data中data.getIntExtra(BACK_FLOW_TYPE, ERROR_BACK_FLOW_TYPE)，异常类型都返回该类型，且直接抛出异常；
-2. 调用类：BackFlow.java
+2. 调用类：BackFlow
     * BackFlowType类的请求执行与处理的包装器，方便使用；
     * 设置了默认RESULT_CODE值（Integer.MAX_VALUE）；
         * 这是回退功能的核心结构，所以其他操作的resultCode不能与其一样，否则会有错误；
@@ -116,15 +120,68 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
         * @Override BaseActivity的onActivityResult(requestCode, resultCode, data)方法
             * 并在内部调用BackFlow.handle(this, getSupportFragmentManager().getFragments(), requestCode, resultCode, data)来进行回退操作的管理，
             * 并在目标位置结束继续调用BackFlow.request(activity, data)
+4. BackFlow参数类：BackFlowParam
+    * 执行BackFlow操作的参数类，共有6个参数
+        * BackFlowType type：该BackFlow的类型，共有5个，其中error类型是不能使用的
+        * Activity与backFlowData(Intent)：
+            * 在执行BackFlow时需要这两个参数
+                ```java
+                public void request() {
+                    BackFlow.request(activity, backFlowData);
+                }
+                ```
+            * Activity：在执行BackFlow时需要
+                ```java
+                static void request(@NonNull Activity activity, @NonNull Intent backFlowData) {
+                    activity.setResult(RESULT_CODE, backFlowData);
+                    activity.finish();
+                }
+                ```
+            * backFlowData(Intent)：执行BackFlow的数据，由四个参数组成
+                * type，atyClass，fragmentClazzs，extra
+        * Class<? extends Activity> atyClass
+            * BackFlow回退的目标activity
+        * List<Class<? extends Fragment>> fragmentClazzs
+            * 回退到该fragment的顺序列表，fragments顺序列中的目标fragment(**<font color='red'>最后一个fragment</font>**)
+        * Bundle extra：额外的附加数据
+    * Builder：Builder模式，减少创建backFlowData的复杂度
+5. BackFlow Intent工具类：BackFlowIntent
+    * 组装与解析BackFlow Intent的工具类，共有四个参数，app中其他的key不能与他们的key相同
+        * BACK_FLOW_TYPE：回退功能的类型（BackFlowType.type）
+            * type is int
+            * ERROR_BACK_FLOW_TYPE: 异常错误类型的type值（BackFlowType.error.type）
+            * 判断是否为BackFlow类型onActivityResult
+            ```java
+            private static boolean canHandle(int resultCode, Intent data) {
+                return resultCode == RESULT_CODE && BackFlowType.isBackFlowType(data);
+            }
+            ```
+        * BACK_FLOW_ACTIVITY：回退功能中指定的activity
+            * type is String
+        * BACK_FLOW_FRAGMENTS：回退功能中指定的fragment顺序列
+            * type is String
+            * 使用json进行格式化
+        * BACK_FLOW_EXTRA：回退功能中用户带入的额外数据
+            * type is String
+            * 可以外带额外数据给目标的Activity或Fragment
+    * Builder：Builder模式，减少创建BackFlow Intent的复杂度
+6. BackFlow 视图工具类：BackFlowViewHelper
+    * 匹配BackFlow中目标Activity与Fragment的工具类
+    * isTargetActivity方法：是否为回退功能的目标activity
+    * findTargetFragment方法：找到回退功能中fragments顺序列中的目标fragment(**<font color='red'>最后一个fragment</font>**)
+    * <font color='red'>tip: fragment的sub fragment manager必须要是getChildFragmentManager</font>
 
 
-## BackFlow不能使用的情况或不能回退到目标位置
-1. 若在回退链中间有任何一个TempActivity消耗过onActivityResult方法，则会停留在该TempActivity，不能继续回退
+## <font color='red'>BackFlow不能使用的情况或不能回退到目标位置</font>
+
+1. <font color='red'>若在回退链中间有任何一个XXXActivity消耗过onActivityResult方法，则会停留在该XXXActivity，不能继续回退
     * 因为整个回退功能都是依赖于setResult方法将回退数据，链式的传递给前一个activity的onActivityResult方法，而在activity消耗了onActivityResult方法之后，是不会再调用该方法的。
-2. 现在发现的消耗onActivityResult方法的情况有：
+</font>
+2. <font color='red'>现在发现的消耗onActivityResult方法的情况有：
     * 切换task；
     * 切换process；
     * 在startActivity时，调用了intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+</font>
 
 
 ## TIP(限制)

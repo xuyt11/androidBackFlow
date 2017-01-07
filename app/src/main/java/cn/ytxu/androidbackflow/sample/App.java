@@ -3,7 +3,6 @@ package cn.ytxu.androidbackflow.sample;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
-import android.util.Log;
 
 import cn.ytxu.androidbackflow.BackFlow;
 
