@@ -107,6 +107,41 @@
             android:text="jump to fragment contains sub fragment"
             android:textAllCaps="false"
             android:textColor="#c11313" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="launch mode"
+            android:textColor="#00ff00"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/main_btn_4_single_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="jump to single_task"
+            android:textAllCaps="false"
+            android:textColor="#04540d" />
+
+        <Button
+            android:id="@+id/main_btn_4_single_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="jump to single top"
+            android:textAllCaps="false"
+            android:textColor="#55a355" />
+
+        <Button
+            android:id="@+id/main_btn_4_single_instance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="jump to single instance"
+            android:textAllCaps="false"
+            android:textColor="#0adf7f" />
     </LinearLayout>
 </ScrollView>
 
