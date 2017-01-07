@@ -46,8 +46,11 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
 ```
 
 
-## <font color='red'>tip</font>
-* <font color='red'>fragment的sub fragment manager必须要是getChildFragmentManager</font>
+## tip
+* fragment的sub fragment manager必须要是getChildFragmentManager
+* BackFlow内部的Fragment是support-v4包中的，若app中使用的不是android.support.v4.app.Fragment，则可以将其替换为你自己的Fragment类型
+* 若你内部的Fragment有多个基础类型(android.support.v4.app.Fragment, android.app.Fragment)，那你需要统一
+* 若跳转目标View是Fragment，则该Fragment的ParentFragment是不会调用到onActivityResult方法的
 
 
 ## 内部实现
@@ -83,7 +86,7 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
     * 例如：退出当前的activity所属的task（finish该task中所有的activity）
         * **tip：有些情况会有影响: [BackFlow不能使用的情况或不能回退到目标位置](#backflow不能使用的情况或不能回退到目标位置)**
     ```java
-    BackFlow.finishTask(activity)
+    BackFlow.finishTask(activity | fragment)
     ```
 
 
@@ -103,13 +106,21 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
         * error: 异常情况
             * onActivityResult方法参数data中data.getIntExtra(BACK_FLOW_TYPE, ERROR_BACK_FLOW_TYPE)，异常类型都返回该类型，且直接抛出异常；
 2. 调用类：BackFlow
-    * BackFlowType类的请求执行与处理的包装器，方便使用；
+    * BackFlowType类的请求执行与处理的包装器，方便使用
     * 设置了默认RESULT_CODE值（Integer.MAX_VALUE）；
-        * 这是回退功能的核心结构，所以其他操作的resultCode不能与其一样，否则会有错误；
+        * 这是回退功能的核心结构，所以其他业务操作的resultCode不能与其一样，否则会有错误；
     * 设置了默认的REQUEST_CODE值（0x0000ffff）；
         * override startActivity方法时调用的，防止不能触发onActivityResult方法
         * 其他的requestCode，不能与其一样，否则App内部业务逻辑可能有异常情况
         * tip: Can only use lower 16 bits for requestCode
+    * request back flow：执行BackFlow操作的方法组
+    * builder request param and get extra：builder BackFlow操作与BackFlow的额外数据
+    * handle back flow：判断与处理BackFlow操作
+    * back flow log
+        * 打印Intent数据
+        * 外提供日志接口
+        * 可以使用"BackFlow-->"来进行日志过滤，查看BackFlow的数据流转
+        * 也可以设置一个统一的日志开关，用于开启、禁止BackFlow日志
 3. 基础类：BaseActivity与BaseFragment
     * 所有的activity与fragment都需要继承于他们；
     * 或者实现两个类的功能：
@@ -125,24 +136,24 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
         * BackFlowType type：该BackFlow的类型，共有5个，其中error类型是不能使用的
         * Activity与backFlowData(Intent)：
             * 在执行BackFlow时需要这两个参数
-                ```java
-                public void request() {
-                    BackFlow.request(activity, backFlowData);
-                }
-                ```
+            ```java
+            public void request() {
+                BackFlow.request(activity, backFlowData);
+            }
+            ```
             * Activity：在执行BackFlow时需要
-                ```java
-                static void request(@NonNull Activity activity, @NonNull Intent backFlowData) {
-                    activity.setResult(RESULT_CODE, backFlowData);
-                    activity.finish();
-                }
-                ```
+            ```java
+            static void request(@NonNull Activity activity, @NonNull Intent backFlowData) {
+                activity.setResult(RESULT_CODE, backFlowData);
+                activity.finish();
+            }
+            ```
             * backFlowData(Intent)：执行BackFlow的数据，由四个参数组成
                 * type，atyClass，fragmentClazzs，extra
         * Class<? extends Activity> atyClass
             * BackFlow回退的目标activity
         * List<Class<? extends Fragment>> fragmentClazzs
-            * 回退到该fragment的顺序列表，fragments顺序列中的目标fragment(**<font color='red'>最后一个fragment</font>**)
+            * 回退到该fragment的顺序列表，fragments顺序列中的目标fragment(**最后一个fragment**)
         * Bundle extra：额外的附加数据
     * Builder：Builder模式，减少创建backFlowData的复杂度
 5. BackFlow Intent工具类：BackFlowIntent
@@ -168,20 +179,17 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
 6. BackFlow 视图工具类：BackFlowViewHelper
     * 匹配BackFlow中目标Activity与Fragment的工具类
     * isTargetActivity方法：是否为回退功能的目标activity
-    * findTargetFragment方法：找到回退功能中fragments顺序列中的目标fragment(**<font color='red'>最后一个fragment</font>**)
-    * <font color='red'>tip: fragment的sub fragment manager必须要是getChildFragmentManager</font>
+    * findTargetFragment方法：找到回退功能中fragments顺序列中的目标fragment(**最后一个fragment**)
+    * tip: fragment的sub fragment manager必须要是getChildFragmentManager
 
 
-## <font color='red'>BackFlow不能使用的情况或不能回退到目标位置</font>
-
-1. <font color='red'>若在回退链中间有任何一个XXXActivity消耗过onActivityResult方法，则会停留在该XXXActivity，不能继续回退
+## BackFlow不能使用的情况或不能回退到目标位置
+1. 若在回退链中间有任何一个XXXActivity消耗过onActivityResult方法，则会停留在该XXXActivity，不能继续回退
     * 因为整个回退功能都是依赖于setResult方法将回退数据，链式的传递给前一个activity的onActivityResult方法，而在activity消耗了onActivityResult方法之后，是不会再调用该方法的。
-</font>
-2. <font color='red'>现在发现的消耗onActivityResult方法的情况有：
+2. 现在发现的消耗onActivityResult方法的情况有：
     * 切换task；
     * 切换process；
     * 在startActivity时，调用了intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-</font>
 
 
 ## TIP(限制)
