@@ -17,6 +17,16 @@
             </intent-filter>
         </activity>
 
+        <!-- launch mode -->
+        <activity
+            android:name=".sample.launch_mode.single_instance.SingleInstanceActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".sample.launch_mode.single_task.SingleTaskActivity"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".sample.launch_mode.single_top.SingleTopActivity"
+            android:launchMode="singleTop" />
 
         <!-- multi fragment -->
         <activity android:name=".sample.fragments.multi_fragment.MultiFragmentActivity" />

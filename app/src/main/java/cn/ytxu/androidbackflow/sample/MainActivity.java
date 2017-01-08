@@ -8,6 +8,9 @@ import cn.ytxu.androidbackflow.BaseActivity;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.fragments.fragment_contains_sub_fragment.first_level.FcsfAFragment;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.MultiFragmentActivity;
+import cn.ytxu.androidbackflow.sample.launch_mode.single_instance.SingleInstanceActivity;
+import cn.ytxu.androidbackflow.sample.launch_mode.single_task.SingleTaskActivity;
+import cn.ytxu.androidbackflow.sample.launch_mode.single_top.SingleTopActivity;
 import cn.ytxu.androidbackflow.sample.multi_task_or_process.multi_process.MultiProcessActivity;
 import cn.ytxu.androidbackflow.sample.multi_task_or_process.multi_task.MultiTaskActivity;
 import cn.ytxu.androidbackflow.sample.multi_task_or_process.multi_task_and_process.MultiTaskAndProcessActivity;
@@ -126,15 +129,15 @@ public class MainActivity extends BaseActivity {
             public void onClick(View v) {
                 switch (v.getId()) {
                     case R.id.main_btn_4_single_task: {
-                        // TODO
+                        startActivity(new Intent(MainActivity.this, SingleTaskActivity.class));
                     }
                     break;
                     case R.id.main_btn_4_single_top: {
-                        // TODO
+                        startActivity(new Intent(MainActivity.this, SingleTopActivity.class));
                     }
                     break;
                     case R.id.main_btn_4_single_instance: {
-                        // TODO
+                        startActivity(new Intent(MainActivity.this, SingleInstanceActivity.class));
                     }
                     break;
                     default:
