@@ -190,6 +190,15 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
     * 切换task；
     * 切换process；
     * 在startActivity时，调用了intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+3. launchMode
+    * **不同的android版本，有不同的区别；4.4会消耗，5.0.2与6.0不会消耗**
+    * singleInstance
+        * 会启用一个新的栈结构，将Acitvity放置于这个新的栈结构中，并保证不再有其他Activity实例进入
+        * 4.4会切换task
+        * **5.0.2与6.0 仍是在同一个task中，所以不会**
+    * singleTask
+        * 4.4会消耗onActivityResult方法
+        * **5.0.2与6.0 startActivityForResult时不会回调onActivityResult**
 
 
 ## TIP(限制)

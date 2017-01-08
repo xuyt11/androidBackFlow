@@ -19,6 +19,7 @@ public class SingleTaskActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.launch_mode_activity);
 
+        setTitle(getClass().getSimpleName());
         $(R.id.single_top_finish_task).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
