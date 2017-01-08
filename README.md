@@ -4,6 +4,13 @@ a tool to control the view(activity and fragment) rollback flow
 一个控制Android视图（即：activity与fragment）回退的工具。
 
 
+## 简介
+1. 总的来说，这是一个在**single task && single process**环境中使用的工具。
+2. 若app中有多个task或process，则只能在task或process之中使用，不能超过其中任何一个的范围。
+3. task与task，task与process，process与process之间的回退功能，需要自己或系统去控制（或系统back pressed）。
+4. [若在task中有消耗过onActivityResult方法的情况，则BackFlow会失效。](#backflow不能使用的情况或不能回退到目标位置)
+
+
 ## 快速使用
 0. 使用前：
     * 将App中所有的activity与fragment都继承于两个基础类（BaseActivity与BaseFragment）；
@@ -202,10 +209,9 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
 
 
 ## tips and limitations (提示与限制)
-1. startActivityForResult启动singleTop, singleTask, singleInstance的XXXActivity，则XXXActivity的launchMode设置失效，变为standard launchMode
-    * 所以，若有需求的话，则可以使用startActivity4NonBackFlow方法，不过这时候BackFlow将失效，将会停留在该处不再回退
+1. launchMode: startActivityForResult启动singleTop, singleTask, singleInstance的XXXActivity
+    * 5.0之后的系统，则XXXActivity的launchMode设置失效，变为standard launchMode
+    * 5.0之前的系统，只有singleTop模式失效
+    * 所以，若有需求的话，则可以使用**startActivity4NonBackFlow**方法，不过这时候BackFlow将失效，将会停留在该处不再回退
 2. startActivityForResult + Intent.FLAG_ACTIVITY_NEW_TASK + singleInstance，会启动一个新task，所以BackFlow将失效，将会停留在该处不再回退
-3.
-4.
-
 
