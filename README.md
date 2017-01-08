@@ -5,9 +5,10 @@ a tool to control the view(activity and fragment) rollback flow
 
 
 ## 简介
-1. 总的来说，这是一个在**single task && single process**环境中使用的工具。
+1. 这是一个链式回退多层视图的工具。
+1. 这是一个在**single task && single process**环境中使用的工具。
 2. 若app中有多个task或process，则只能在task或process之中使用，不能超过其中任何一个的范围。
-3. task与task，task与process，process与process之间的回退功能，需要自己或系统去控制（或系统back pressed）。
+3. task与task，task与process，process与process之间的回退功能，需要自己或系统去控制。
 4. [若在task中有消耗过onActivityResult方法的情况，则BackFlow会失效。](#backflow不能使用的情况或不能回退到目标位置)
 
 
