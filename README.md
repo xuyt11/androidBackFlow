@@ -7,7 +7,7 @@ a tool to control the view(activity and fragment) rollback flow
 ## 快速使用
 0. 使用前：
     * 将App中所有的activity与fragment都继承于两个基础类（BaseActivity与BaseFragment）；
-    * 或在自己的基础类中@override startActivity与onActivityResult两个方法；
+    * 或在自己的基础类中@override startActivity与onActivityResult；
 1. 结束该activity所属的task：
     * 若该App是单task的，则有结束App中所有的activity效果（finish该task中所有的activity，即退出了App）
     * 若在整个回退流程流程中，没有匹配到目标，也相当于finish_task的功能。
@@ -201,9 +201,10 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
         * **5.0.2与6.0 startActivityForResult时不会回调onActivityResult，所以仍然可以使用，不过startActivityForResult方法，这时由于launchMode将变为standard**
 
 
-## TIP(限制)
+## tips and limitations (提示与限制)
 1. startActivityForResult启动singleTop, singleTask, singleInstance的XXXActivity，则XXXActivity的launchMode设置失效，变为standard launchMode
-2.
+    * 所以，若有需求的话，则可以使用startActivity4NonBackFlow方法，不过这时候BackFlow将失效，将会停留在该处不再回退
+2. startActivityForResult + Intent.FLAG_ACTIVITY_NEW_TASK + singleInstance，会启动一个新task，所以BackFlow将失效，将会停留在该处不再回退
 3.
 4.
 
