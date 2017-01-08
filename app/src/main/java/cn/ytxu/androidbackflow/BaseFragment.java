@@ -1,7 +1,9 @@
 package cn.ytxu.androidbackflow;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
@@ -17,9 +19,26 @@ public class BaseFragment extends Fragment {
         return (T) root.findViewById(id);
     }
 
+
+    //******************** start activity replace method ********************
+    public void startActivity4NonBackFlow(Intent intent) {
+        super.startActivity(intent);
+    }
+
+    public void startActivity4NonBackFlow(Intent intent, @Nullable Bundle options) {
+        super.startActivity(intent, options);
+    }
+
+
+    //******************** back flow ********************
     @Override
     public void startActivity(Intent intent) {
         startActivityForResult(intent, BackFlow.REQUEST_CODE);
+    }
+
+    @Override
+    public void startActivity(Intent intent, @Nullable Bundle options) {
+        startActivityForResult(intent, BackFlow.REQUEST_CODE, options);
     }
 
     @Override

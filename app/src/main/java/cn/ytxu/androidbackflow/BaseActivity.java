@@ -1,9 +1,11 @@
 package cn.ytxu.androidbackflow;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
@@ -26,12 +28,28 @@ public class BaseActivity extends AppCompatActivity {
         return (T) findViewById(id);
     }
 
+
+    //******************** start activity replace method ********************
+    public void startActivity4NonBackFlow(Intent intent) {
+        super.startActivity(intent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    public void startActivity4NonBackFlow(Intent intent, @Nullable Bundle options) {
+        super.startActivity(intent, options);
+    }
+
+
+    //******************** back flow ********************
     @Override
     public void startActivity(Intent intent) {
-        // 可以放开，查看该标签的对BackFlow的影响
-        // 有该标签，会立即调用当前的onActivityResult(requestCode, 0, null)方法
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivityForResult(intent, BackFlow.REQUEST_CODE);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    @Override
+    public void startActivity(Intent intent, @Nullable Bundle options) {
+        startActivityForResult(intent, BackFlow.REQUEST_CODE, options);
     }
 
     @Override

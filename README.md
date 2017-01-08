@@ -195,17 +195,14 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
     * singleInstance
         * 会启用一个新的栈结构，将Acitvity放置于这个新的栈结构中，并保证不再有其他Activity实例进入
         * 4.4会切换task
-        * **5.0.2与6.0 仍是在同一个task中，所以不会**
+        * **5.0.2与6.0 startActivityForResult时不会切换task，所以仍然可以使用，不过这时launchMode将变为standard**
     * singleTask
         * 4.4会消耗onActivityResult方法
-        * **5.0.2与6.0 startActivityForResult时不会回调onActivityResult**
+        * **5.0.2与6.0 startActivityForResult时不会回调onActivityResult，所以仍然可以使用，不过startActivityForResult方法，这时由于launchMode将变为standard**
 
 
 ## TIP(限制)
-1. onActivityResults方法不会被触发的情况：
-    * 若是从activity调用的startActivity方法，则activity中fragment的onActivityResults方法不会被触发；
-    * 若是从AFragment调用的startActivity方法，则在其activity中其他Fragment的onActivityResults方法不会被触发；
-    * 具体事例可以从request activity and fragment-->ContainerAF1Activity.LetterAFFFragment的第二个按钮
+1. startActivityForResult启动singleTop, singleTask, singleInstance的XXXActivity，则XXXActivity的launchMode设置失效，变为standard launchMode
 2.
 3.
 4.
