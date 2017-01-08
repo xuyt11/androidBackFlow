@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import cn.ytxu.androidbackflow.BaseFragment;
+import cn.ytxu.androidbackflow.BaseBackFlowFragment;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.fragments.fragment_contains_sub_fragment.second_level.FCSFSecondAFragment;
 import cn.ytxu.androidbackflow.sample.fragments.fragment_contains_sub_fragment.second_level.FCSFSecondBFragment;
@@ -19,7 +19,7 @@ import cn.ytxu.androidbackflow.sample.fragments.fragment_contains_sub_fragment.s
 import cn.ytxu.androidbackflow.sample.fragments.fragment_contains_sub_fragment.second_level.FCSFSecondDFragment;
 import cn.ytxu.androidbackflow.sample.ContainerActivity;
 
-public class ContainsSFFragment extends BaseFragment {
+public class ContainsSFFragment extends BaseBackFlowFragment {
     private String[] mTitles = new String[]{"唐僧", "大师兄", "二师兄", "沙师弟"};
 
     private ViewPager viewPager;

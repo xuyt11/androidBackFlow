@@ -4,14 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import cn.ytxu.androidbackflow.BackFlow;
-import cn.ytxu.androidbackflow.BaseActivity;
+import cn.ytxu.androidbackflow.BaseBackFlowActivity;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.letter.MFLetterAFragment;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.letter.MFLetterBFragment;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.letter.MFLetterCFragment;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.letter.MFLetterDFragment;
 
-public class MFSecondActivity extends BaseActivity {
+public class MFSecondActivity extends BaseBackFlowActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

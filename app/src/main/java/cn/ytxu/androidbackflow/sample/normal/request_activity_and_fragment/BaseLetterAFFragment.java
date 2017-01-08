@@ -12,11 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import cn.ytxu.androidbackflow.BackFlow;
-import cn.ytxu.androidbackflow.BaseFragment;
+import cn.ytxu.androidbackflow.BaseBackFlowFragment;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.normal.request_activity_and_fragment.letter.LetterAFAFragment;
 
-public class BaseLetterAFFragment extends BaseFragment {
+public class BaseLetterAFFragment extends BaseBackFlowFragment {
 
     private TextView tipTxt;
     private Button jumpBtn, rollbackFlowBtn;

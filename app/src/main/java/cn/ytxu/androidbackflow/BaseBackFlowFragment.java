@@ -1,31 +1,22 @@
 package cn.ytxu.androidbackflow;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.view.View;
 
-import cn.ytxu.androidbackflow.sample.App;
+public class BaseBackFlowFragment extends Fragment {
 
-public class BaseActivity extends AppCompatActivity {
-    private final String TAG = this.getClass().getSimpleName();
+    protected View root;
 
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        BackFlow.Logger.log(TAG, "taskId:" + getTaskId()
-                + ", obj:" + Integer.toHexString(hashCode())
-                + ", process:" + ((App) getApplication()).getCurProcessName(this));
+    public void setRoot(View root) {
+        this.root = root;
     }
 
     public <T extends View> T $(@IdRes int id) {
-        return (T) findViewById(id);
+        return (T) root.findViewById(id);
     }
 
 
@@ -34,7 +25,6 @@ public class BaseActivity extends AppCompatActivity {
         super.startActivity(intent);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void startActivity4NonBackFlow(Intent intent, @Nullable Bundle options) {
         super.startActivity(intent, options);
     }
@@ -46,17 +36,14 @@ public class BaseActivity extends AppCompatActivity {
         startActivityForResult(intent, BackFlow.REQUEST_CODE);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void startActivity(Intent intent, @Nullable Bundle options) {
         startActivityForResult(intent, BackFlow.REQUEST_CODE, options);
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (BackFlow.handle(this, getSupportFragmentManager().getFragments(), requestCode, resultCode, data)) {
-            return;
-        }
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        BackFlow.Logger.logIntent(this, data);
         super.onActivityResult(requestCode, resultCode, data);
     }
 

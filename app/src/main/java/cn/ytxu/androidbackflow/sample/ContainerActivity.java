@@ -2,14 +2,14 @@ package cn.ytxu.androidbackflow.sample;
 
 import android.os.Bundle;
 
-import cn.ytxu.androidbackflow.BaseActivity;
-import cn.ytxu.androidbackflow.BaseFragment;
+import cn.ytxu.androidbackflow.BaseBackFlowActivity;
+import cn.ytxu.androidbackflow.BaseBackFlowFragment;
 import cn.ytxu.androidbackflow.R;
 
 /**
  * Created by ytxu on 16/12/31.
  */
-public class ContainerActivity extends BaseActivity {
+public class ContainerActivity extends BaseBackFlowActivity {
 
     /**
      * sample: XXXFragment.class.getName()
@@ -21,7 +21,7 @@ public class ContainerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);
 
-        BaseFragment fragment = getFragment();
+        BaseBackFlowFragment fragment = getFragment();
         if (fragment == null) {
 //            finish();
             return;
@@ -32,12 +32,12 @@ public class ContainerActivity extends BaseActivity {
                 .commitAllowingStateLoss();
     }
 
-    private BaseFragment getFragment() {
+    private BaseBackFlowFragment getFragment() {
         String className = getIntent().getStringExtra(PARAM_CLASSNAME);
-        BaseFragment fragment = null;
+        BaseBackFlowFragment fragment = null;
         if (className != null && !className.isEmpty()) {
             try {
-                fragment = (BaseFragment) getClassLoader().loadClass(className).newInstance();
+                fragment = (BaseBackFlowFragment) getClassLoader().loadClass(className).newInstance();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } catch (InstantiationException e) {

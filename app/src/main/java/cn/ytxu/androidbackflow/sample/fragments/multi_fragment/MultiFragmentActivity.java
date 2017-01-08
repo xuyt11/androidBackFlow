@@ -9,14 +9,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
-import cn.ytxu.androidbackflow.BaseActivity;
+import cn.ytxu.androidbackflow.BaseBackFlowActivity;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.letter.MFLetterAFragment;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.letter.MFLetterBFragment;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.letter.MFLetterCFragment;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.letter.MFLetterDFragment;
 
-public class MultiFragmentActivity extends BaseActivity {
+public class MultiFragmentActivity extends BaseBackFlowActivity {
     private String[] mTitles = new String[]{"唐僧", "大师兄", "二师兄", "沙师弟"};
 
     private ViewPager viewPager;

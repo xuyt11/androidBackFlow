@@ -7,13 +7,13 @@ import android.view.View;
 
 import cn.ytxu.androidbackflow.BackFlow;
 import cn.ytxu.androidbackflow.BackFlowType;
-import cn.ytxu.androidbackflow.BaseActivity;
+import cn.ytxu.androidbackflow.BaseBackFlowActivity;
 import cn.ytxu.androidbackflow.R;
 
 /**
  * Created by ytxu on 2017/1/8.
  */
-public class LaunchModeActivity extends BaseActivity implements View.OnClickListener {
+public class LaunchModeActivity extends BaseBackFlowActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

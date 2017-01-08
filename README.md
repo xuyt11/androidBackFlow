@@ -14,8 +14,9 @@ a tool to control the view(activity and fragment) rollback flow
 
 ## 快速使用
 0. 使用前：
-    * 将App中所有的activity与fragment都继承于两个基础类（BaseActivity与BaseFragment）；
-    * 或在自己的基础类中@override startActivity与onActivityResult；
+    * 将App中所有的activity与fragment都继承于两个基础类（BaseBackFlowActivity与BaseBackFlowFragment）
+    * 或将app的基础类继承于两个基础类（BaseBackFlowActivity与BaseBackFlowFragment）
+    * 或在自己的基础类中@override startActivity与onActivityResult，并添加startActivity4NonBackFlow方法；
 1. 结束该activity所属的task：
     * 若该App是单task的，则有结束App中所有的activity效果（finish该task中所有的activity，即退出了App）
     * 若在整个回退流程流程中，没有匹配到目标，也相当于finish_task的功能。
@@ -63,17 +64,17 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
 
 ## 内部实现
 1. 利用startActivityForResult、onActivityResult、setResult与finish(activity)4四个方法，进行实现的；
-2. 需要有两个基础类：BaseActivity与BaseFragment，所有的activity与fragment都需要继承于他们；
-3. 需要@Override App中BaseActivity与BaseFragment两个类的startActivity(intent)方法，
-    * 在内部实现中调用startActivityForResult(intent, requestCode)方法，使得在BackFlow操作时，能串行链式的回退；
+2. 需要有两个基础类：BaseBackFlowActivity与BaseBackFlowFragment，所有的activity与fragment都需要继承于他们；
+3. 需要@Override App中BaseBackFlowActivity与BaseBackFlowFragment两个类的startActivity方法，
+    * 在内部实现中调用startActivityForResult方法，使得在BackFlow操作时，能串行链式的回退；
     ```java
     @Override
     public void startActivity(Intent intent) {
        startActivityForResult(intent, BackFlow.REQUEST_CODE);
     }
     ```
-4. 需要@Override App中BaseActivity的onActivityResult(requestCode, resultCode, data)方法，并在内部调用BackFlow.handle(this, resultCode, data)来进行回退操作的管理，并在目标位置结束继续调用onActivityResult方法；
-    * tip: 不需要@Override BaseFragment
+4. 需要@Override App中BaseBackFlowActivity的onActivityResult(requestCode, resultCode, data)方法，并在内部调用BackFlow.handle(this, resultCode, data)来进行回退操作的管理，并在目标位置结束继续调用onActivityResult方法；
+    * tip: 不需要@Override BaseBackFlowFragment
     ```java
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -129,14 +130,14 @@ BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFr
         * 外提供日志接口
         * 可以使用"BackFlow-->"来进行日志过滤，查看BackFlow的数据流转
         * 也可以设置一个统一的日志开关，用于开启、禁止BackFlow日志
-3. 基础类：BaseActivity与BaseFragment
+3. 基础类：BaseBackFlowActivity与BaseBackFlowFragment
     * 所有的activity与fragment都需要继承于他们；
     * 或者实现两个类的功能：
         * @Override 两个类的startActivity(intent)方法，并且在内部实现中调用startActivityForResult(intent, requestCode)方法，使得在BackFlow操作时，能串行的回退；
         ```java
         startActivityForResult(intent, BackFlow.REQUEST_CODE);
         ```
-        * @Override BaseActivity的onActivityResult(requestCode, resultCode, data)方法
+        * @Override BaseBackFlowActivity的onActivityResult(requestCode, resultCode, data)方法
             * 并在内部调用BackFlow.handle(this, getSupportFragmentManager().getFragments(), requestCode, resultCode, data)来进行回退操作的管理，
             * 并在目标位置结束继续调用BackFlow.request(activity, data)
 4. BackFlow参数类：BackFlowParam

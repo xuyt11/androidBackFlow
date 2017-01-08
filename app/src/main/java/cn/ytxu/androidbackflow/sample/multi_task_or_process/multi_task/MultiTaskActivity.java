@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import cn.ytxu.androidbackflow.BaseActivity;
+import cn.ytxu.androidbackflow.BaseBackFlowActivity;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.normal.request_activity.letter.LetterAActivity;
 import cn.ytxu.androidbackflow.sample.normal.request_activity_and_fragment.ContainerAF1Activity;
@@ -15,7 +15,7 @@ import cn.ytxu.androidbackflow.sample.normal.request_fragment.letter.LetterAFrag
 /**
  * Created by ytxu on 17/1/4.
  */
-public class MultiTaskActivity extends BaseActivity implements View.OnClickListener {
+public class MultiTaskActivity extends BaseBackFlowActivity implements View.OnClickListener {
     private static final String TAG = MultiTaskActivity.class.getSimpleName();
 
     @Override

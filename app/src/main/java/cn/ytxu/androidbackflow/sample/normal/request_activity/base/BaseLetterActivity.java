@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.Button;
 
 import cn.ytxu.androidbackflow.BackFlow;
-import cn.ytxu.androidbackflow.BaseActivity;
+import cn.ytxu.androidbackflow.BaseBackFlowActivity;
 import cn.ytxu.androidbackflow.R;
 
-public class BaseLetterActivity extends BaseActivity {
+public class BaseLetterActivity extends BaseBackFlowActivity {
 
     private Button jumpBtn, rollbackFlowBtn;
 

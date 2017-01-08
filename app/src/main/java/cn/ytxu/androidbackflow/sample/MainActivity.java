@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import cn.ytxu.androidbackflow.BaseActivity;
+import cn.ytxu.androidbackflow.BaseBackFlowActivity;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.fragments.fragment_contains_sub_fragment.first_level.FcsfAFragment;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.MultiFragmentActivity;
@@ -19,7 +19,7 @@ import cn.ytxu.androidbackflow.sample.normal.request_activity_and_fragment.lette
 import cn.ytxu.androidbackflow.sample.normal.request_fragment.letter.LetterAFragment;
 import cn.ytxu.androidbackflow.sample.normal.request_activity.letter.LetterAActivity;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseBackFlowActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override

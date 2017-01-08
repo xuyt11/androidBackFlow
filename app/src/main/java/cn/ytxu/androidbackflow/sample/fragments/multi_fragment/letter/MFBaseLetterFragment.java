@@ -10,11 +10,11 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import cn.ytxu.androidbackflow.BackFlow;
-import cn.ytxu.androidbackflow.BaseFragment;
+import cn.ytxu.androidbackflow.BaseBackFlowFragment;
 import cn.ytxu.androidbackflow.R;
 import cn.ytxu.androidbackflow.sample.fragments.multi_fragment.MFSecondActivity;
 
-public class MFBaseLetterFragment extends BaseFragment {
+public class MFBaseLetterFragment extends BaseBackFlowFragment {
     private static final String TAG = MFBaseLetterFragment.class.getSimpleName();
 
     private TextView tipTxt;

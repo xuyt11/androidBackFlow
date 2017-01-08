@@ -9,10 +9,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import cn.ytxu.androidbackflow.BackFlow;
-import cn.ytxu.androidbackflow.BaseFragment;
+import cn.ytxu.androidbackflow.BaseBackFlowFragment;
 import cn.ytxu.androidbackflow.R;
 
-public class FCSFSecondFragment extends BaseFragment {
+public class FCSFSecondFragment extends BaseBackFlowFragment {
     private static final String TAG = FCSFSecondFragment.class.getSimpleName();
 
     private TextView tipTxt;
