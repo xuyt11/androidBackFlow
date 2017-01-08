@@ -144,6 +144,10 @@ public class BackFlow {
         }
 
         public static void logIntent(String handleObjectSimpleName, Intent data) {
+            if (data == null) {
+                return;
+            }
+
             log(BackFlow._TAG, "╔═══════════════════════════════════════════════════════════════════════════════════════");
             log(BackFlow._TAG, "║curr handle object:" + handleObjectSimpleName);
 
