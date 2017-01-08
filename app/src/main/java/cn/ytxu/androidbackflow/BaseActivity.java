@@ -17,8 +17,9 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        BackFlow.Logger.log(TAG, "current process name:" + ((App) getApplication()).getCurProcessName(this));
-        BackFlow.Logger.log(TAG, "taskId:" + getTaskId());
+        BackFlow.Logger.log(TAG, "taskId:" + getTaskId()
+                + ", obj:" + Integer.toHexString(hashCode())
+                + ", process:" + ((App) getApplication()).getCurProcessName(this));
     }
 
     public <T extends View> T $(@IdRes int id) {

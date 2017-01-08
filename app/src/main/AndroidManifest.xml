@@ -18,14 +18,15 @@
         </activity>
 
         <!-- launch mode -->
+        <activity android:name=".sample.launch_mode.LaunchModeActivity" />
         <activity
-            android:name=".sample.launch_mode.single_instance.SingleInstanceActivity"
+            android:name=".sample.launch_mode.SingleInstanceActivity"
             android:launchMode="singleInstance" />
         <activity
-            android:name=".sample.launch_mode.single_task.SingleTaskActivity"
+            android:name=".sample.launch_mode.SingleTaskActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".sample.launch_mode.single_top.SingleTopActivity"
+            android:name=".sample.launch_mode.SingleTopActivity"
             android:launchMode="singleTop" />
 
         <!-- multi fragment -->

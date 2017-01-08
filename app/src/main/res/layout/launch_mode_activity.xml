@@ -9,13 +9,49 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/single_top_finish_task"
+            android:id="@+id/launch_mode_standard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="standard"
+            android:textAllCaps="false"
+            android:textColor="#000000" />
+
+        <Button
+            android:id="@+id/launch_mode_single_task"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="single task"
+            android:textAllCaps="false"
+            android:textColor="#1739cf" />
+
+        <Button
+            android:id="@+id/launch_mode_single_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="single top"
+            android:textAllCaps="false"
+            android:textColor="#45ad21" />
+
+        <Button
+            android:id="@+id/launch_mode_single_instance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="single instance"
+            android:textAllCaps="false"
+            android:textColor="#ef5533" />
+
+        <Button
+            android:id="@+id/launch_mode_finish_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="finish task"
             android:textAllCaps="false"
-            android:textColor="@android:color/holo_blue_dark" />
+            android:textColor="#a70a63" />
     </LinearLayout>
 </ScrollView>
 

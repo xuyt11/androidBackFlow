@@ -16,7 +16,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        BackFlow.Logger.log(TAG, "init-->current process name:" + getCurProcessName(this));
+        BackFlow.Logger.log(TAG, "init app, process:" + getCurProcessName(this));
     }
 
     public String getCurProcessName(Context context) {
