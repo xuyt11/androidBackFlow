@@ -21,24 +21,27 @@ a tool to control the view(activity and fragment) rollback flow
     * 若该App是单task的，则有结束App中所有的activity效果（finish该task中所有的activity，即退出了App）
     * 若在整个回退流程流程中，没有匹配到目标，也相当于finish_task的功能。
     * 若中间有onActivityResult方法被消耗，则会停留在最后一个被消耗的activity（因为setResult已无效）。
-```java
-BackFlow.finishTask(activity | fragment);
-```
-![finish task.gif](screen/finish_task.gif "finish task")
+    ```java
+    BackFlow.finishTask(activity | fragment);
+    ```
+    * 效果
+        * ![finish task.gif](screen/finish_task.gif "finish task")
 2. 返回到指定的activity（回退到指定的activity），若有多个activity实例，则只会回退到第一个匹配；
-```java
-BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass)
-```
+    ```java
+    BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass)
+    ```
 3. 返回到指定的fragment列（回退到第一个匹配该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
-```java
-BackFlow.request(activity | fragment, @NonNull Class<? extends Fragment>... fragmentClazzs)
-```
-![request_fragments.gif](screen/request_fragments.gif "request fragments")
+    ```java
+    BackFlow.request(activity | fragment, @NonNull Class<? extends Fragment>... fragmentClazzs)
+    ```
+    * 效果
+        * ![request_fragments.gif](screen/request_fragments.gif "request fragments")
 4. 返回到activity和fragment列都一致的activity（回退到包含了该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
-```java
-BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs)
-```
-![request_activity_fragments.gif](screen/request_activity_fragments.gif "request activity fragments")
+    ```java
+    BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs)
+    ```
+    * 效果
+        * ![request_activity_fragments.gif](screen/request_activity_fragments.gif "request activity fragments")
 5. 若有额外参数，可以使用带Bundle参数的request方法
     * 传入额外参数
     ```java
@@ -53,9 +56,9 @@ BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClas
     BackFlow.getExtra(Intent data)
     ```
 6. 也可以自己去使用Builder去构建BackFlow request
-```java
-BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFragments(FcsfAFragment.class, FCSFSecondAFragment.class).create().request()
-```
+    ```java
+    BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFragments(FcsfAFragment.class, FCSFSecondAFragment.class).create().request()
+    ```
 
 
 ## tip
