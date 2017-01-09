@@ -13,36 +13,55 @@ a tool to control the view(activity and fragment) rollback flow
 
 
 ## 快速使用
-0. 使用前：
+1. 使用前：
     * 将App中所有的activity与fragment都继承于两个基础类（BaseBackFlowActivity与BaseBackFlowFragment）
     * 或将app的基础类继承于两个基础类（BaseBackFlowActivity与BaseBackFlowFragment）
     * 或在自己的基础类中@override startActivity与onActivityResult，并添加startActivity4NonBackFlow方法；
-1. 结束该activity所属的task：
+2. 结束该activity所属的task：
     * 若该App是单task的，则有结束App中所有的activity效果（finish该task中所有的activity，即退出了App）
     * 若在整个回退流程流程中，没有匹配到目标，也相当于finish_task的功能。
     * 若中间有onActivityResult方法被消耗，则会停留在最后一个被消耗的activity（因为setResult已无效）。
+    * 代码
     ```java
-    BackFlow.finishTask(activity | fragment);
+    BackFlow.finishTask(activity | fragment)
+
+    or
+
+    BackFlow.build(BackFlowType.finish_task, activity | fragment).creater().request()
     ```
     * 效果
         * ![finish task.gif](screen/finish_task.gif "finish task")
-2. 返回到指定的activity（回退到指定的activity），若有多个activity实例，则只会回退到第一个匹配；
-    ```java
+3. 返回到指定的activity（回退到指定的activity），若有多个activity实例，则只会回退到第一个匹配；
+```java
     BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass)
-    ```
-3. 返回到指定的fragment列（回退到第一个匹配该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
+
+    or
+
+    BackFlow.build(BackFlowType.request_activity, activity | fragment)....creater().request()
+```
+4. 返回到指定的fragment列（回退到第一个匹配该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
+    * 代码
     ```java
     BackFlow.request(activity | fragment, @NonNull Class<? extends Fragment>... fragmentClazzs)
+
+    or
+
+    BackFlow.build(BackFlowType.request_fragments, activity | fragment)....creater().request()
     ```
     * 效果
         * ![request_fragments.gif](screen/request_fragments.gif "request fragments")
-4. 返回到activity和fragment列都一致的activity（回退到包含了该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
+5. 返回到activity和fragment列都一致的activity（回退到包含了该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
+    * 代码
     ```java
     BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs)
+
+    or
+
+    BackFlow.build(BackFlowType.request_activity_fragments, activity | fragment)....creater().request()
     ```
     * 效果
         * ![request_activity_fragments.gif](screen/request_activity_fragments.gif "request activity fragments")
-5. 若有额外参数，可以使用带Bundle参数的request方法
+6. 若有额外参数，可以使用带Bundle参数的request方法
     * 传入额外参数
     ```java
     BackFlow.request(activity | fragment, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass)
@@ -55,10 +74,10 @@ a tool to control the view(activity and fragment) rollback flow
     ```java
     BackFlow.getExtra(Intent data)
     ```
-6. 也可以自己去使用Builder去构建BackFlow request
-    ```java
-    BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFragments(FcsfAFragment.class, FCSFSecondAFragment.class).create().request()
-    ```
+7. 也可以自己去使用Builder去构建BackFlow request
+```java
+BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFragments(FcsfAFragment.class, FCSFSecondAFragment.class).create().request()
+```
 
 
 ## tip
