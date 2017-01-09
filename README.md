@@ -30,15 +30,16 @@ a tool to control the view(activity and fragment) rollback flow
     BackFlow.build(BackFlowType.finish_task, activity | fragment).creater().request()
     ```
     * 效果
-        * ![finish task.gif](screen/finish_task.gif "finish task")
+    ![finish task.gif](screen/finish_task.gif "finish task")
 3. 返回到指定的activity（回退到指定的activity），若有多个activity实例，则只会回退到第一个匹配；
-```java
+    * 代码
+    ```java
     BackFlow.request(activity | fragment, @NonNull Class<? extends Activity> atyClass)
 
     or
 
     BackFlow.build(BackFlowType.request_activity, activity | fragment)....creater().request()
-```
+    ```
 4. 返回到指定的fragment列（回退到第一个匹配该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
     * 代码
     ```java
@@ -49,7 +50,7 @@ a tool to control the view(activity and fragment) rollback flow
     BackFlow.build(BackFlowType.request_fragments, activity | fragment)....creater().request()
     ```
     * 效果
-        * ![request_fragments.gif](screen/request_fragments.gif "request fragments")
+    ![request_fragments.gif](screen/request_fragments.gif "request fragments")
 5. 返回到activity和fragment列都一致的activity（回退到包含了该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
     * 代码
     ```java
@@ -60,7 +61,7 @@ a tool to control the view(activity and fragment) rollback flow
     BackFlow.build(BackFlowType.request_activity_fragments, activity | fragment)....creater().request()
     ```
     * 效果
-        * ![request_activity_fragments.gif](screen/request_activity_fragments.gif "request activity fragments")
+    ![request_activity_fragments.gif](screen/request_activity_fragments.gif "request activity fragments")
 6. 若有额外参数，可以使用带Bundle参数的request方法
     * 传入额外参数
     ```java
@@ -75,9 +76,10 @@ a tool to control the view(activity and fragment) rollback flow
     BackFlow.getExtra(Intent data)
     ```
 7. 也可以自己去使用Builder去构建BackFlow request
-```java
-BackFlow.builder(BackFlowType.back_to_fragments, FCSFSecondDFragment.this).setFragments(FcsfAFragment.class, FCSFSecondAFragment.class).create().request()
-```
+    * 代码
+    ```java
+    BackFlow.builder(BackFlowType.back_to_fragments, activity | fragment)....create().request()
+    ```
 
 
 ## tip
