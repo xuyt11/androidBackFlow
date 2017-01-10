@@ -144,7 +144,7 @@ public class BackFlow {
         }
 
         public static void logIntent(String handleObjectSimpleName, Intent data) {
-            if (data == null) {
+            if (data == null || data.getExtras() == null) {
                 return;
             }
 
