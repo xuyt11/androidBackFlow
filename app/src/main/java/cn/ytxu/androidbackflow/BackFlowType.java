@@ -161,11 +161,11 @@ public enum BackFlowType {
         @Override
         boolean handle(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent requestData) {
             int backActivityNumber = BackFlowIntent.getBackActivityNumber(requestData);
-            if (backActivityNumber <= 0) {
+            if (BackFlowParam.receivedTargetActivity(backActivityNumber)) {
                 return false;
             }
 
-            BackFlowIntent.putBackActivityNumber(requestData, --backActivityNumber);
+            requestData = BackFlowIntent.putBackActivityNumber(requestData, --backActivityNumber);
             BackFlow.request(activity, requestData);// send request again
             return true;
         }

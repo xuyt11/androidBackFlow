@@ -27,10 +27,15 @@ public final class BackFlowParam {
     List<Class<? extends Fragment>> fragmentClazzs = Collections.EMPTY_LIST;// 回退到该fragment的顺序列表
 
     /**
-     * 回退Activity界面的数量,每一次回退都会--backActivityNumber,当backNumber为0的时候，不再回退
-     * 若为0，则只finish当前的activity
+     * 回退Activity界面的数量,每一次回退都会--backActivityNumber,当backNumber为1的时候，不再回退
+     * 若为1，则只finish当前的activity
      */
-    int backActivityNumber = 0;
+    int backActivityNumber = ACTIVITY_NUMBER_OF_STOP_BACK_FLOW;
+
+    /**
+     * 结束回退功能的backActivityNumber值
+     */
+    private static final int ACTIVITY_NUMBER_OF_STOP_BACK_FLOW = 1;
 
     Bundle extra;// 额外的附加数据
 
@@ -43,6 +48,10 @@ public final class BackFlowParam {
 
     public void request() {
         BackFlow.request(activity, backFlowData);
+    }
+
+    static boolean receivedTargetActivity(int currBackActivityNumber) {
+        return currBackActivityNumber <= ACTIVITY_NUMBER_OF_STOP_BACK_FLOW;
     }
 
 
@@ -69,8 +78,8 @@ public final class BackFlowParam {
         }
 
         public Builder setActivityNumber(int backActivityNumber) {
-            if (backActivityNumber < 0) {
-                throw new IndexOutOfBoundsException("backActivityNumber can not be less than 0");
+            if (backActivityNumber < ACTIVITY_NUMBER_OF_STOP_BACK_FLOW) {
+                throw new IndexOutOfBoundsException("backActivityNumber can not be less than " + ACTIVITY_NUMBER_OF_STOP_BACK_FLOW);
             }
             P.backActivityNumber = backActivityNumber;
             return this;
