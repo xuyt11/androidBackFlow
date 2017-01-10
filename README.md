@@ -27,7 +27,7 @@ a tool to control the view(activity and fragment) rollback flow
 
     or
 
-    BackFlow.build(BackFlowType.finish_task, activity | fragment).creater().request()
+    BackFlow.build(BackFlowType.finish_task, activity | fragment).create().request()
     ```
     * 效果
     ![finish task.gif](screen/finish_task.gif "finish task")
@@ -38,7 +38,7 @@ a tool to control the view(activity and fragment) rollback flow
 
     or
 
-    BackFlow.build(BackFlowType.back_to_activity, activity | fragment)....creater().request()
+    BackFlow.build(BackFlowType.back_to_activity, activity | fragment)....create().request()
     ```
 4. 返回到指定的fragment列（回退到第一个匹配该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
     * 代码
@@ -47,7 +47,7 @@ a tool to control the view(activity and fragment) rollback flow
 
     or
 
-    BackFlow.build(BackFlowType.back_to_fragments, activity | fragment)....creater().request()
+    BackFlow.build(BackFlowType.back_to_fragments, activity | fragment)....create().request()
     ```
     * 效果
     ![request_fragments.gif](screen/request_fragments.gif "request fragments")
@@ -58,7 +58,7 @@ a tool to control the view(activity and fragment) rollback flow
 
     or
 
-    BackFlow.build(BackFlowType.back_to_activity_fragments, activity | fragment)....creater().request()
+    BackFlow.build(BackFlowType.back_to_activity_fragments, activity | fragment)....create().request()
     ```
     * 效果
     ![request_activity_fragments.gif](screen/request_activity_fragments.gif "request activity fragments")
@@ -69,7 +69,7 @@ a tool to control the view(activity and fragment) rollback flow
 
     or
 
-    BackFlow.build(BackFlowType.back_activity_count, activity | fragment).setBackActivityCount().creater().request()
+    BackFlow.build(BackFlowType.back_activity_count, activity | fragment).setBackActivityCount(...).create().request()
     ```
 7. 若有额外参数，可以使用带Bundle参数的request方法
     * 传入额外参数
