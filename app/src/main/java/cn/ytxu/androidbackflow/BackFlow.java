@@ -31,7 +31,9 @@ public class BackFlow {
     public static final int REQUEST_CODE = 0x0000ffff;
 
 
-    //********************* request back flow *********************
+    //********************* quickly request back flow *********************
+
+    //********************* finish task *********************
     public static void finishTask(Activity activity) {
         builder(BackFlowType.finish_task, activity).create().request();
     }
@@ -45,16 +47,8 @@ public class BackFlow {
         builder(BackFlowType.back_to_activity, activity).setActivity(atyClass).create().request();
     }
 
-    public static void request(Activity activity, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass) {
-        builder(BackFlowType.back_to_activity, activity).setActivity(atyClass).setExtra(extra).create().request();
-    }
-
     public static void request(Fragment fragment, @NonNull Class<? extends Activity> atyClass) {
         builder(BackFlowType.back_to_activity, fragment).setActivity(atyClass).create().request();
-    }
-
-    public static void request(Fragment fragment, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass) {
-        builder(BackFlowType.back_to_activity, fragment).setActivity(atyClass).setExtra(extra).create().request();
     }
 
     //********************* request fragments *********************
@@ -62,16 +56,8 @@ public class BackFlow {
         builder(BackFlowType.back_to_fragments, activity).setFragments(fragmentClazzs).create().request();
     }
 
-    public static void request(Activity activity, @NonNull Bundle extra, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        builder(BackFlowType.back_to_fragments, activity).setFragments(fragmentClazzs).setExtra(extra).create().request();
-    }
-
     public static void request(Fragment fragment, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         builder(BackFlowType.back_to_fragments, fragment).setFragments(fragmentClazzs).create().request();
-    }
-
-    public static void request(Fragment fragment, @NonNull Bundle extra, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        builder(BackFlowType.back_to_fragments, fragment).setFragments(fragmentClazzs).setExtra(extra).create().request();
     }
 
     //********************* request activity and fragments *********************
@@ -79,16 +65,8 @@ public class BackFlow {
         builder(BackFlowType.back_to_activity_fragments, activity).setActivity(atyClass).setFragments(fragmentClazzs).create().request();
     }
 
-    public static void request(Activity activity, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        builder(BackFlowType.back_to_activity_fragments, activity).setActivity(atyClass).setFragments(fragmentClazzs).setExtra(extra).create().request();
-    }
-
     public static void request(Fragment fragment, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
         builder(BackFlowType.back_to_activity_fragments, fragment).setActivity(atyClass).setFragments(fragmentClazzs).create().request();
-    }
-
-    public static void request(Fragment fragment, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass, @NonNull Class<? extends Fragment>... fragmentClazzs) {
-        builder(BackFlowType.back_to_activity_fragments, fragment).setActivity(atyClass).setFragments(fragmentClazzs).setExtra(extra).create().request();
     }
 
     //********************* request activity count *********************
