@@ -148,6 +148,31 @@ public enum BackFlowType {
                 return true;
             }
         }
+    },
+
+    /**
+     * 回退Activity界面的数量，
+     * 每一次回退都会--backNumber
+     * 当backNumber为0的时候，不在回退
+     */
+    back_activity_number(5) {
+        @Override
+        Intent createRequestData(BackFlowParam param) {
+            return new BackFlowIntent.Builder(type).putExtra(param.extra)
+                    .putBackActivityNumber(param.backActivityNumber).create();
+        }
+
+        @Override
+        boolean handle(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent requestData) {
+            int backActivityNumber = BackFlowIntent.getBackActivityNumber(requestData);
+            if (backActivityNumber <= 0) {
+                return false;
+            }
+
+            BackFlowIntent.putBackActivityNumber(requestData, --backActivityNumber);
+            BackFlow.request(activity, requestData);// send request again
+            return true;
+        }
     };
 
     protected final int type;

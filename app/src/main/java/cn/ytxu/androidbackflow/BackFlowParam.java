@@ -26,6 +26,12 @@ public final class BackFlowParam {
     Class<? extends Activity> atyClass;// 回退到该activity
     List<Class<? extends Fragment>> fragmentClazzs = Collections.EMPTY_LIST;// 回退到该fragment的顺序列表
 
+    /**
+     * 回退Activity界面的数量,每一次回退都会--backActivityNumber,当backNumber为0的时候，不再回退
+     * 若为0，则只finish当前的activity
+     */
+    int backActivityNumber = 0;
+
     Bundle extra;// 额外的附加数据
 
     private Intent backFlowData;
@@ -59,6 +65,14 @@ public final class BackFlowParam {
 
         public Builder setFragments(@NonNull Class<? extends Fragment>... fragmentClazzs) {
             P.fragmentClazzs = Arrays.asList(fragmentClazzs);
+            return this;
+        }
+
+        public Builder setActivityNumber(int backActivityNumber) {
+            if (backActivityNumber < 0) {
+                throw new IndexOutOfBoundsException("backActivityNumber can not be less than 0");
+            }
+            P.backActivityNumber = backActivityNumber;
             return this;
         }
 
