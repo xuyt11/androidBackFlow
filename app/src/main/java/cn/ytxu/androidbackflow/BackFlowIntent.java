@@ -131,9 +131,8 @@ class BackFlowIntent {
     static final class Builder {
         private final Intent requestData;
 
-        Builder(int type) {
-            this.requestData = putType(new Intent(), type);
-//            this.requestData = BackFlowIntent.putExtra(putType(new Intent(), type), extra);
+        Builder(int type, @Nullable Bundle extra) {
+            this.requestData = BackFlowIntent.putExtra(putType(new Intent(), type), extra);
         }
 
         Builder putActivity(@NonNull Class<? extends Activity> atyClass) {
@@ -151,12 +150,7 @@ class BackFlowIntent {
             return this;
         }
 
-        Builder putExtra(@Nullable Bundle extra) {
-            BackFlowIntent.putExtra(requestData, extra);
-            return this;
-        }
-
-        Intent create() {
+        Intent get() {
             return requestData;
         }
     }

@@ -44,7 +44,7 @@ public enum BackFlowType {
             if (param.atyClass != null || !param.fragmentClazzs.isEmpty()) {
                 throw new IllegalArgumentException("error back flow param");
             }
-            return new BackFlowIntent.Builder(type).putExtra(param.extra).create();
+            return new BackFlowIntent.Builder(type, param.extra).get();
         }
 
         @Override
@@ -67,8 +67,7 @@ public enum BackFlowType {
             if (!param.fragmentClazzs.isEmpty()) {
                 throw new IllegalArgumentException("error back flow param");
             }
-            return new BackFlowIntent.Builder(type).putExtra(param.extra)
-                    .putActivity(param.atyClass).create();
+            return new BackFlowIntent.Builder(type, param.extra).putActivity(param.atyClass).get();
         }
 
         @Override
@@ -94,8 +93,7 @@ public enum BackFlowType {
             if (param.fragmentClazzs.isEmpty()) {
                 throw new IllegalArgumentException("fragmentClazzs param must not empty");
             }
-            return new BackFlowIntent.Builder(type).putExtra(param.extra)
-                    .putFragments(param.fragmentClazzs).create();
+            return new BackFlowIntent.Builder(type, param.extra).putFragments(param.fragmentClazzs).get();
         }
 
         @Override
@@ -125,9 +123,8 @@ public enum BackFlowType {
             if (param.fragmentClazzs.isEmpty()) {
                 throw new IllegalArgumentException("fragmentClazzs param must not empty");
             }
-            return new BackFlowIntent.Builder(type).putExtra(param.extra)
-                    .putActivity(param.atyClass).putFragments(param.fragmentClazzs)
-                    .create();
+            return new BackFlowIntent.Builder(type, param.extra).putActivity(param.atyClass)
+                    .putFragments(param.fragmentClazzs).get();
         }
 
         @Override
@@ -158,8 +155,7 @@ public enum BackFlowType {
     back_activity_number(5) {
         @Override
         Intent createRequestData(BackFlowParam param) {
-            return new BackFlowIntent.Builder(type).putExtra(param.extra)
-                    .putBackActivityNumber(param.backActivityNumber).create();
+            return new BackFlowIntent.Builder(type, param.extra).putBackActivityNumber(param.backActivityNumber).get();
         }
 
         @Override
