@@ -23,7 +23,6 @@ class BackFlowIntent {
      * type is int
      */
     private static final String BACK_FLOW_TYPE = "back_flow_type";
-    static final int ERROR_BACK_FLOW_TYPE = 0;
 
     /**
      * 回退功能中指定的activity
@@ -57,7 +56,7 @@ class BackFlowIntent {
     }
 
     static int getType(Intent data) {
-        return data.getIntExtra(BACK_FLOW_TYPE, ERROR_BACK_FLOW_TYPE);
+        return data.getIntExtra(BACK_FLOW_TYPE, BackFlowType.error.getType());
     }
 
     static boolean isBackFlowType(Intent data) {

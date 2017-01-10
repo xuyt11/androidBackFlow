@@ -20,7 +20,7 @@ public enum BackFlowType {
     /**
      * 所有错误的type，都将返回该类型，且都不会处理
      */
-    error(BackFlowIntent.ERROR_BACK_FLOW_TYPE) {
+    error(0) {
         @Override
         Intent createRequestData(BackFlowParam param) {
             throw new IllegalArgumentException("error back flow type");
@@ -179,6 +179,10 @@ public enum BackFlowType {
 
     BackFlowType(int type) {
         this.type = type;
+    }
+
+    public final int getType() {
+        return type;
     }
 
     abstract Intent createRequestData(BackFlowParam param);
