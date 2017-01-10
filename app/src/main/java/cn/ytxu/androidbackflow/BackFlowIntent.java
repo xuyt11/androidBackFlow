@@ -37,8 +37,8 @@ class BackFlowIntent {
     private static final String BACK_FLOW_FRAGMENTS = "back_flow_fragments";
 
     /**
-     * 回退Activity界面的数量,每一次回退都会--backActivityCount,当backNumber为0的时候，不再回退
-     * 若为0，则只finish当前的activity
+     * 回退Activity界面的数量,每一次回退都会--backActivityCount,当currBackActivityCount为0的时候，不再回退
+     * 若设置为1，则只finish当前的activity
      * type is int
      */
     private static final String BACK_ACTIVITY_COUNT = "back_activity_count";

@@ -148,10 +148,10 @@ public enum BackFlowType {
     },
 
     /**
-     * 适用于固定的业务流程中，每个activity界面都能有固定的position，
+     * 适用于固定顺序的业务流程中，每个activity界面都能有固定的position，
      * 两个activity position的差值，即为backActivityCount
      * <p>
-     * 回退Activity界面的数量(backActivityCount)，每一次回退都会减一；
+     * 回退数量为backActivityCount个的Activity，每一次回退都会减一；
      * receivedTargetActivity：当currBackActivityCount为0(BackFlowParam.ACTIVITY_COUNT_OF_STOP_BACK_FLOW)的时候，不再回退；
      */
     back_activity_count(5) {

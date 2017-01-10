@@ -38,7 +38,7 @@ a tool to control the view(activity and fragment) rollback flow
 
     or
 
-    BackFlow.build(BackFlowType.request_activity, activity | fragment)....creater().request()
+    BackFlow.build(BackFlowType.back_to_activity, activity | fragment)....creater().request()
     ```
 4. 返回到指定的fragment列（回退到第一个匹配该fragment顺序列的activity，会调用fragments中最后一个fragment的onActivityResult）
     * 代码
@@ -47,7 +47,7 @@ a tool to control the view(activity and fragment) rollback flow
 
     or
 
-    BackFlow.build(BackFlowType.request_fragments, activity | fragment)....creater().request()
+    BackFlow.build(BackFlowType.back_to_fragments, activity | fragment)....creater().request()
     ```
     * 效果
     ![request_fragments.gif](screen/request_fragments.gif "request fragments")
@@ -58,11 +58,20 @@ a tool to control the view(activity and fragment) rollback flow
 
     or
 
-    BackFlow.build(BackFlowType.request_activity_fragments, activity | fragment)....creater().request()
+    BackFlow.build(BackFlowType.back_to_activity_fragments, activity | fragment)....creater().request()
     ```
     * 效果
     ![request_activity_fragments.gif](screen/request_activity_fragments.gif "request activity fragments")
-6. 若有额外参数，可以使用带Bundle参数的request方法
+6. 回退数量为backActivityCount个的Activity
+    * 代码
+    ```java
+    BackFlow.request(activity | fragment, backActivityCount)
+
+    or
+
+    BackFlow.build(BackFlowType.back_activity_count, activity | fragment).setBackActivityCount().creater().request()
+    ```
+7. 若有额外参数，可以使用带Bundle参数的request方法
     * 传入额外参数
     ```java
     BackFlow.request(activity | fragment, @NonNull Bundle extra, @NonNull Class<? extends Activity> atyClass)
@@ -75,7 +84,7 @@ a tool to control the view(activity and fragment) rollback flow
     ```java
     BackFlow.getExtra(Intent data)
     ```
-7. 也可以自己去使用Builder去构建BackFlow request
+8. 也可以自己去使用Builder去构建BackFlow request
     * 代码
     ```java
     BackFlow.builder(BackFlowType.back_to_fragments, activity | fragment)....create().request()
@@ -139,6 +148,10 @@ a tool to control the view(activity and fragment) rollback flow
             * 返回到指定的fragment列（回退到第一个匹配该fragment顺序列的activity）
         * back_to_activity_fragments
             * 返回到activity和fragment列都一致的activity（回退到包含了该fragment顺序列的activity）
+        * back_activity_count
+            * 回退数量为backActivityCount个的Activity
+            * **适用于固定顺序的业务流程中，每个activity界面都能有固定的position**
+            * 两个activity position的差值，即为backActivityCount
         * error: 异常情况
             * onActivityResult方法参数data中data.getIntExtra(BACK_FLOW_TYPE, ERROR_BACK_FLOW_TYPE)，异常类型都返回该类型，且直接抛出异常；
 2. 调用类：BackFlow
@@ -190,6 +203,10 @@ a tool to control the view(activity and fragment) rollback flow
             * BackFlow回退的目标activity
         * List<Class<? extends Fragment>> fragmentClazzs
             * 回退到该fragment的顺序列表，fragments顺序列中的目标fragment(**最后一个fragment**)
+        * backActivityCount
+            * 回退Activity界面的数量,每一次回退都会--backActivityCount,
+            * 当currbackActivityCount为0(ACTIVITY_COUNT_OF_STOP_BACK_FLOW)，不再回退
+            * 若backActivityCount设置为1，则只finish当前的activity
         * Bundle extra：额外的附加数据
     * Builder：Builder模式，减少创建backFlowData的复杂度
 5. BackFlow Intent工具类：BackFlowIntent
@@ -208,6 +225,10 @@ a tool to control the view(activity and fragment) rollback flow
         * BACK_FLOW_FRAGMENTS：回退功能中指定的fragment顺序列
             * type is String
             * 使用json进行格式化
+        * BACK_ACTIVITY_COUNT：回退Activity界面的数量
+            * type is int
+            * 每一次回退都会--backActivityCount,当currBackActivityCount为0的时候，不再回退
+            * 若设置为1，则只finish当前的activity
         * BACK_FLOW_EXTRA：回退功能中用户带入的额外数据
             * type is String
             * 可以外带额外数据给目标的Activity或Fragment

@@ -33,8 +33,8 @@ public final class BackFlowParam {
 
     /**
      * 回退Activity界面的数量,每一次回退都会--backActivityCount,
-     * 当backActivityCount为0(ACTIVITY_COUNT_OF_STOP_BACK_FLOW)，不再回退
-     * 若backActivityCount为1，则只finish当前的activity
+     * 当currbackActivityCount为0(ACTIVITY_COUNT_OF_STOP_BACK_FLOW)，不再回退
+     * 若backActivityCount设置为1，则只finish当前的activity
      */
     int backActivityCount = ACTIVITY_COUNT_OF_STOP_BACK_FLOW + 1;
 
