@@ -148,24 +148,27 @@ public enum BackFlowType {
     },
 
     /**
-     * 回退Activity界面的数量，
-     * 每一次回退都会--backNumber
-     * 当backNumber为0的时候，不在回退
+     * 适用于固定的业务流程中，每个activity界面都能有固定的position，
+     * 两个activity position的差值，即为backActivityCount
+     * <p>
+     * 回退Activity界面的数量(backActivityCount)，每一次回退都会减一；
+     * receivedTargetActivity：当currBackActivityCount为0(BackFlowParam.ACTIVITY_COUNT_OF_STOP_BACK_FLOW)的时候，不再回退；
      */
-    back_activity_number(5) {
+    back_activity_count(5) {
         @Override
         Intent createRequestData(BackFlowParam param) {
-            return new BackFlowIntent.Builder(type, param.extra).putBackActivityNumber(param.backActivityNumber).get();
+            return new BackFlowIntent.Builder(type, param.extra).putBackActivityCount(param.backActivityCount).get();
         }
 
         @Override
         boolean handle(Activity activity, List<Fragment> fragments, int requestCode, int resultCode, Intent requestData) {
-            int backActivityNumber = BackFlowIntent.getBackActivityNumber(requestData);
-            if (BackFlowParam.receivedTargetActivity(backActivityNumber)) {
+            int backActivityCount = BackFlowIntent.getBackActivityCount(requestData, BackFlowParam.ACTIVITY_COUNT_OF_STOP_BACK_FLOW);
+            final int currBackActivityCount = backActivityCount - 1;
+            if (BackFlowParam.receivedTargetActivity(currBackActivityCount)) {
                 return false;
             }
 
-            requestData = BackFlowIntent.putBackActivityNumber(requestData, --backActivityNumber);
+            requestData = BackFlowIntent.putBackActivityCount(requestData, currBackActivityCount);
             BackFlow.request(activity, requestData);// send request again
             return true;
         }

@@ -27,15 +27,16 @@ public final class BackFlowParam {
     List<Class<? extends Fragment>> fragmentClazzs = Collections.EMPTY_LIST;// 回退到该fragment的顺序列表
 
     /**
-     * 回退Activity界面的数量,每一次回退都会--backActivityNumber,当backNumber为1的时候，不再回退
-     * 若为1，则只finish当前的activity
+     * 结束回退功能的backActivityCount值
      */
-    int backActivityNumber = ACTIVITY_NUMBER_OF_STOP_BACK_FLOW;
+    public static final int ACTIVITY_COUNT_OF_STOP_BACK_FLOW = 0;
 
     /**
-     * 结束回退功能的backActivityNumber值
+     * 回退Activity界面的数量,每一次回退都会--backActivityCount,
+     * 当backActivityCount为0(ACTIVITY_COUNT_OF_STOP_BACK_FLOW)，不再回退
+     * 若backActivityCount为1，则只finish当前的activity
      */
-    private static final int ACTIVITY_NUMBER_OF_STOP_BACK_FLOW = 1;
+    int backActivityCount = ACTIVITY_COUNT_OF_STOP_BACK_FLOW + 1;
 
     Bundle extra;// 额外的附加数据
 
@@ -50,8 +51,8 @@ public final class BackFlowParam {
         BackFlow.request(activity, backFlowData);
     }
 
-    static boolean receivedTargetActivity(int currBackActivityNumber) {
-        return currBackActivityNumber <= ACTIVITY_NUMBER_OF_STOP_BACK_FLOW;
+    static boolean receivedTargetActivity(int currBackActivityCount) {
+        return currBackActivityCount <= ACTIVITY_COUNT_OF_STOP_BACK_FLOW;
     }
 
 
@@ -77,12 +78,23 @@ public final class BackFlowParam {
             return this;
         }
 
-        public Builder setActivityNumber(int backActivityNumber) {
-            if (backActivityNumber < ACTIVITY_NUMBER_OF_STOP_BACK_FLOW) {
-                throw new IndexOutOfBoundsException("backActivityNumber can not be less than " + ACTIVITY_NUMBER_OF_STOP_BACK_FLOW);
+        /**
+         * @param backActivityCount 回退activity的数量
+         */
+        public Builder setBackActivityCount(int backActivityCount) {
+            if (backActivityCount <= ACTIVITY_COUNT_OF_STOP_BACK_FLOW) {
+                throw new IndexOutOfBoundsException("backActivityCount must be greater than " + ACTIVITY_COUNT_OF_STOP_BACK_FLOW);
             }
-            P.backActivityNumber = backActivityNumber;
+            P.backActivityCount = backActivityCount;
             return this;
+        }
+
+        /**
+         * @param currActivityPosition   当前activity在A业务逻辑中的position
+         * @param targetActivityPosition 目标activity在A业务逻辑中的position
+         */
+        public Builder setBackActivityCount(int currActivityPosition, int targetActivityPosition) {
+            return setBackActivityCount(Math.abs(currActivityPosition - targetActivityPosition));
         }
 
         public Builder setExtra(@NonNull Bundle extra) {

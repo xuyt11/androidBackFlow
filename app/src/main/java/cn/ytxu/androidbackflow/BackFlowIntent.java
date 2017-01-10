@@ -37,11 +37,11 @@ class BackFlowIntent {
     private static final String BACK_FLOW_FRAGMENTS = "back_flow_fragments";
 
     /**
-     * 回退Activity界面的数量,每一次回退都会--backActivityNumber,当backNumber为0的时候，不再回退
+     * 回退Activity界面的数量,每一次回退都会--backActivityCount,当backNumber为0的时候，不再回退
      * 若为0，则只finish当前的activity
      * type is int
      */
-    private static final String BACK_ACTIVITY_NUMBER = "back_activity_number";
+    private static final String BACK_ACTIVITY_COUNT = "back_activity_count";
 
     /**
      * 回退功能中用户带入的额外数据
@@ -100,13 +100,13 @@ class BackFlowIntent {
     }
 
 
-    //**************************** activity number ****************************
-    static Intent putBackActivityNumber(Intent data, int backActivityNumber) {
-        return data.putExtra(BACK_ACTIVITY_NUMBER, backActivityNumber);
+    //**************************** activity count ****************************
+    static Intent putBackActivityCount(Intent data, int backActivityCount) {
+        return data.putExtra(BACK_ACTIVITY_COUNT, backActivityCount);
     }
 
-    static int getBackActivityNumber(Intent data) {
-        return data.getIntExtra(BACK_ACTIVITY_NUMBER, 0);
+    static int getBackActivityCount(Intent data, int stopBackActivityCount) {
+        return data.getIntExtra(BACK_ACTIVITY_COUNT, stopBackActivityCount);
     }
 
 
@@ -145,8 +145,8 @@ class BackFlowIntent {
             return this;
         }
 
-        Builder putBackActivityNumber(int backActivityNumber) {
-            BackFlowIntent.putBackActivityNumber(requestData, backActivityNumber);
+        Builder putBackActivityCount(int backActivityCount) {
+            BackFlowIntent.putBackActivityCount(requestData, backActivityCount);
             return this;
         }
 

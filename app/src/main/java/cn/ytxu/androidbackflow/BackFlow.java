@@ -91,21 +91,13 @@ public class BackFlow {
         builder(BackFlowType.back_to_activity_fragments, fragment).setActivity(atyClass).setFragments(fragmentClazzs).setExtra(extra).create().request();
     }
 
-    //********************* request activity number *********************
-    public static void request(Activity activity, int backActivityNumber) {
-        builder(BackFlowType.back_activity_number, activity).setActivityNumber(backActivityNumber).create().request();
+    //********************* request activity count *********************
+    public static void request(Activity activity, int backActivityCount) {
+        builder(BackFlowType.back_activity_count, activity).setBackActivityCount(backActivityCount).create().request();
     }
 
-    public static void request(Activity activity, @NonNull Bundle extra, int backActivityNumber) {
-        builder(BackFlowType.back_activity_number, activity).setActivityNumber(backActivityNumber).setExtra(extra).create().request();
-    }
-
-    public static void request(Fragment fragment, int backActivityNumber) {
-        builder(BackFlowType.back_activity_number, fragment).setActivityNumber(backActivityNumber).create().request();
-    }
-
-    public static void request(Fragment fragment, @NonNull Bundle extra, int backActivityNumber) {
-        builder(BackFlowType.back_activity_number, fragment).setActivityNumber(backActivityNumber).setExtra(extra).create().request();
+    public static void request(Fragment fragment, int backActivityCount) {
+        builder(BackFlowType.back_activity_count, fragment).setBackActivityCount(backActivityCount).create().request();
     }
 
     static void request(@NonNull Activity activity, @NonNull Intent backFlowData) {
