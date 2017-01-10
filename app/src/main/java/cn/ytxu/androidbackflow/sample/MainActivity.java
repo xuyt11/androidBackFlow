@@ -16,6 +16,7 @@ import cn.ytxu.androidbackflow.sample.multi_task_or_process.multi_task.MultiTask
 import cn.ytxu.androidbackflow.sample.multi_task_or_process.multi_task_and_process.MultiTaskAndProcessActivity;
 import cn.ytxu.androidbackflow.sample.normal.request_activity_and_fragment.ContainerAF1Activity;
 import cn.ytxu.androidbackflow.sample.normal.request_activity_and_fragment.letter.LetterAFAFragment;
+import cn.ytxu.androidbackflow.sample.normal.request_activity_count.letter.ACLetterAActivity;
 import cn.ytxu.androidbackflow.sample.normal.request_fragment.letter.LetterAFragment;
 import cn.ytxu.androidbackflow.sample.normal.request_activity.letter.LetterAActivity;
 
@@ -55,6 +56,10 @@ public class MainActivity extends BaseBackFlowActivity {
                         startActivity(intent);
                     }
                     break;
+                    case R.id.main_btn_4_request_back_activity_count: {
+                        startActivity(new Intent(MainActivity.this, ACLetterAActivity.class));
+                    }
+                    break;
                     default:
                         break;
                 }
@@ -63,6 +68,7 @@ public class MainActivity extends BaseBackFlowActivity {
         $(R.id.main_btn_4_requedst_activity).setOnClickListener(l);
         $(R.id.main_btn_4_requedst_fragment).setOnClickListener(l);
         $(R.id.main_btn_4_requedst_activity_and_fragment).setOnClickListener(l);
+        $(R.id.main_btn_4_request_back_activity_count).setOnClickListener(l);
     }
 
     private void setMultiListener() {

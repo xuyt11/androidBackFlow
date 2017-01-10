@@ -83,6 +83,34 @@
         <activity android:name=".sample.normal.request_activity.letter.LetterXActivity" />
         <activity android:name=".sample.normal.request_activity.letter.LetterYActivity" />
         <activity android:name=".sample.normal.request_activity.letter.LetterZActivity" />
+
+        <!-- request back activity count -->
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterAActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterBActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterCActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterDActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterEActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterFActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterGActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterHActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterIActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterJActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterKActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterLActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterMActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterNActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterOActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterPActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterQActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterRActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterSActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterTActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterUActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterVActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterWActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterXActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterYActivity" />
+        <activity android:name=".sample.normal.request_activity_count.letter.ACLetterZActivity" />
     </application>
 
 </manifest>
