@@ -13,7 +13,11 @@ class BackFlowViewHelper {
 
     //**************************** activity ****************************
     static boolean isTargetActivity(Activity activity, String targetActivityClassName) {
-        return activity.getClass().getName().equals(targetActivityClassName);
+        return getActivityClassName(activity.getClass()).equals(targetActivityClassName);
+    }
+
+    static String getActivityClassName(Class<? extends Activity> atyClass) {
+        return atyClass.getName();
     }
 
 
@@ -27,22 +31,32 @@ class BackFlowViewHelper {
             throw new NotFindTargetFragmentException();
         }
 
-        final String targetFragmentClassName = targetFragmentClassNameListIter.next();
+        final String currFragmentClassName = targetFragmentClassNameListIter.next();
         for (Fragment fragment : fragments) {
-            if (isTargetFragment(fragment, targetFragmentClassName)) {
-                if (targetFragmentClassNameListIter.hasNext()) {
-                    return findTargetFragment(fragment.getChildFragmentManager().getFragments(), targetFragmentClassNameListIter);
+            if (isSameFragment(fragment, currFragmentClassName)) {
+                if (isTargetFragment(targetFragmentClassNameListIter)) {
+                    return fragment;
                 }
-                return fragment;
+                return findTargetFragment(fragment.getChildFragmentManager().getFragments(), targetFragmentClassNameListIter);
             }
         }
         throw new NotFindTargetFragmentException();
     }
 
-    private static boolean isTargetFragment(Fragment fragment, String targetFragmentClassName) {
-        return fragment.getClass().getName().equals(targetFragmentClassName);
+    private static boolean isSameFragment(Fragment fragment, String currFragmentClassName) {
+        return getFragmentClassName(fragment.getClass()).equals(currFragmentClassName);
+    }
+
+    static String getFragmentClassName(Class<? extends Fragment> fragmentClass) {
+        return fragmentClass.getName();
+    }
+
+    private static boolean isTargetFragment(ListIterator<String> targetFragmentClassNameListIter) {
+        return !targetFragmentClassNameListIter.hasNext();
     }
 
     static final class NotFindTargetFragmentException extends RuntimeException {
     }
+
+
 }

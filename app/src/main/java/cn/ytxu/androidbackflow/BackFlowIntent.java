@@ -66,7 +66,8 @@ class BackFlowIntent {
 
     //**************************** activity class name ****************************
     private static Intent putActivity(Intent data, @NonNull Class<? extends Activity> atyClass) {
-        return data.putExtra(BACK_FLOW_ACTIVITY, atyClass.getName());
+        String activityClassName = BackFlowViewHelper.getActivityClassName(atyClass);
+        return data.putExtra(BACK_FLOW_ACTIVITY, activityClassName);
     }
 
     static String getActivity(Intent data) {
@@ -78,7 +79,8 @@ class BackFlowIntent {
     private static Intent putFragments(Intent data, @NonNull List<Class<? extends Fragment>> fragmentClazzs) {
         JSONArray fragmentClassNameJsonArray = new JSONArray();
         for (Class<? extends Fragment> fragmentClazz : fragmentClazzs) {
-            fragmentClassNameJsonArray.put(fragmentClazz.getName());
+            String fragmentClassName = BackFlowViewHelper.getFragmentClassName(fragmentClazz);
+            fragmentClassNameJsonArray.put(fragmentClassName);
         }
         return data.putExtra(BACK_FLOW_FRAGMENTS, fragmentClassNameJsonArray.toString());
     }
