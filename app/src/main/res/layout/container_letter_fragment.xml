@@ -23,6 +23,16 @@
         android:textAllCaps="false" />
 
     <Button
+        android:id="@+id/letter_jump_but_non_back_flow_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="jump to next fragment activity but non back flow"
+        android:textAllCaps="false"
+        android:textColor="#ff0000" />
+
+    <Button
         android:id="@+id/letter_back_flow_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

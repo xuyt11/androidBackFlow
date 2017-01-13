@@ -46,6 +46,19 @@ public class BaseLetterFragment extends BaseBackFlowFragment {
             }
         });
 
+        $(R.id.letter_jump_but_non_back_flow_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    Intent intent = new Intent(getActivity(), ContainerActivity.class);
+                    intent.putExtra(ContainerActivity.PARAM_CLASSNAME, LetterFragmentType.getNextFragmentName(BaseLetterFragment.this));
+                    startActivity4NonBackFlow(intent);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         finishApp();
 
         initView();

@@ -22,11 +22,11 @@ public class BaseBackFlowFragment extends Fragment {
 
     //******************** start activity replace method ********************
     public void startActivity4NonBackFlow(Intent intent) {
-        super.startActivity(intent);
+        startActivityForResult(intent, BackFlow.REQUEST_CODE_4_NON_BACK_FLOW);
     }
 
     public void startActivity4NonBackFlow(Intent intent, @Nullable Bundle options) {
-        super.startActivity(intent, options);
+        startActivityForResult(intent, BackFlow.REQUEST_CODE_4_NON_BACK_FLOW, options);
     }
 
 

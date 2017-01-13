@@ -21,6 +21,7 @@ public class BaseBackFlowActivity extends AppCompatActivity {
 
         BackFlow.Logger.log(TAG, "taskId:" + getTaskId()
                 + ", obj:" + Integer.toHexString(hashCode())
+                + ", myPid:" + android.os.Process.myPid()  //获取当前进程的id
                 + ", process:" + ((App) getApplication()).getCurProcessName(this));
     }
 
@@ -31,12 +32,12 @@ public class BaseBackFlowActivity extends AppCompatActivity {
 
     //******************** start activity replace method ********************
     public void startActivity4NonBackFlow(Intent intent) {
-        super.startActivity(intent);
+        startActivityForResult(intent, BackFlow.REQUEST_CODE_4_NON_BACK_FLOW);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void startActivity4NonBackFlow(Intent intent, @Nullable Bundle options) {
-        super.startActivity(intent, options);
+        startActivityForResult(intent, BackFlow.REQUEST_CODE_4_NON_BACK_FLOW, options);
     }
 
 
@@ -60,4 +61,9 @@ public class BaseBackFlowActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    @Override
+    protected void onDestroy() {
+        BackFlow.Logger.log("onDestroy", this.getClass().getSimpleName());
+        super.onDestroy();
+    }
 }

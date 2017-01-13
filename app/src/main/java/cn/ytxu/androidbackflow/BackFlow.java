@@ -30,6 +30,11 @@ public class BackFlow {
      */
     public static final int REQUEST_CODE = 0x0000ffff;
 
+    /**
+     * If requestCode >= 0, this code will be returned in onActivityResult() when the activity exits.
+     */
+    public static final int REQUEST_CODE_4_NON_BACK_FLOW = -1;
+
 
     //********************* quickly request back flow *********************
 
