@@ -9,8 +9,6 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import cn.ytxu.androidbackflow.sample.App;
-
 public class BaseBackFlowActivity extends AppCompatActivity {
     private final String TAG = this.getClass().getSimpleName();
 
@@ -22,7 +20,7 @@ public class BaseBackFlowActivity extends AppCompatActivity {
         BackFlow.Logger.log(TAG, "taskId:" + getTaskId()
                 + ", obj:" + Integer.toHexString(hashCode())
                 + ", myPid:" + android.os.Process.myPid()  //获取当前进程的id
-                + ", process:" + ((App) getApplication()).getCurProcessName(this));
+                + ", process:" + BackFlow.getCurProcessName(this));
     }
 
     public <T extends View> T $(@IdRes int id) {

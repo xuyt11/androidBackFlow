@@ -1,6 +1,8 @@
 package cn.ytxu.androidbackflow;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -34,6 +36,9 @@ public class BackFlow {
      * If requestCode >= 0, this code will be returned in onActivityResult() when the activity exits.
      */
     public static final int REQUEST_CODE_4_NON_BACK_FLOW = -1;
+
+    private BackFlow() {
+    }
 
 
     //********************* quickly request back flow *********************
@@ -163,5 +168,20 @@ public class BackFlow {
         }
     }
 
+
+    public static String getCurProcessName(Context context) {
+        if (context == null) {
+            return null;
+        }
+
+        int pid = android.os.Process.myPid();
+        ActivityManager activityManager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningAppProcessInfo appProcess : activityManager.getRunningAppProcesses()) {
+            if (appProcess.pid == pid) {
+                return appProcess.processName;
+            }
+        }
+        return null;
+    }
 }
 
