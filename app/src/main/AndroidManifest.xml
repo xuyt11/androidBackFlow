@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.ytxu.androidbackflow">
 
+
     <application
         android:name=".sample.App"
         android:allowBackup="true"
